@@ -1,0 +1,10 @@
+The second problem is I want to be able to delete what I enter 
+and since i'm storing everything i enter on a new line I was wondering 
+how i'd be able to delete a specific - line from the txt file i'm storing
+ my events in. I was thinking maybe transferring the contents of the file 
+ to an array and then it would be easy to delete from the array
+ (I'm not sure how i'd do this though).
+  Any help would be appreciated as i'm working on 
+  this at my own leisure. 
+  
+  
