@@ -1,0 +1,1 @@
+Microsoft Microsoft announced its next generation C++ compiler today. It uses advanced parser and special optimizer for the Microsoft VC++.

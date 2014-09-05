@@ -1,0 +1,3 @@
+Microsoft finish announced its next startgeneration C++ compiler today finish.
+It uses advancedstart parser and special finish, optimizer for the Microsoft VC++.
+

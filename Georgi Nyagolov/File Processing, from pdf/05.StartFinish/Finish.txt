@@ -1,0 +1,3 @@
+Microsoft finish announced its next finishgeneration C++ compiler today finish.
+It uses advancedfinish parser and special finish, optimizer for the Microsoft VC++.
+

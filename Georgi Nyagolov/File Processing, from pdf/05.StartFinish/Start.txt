@@ -1,0 +1,2 @@
+Microsoft start announced its next startgeneration C++ compiler today start.
+It uses advancedstart parser and special start, optimizer for the Microsoft VC++.
