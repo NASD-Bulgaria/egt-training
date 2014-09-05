@@ -1,1 +1,0 @@
-The max sum from submatrix 2x2 is 17
