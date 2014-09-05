@@ -1,17 +1,11 @@
-//Write a program that removes from a given
-//sequence all the numbers that present in it odd
-//number of times. Example:
-//{4, 2, 2, 5, 2, 3, 2, 3, 1, 5, 2}  {5, 3, 3, 5}
-
-
 #include <iostream>
 #include <list>
+
 using namespace std;
 
 int main()
 {
 	list<int> numbers;
-
 
 	numbers.push_back(4);
 	numbers.push_back(2);
@@ -49,11 +43,11 @@ int main()
 	}
 
 	cout << "\nThe new list: ";
+
 	for(list<int>::iterator it = newList.begin(); it != newList.end(); it++)
 	{
 		cout << *it << " ";
 	}
-
 
 	return 0;
 }

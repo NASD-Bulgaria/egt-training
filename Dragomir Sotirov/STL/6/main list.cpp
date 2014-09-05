@@ -6,8 +6,9 @@
 #include <string>
 using namespace std;
 
-int main() {
- int arr[] = {1, 1, 2, 1, 2, 3, 4};
+int main()
+{
+ int arr[] = {2, 2, 3, 2, 3, 4, 3};
 
  int sizeArr = sizeof(arr) / sizeof *arr;
 
@@ -18,19 +19,19 @@ int main() {
  conditionals.sort();
  conditionals.unique();
 
- list<int>::const_iterator citr;
+ list<int>::const_iterator it;
  int counter = 0;
 
- for(citr = conditionals.begin(); citr != conditionals.end(); citr++)
+ for(it = conditionals.begin(); it != conditionals.end(); it++)
  {
   for(int j = 0; j < sizeArr; j++)
   {
-   if(*citr == arr[j])
+   if(*it == arr[j])
    {
     counter++;
    }
   }
-  cout<<*citr<<" -> "<<counter<<endl;
+  cout<<*it<<" -> "<<counter<<endl;
   counter = 0;
  }
  return 0;

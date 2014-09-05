@@ -1,7 +1,3 @@
-//2. Write a program that reads several sentences from the
-//console and reverses not only them but and every one of
-//them word by word.
-
 #include <iostream>
 #include <string>
 #include <stack>
@@ -10,8 +6,7 @@
 
 using namespace std;
 
-template <typename T>
-void reverseString( T text, int, T &);
+template <typename T>void reverseString( T text, int, T &);
 
 int main()
 {
@@ -30,8 +25,7 @@ int main()
 	return 0;
 }
 
-template <typename T>
-void reverseString(T text, int len, T &Empty)
+template <typename T>void reverseString(T text, int len, T &Empty)
 {
 
    stack<char> myStack;

@@ -1,13 +1,12 @@
-//21. Write a program that finds the longest subsequence of
-//greater values in array.
-
 #include <iostream>
 #include <algorithm>
 #include <iterator>
 #include <list>
+
 using namespace std;
 
-int main() {
+int main()
+{
 	int size = 9;
 	int arr[] = {1, 2, 2, 2, 5, 6, 3, 1, 4};
 
@@ -39,6 +38,7 @@ int main() {
 			}
 
 		}
+
 		else
 		{
 			counter = 1;
@@ -54,5 +54,3 @@ int main() {
 
 	return 0;
 }
-
-
