@@ -1,0 +1,6 @@
+dani = 5
+martin = 2
+matin = 1
+niki = 1
+pepi = 1
+gosho = 0
