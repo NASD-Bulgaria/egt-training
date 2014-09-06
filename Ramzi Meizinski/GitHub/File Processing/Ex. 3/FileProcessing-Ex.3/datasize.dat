@@ -1,0 +1,12 @@
+                Data type                Size (kb)
+                     char                        1
+            unsigned char                        1
+            short integer                        2
+   unsigned short integer                        2
+                  integer                        4
+             unsigned int                        4
+                 long int                        4
+        unsigned long int                        4
+                    float                        4
+                   double                        8
+              long double                       12

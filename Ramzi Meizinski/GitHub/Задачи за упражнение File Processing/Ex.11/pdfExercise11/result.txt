@@ -1,0 +1,7 @@
+                WORD      HOW MANY TIMES
+             counter            1  times
+               hello            2  times
+                 how            1  times
+                much            2  times
+               party            6  times
+               world            1  times
