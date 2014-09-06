@@ -22,7 +22,7 @@ int main()
 
    fstream file( "hardware.dat", ios::in | ios::out );
 
-   void ( *f[] )( fstream & ) = { listHardwares, updateRecord, insertRecord, deleteRecord };
+   void ( *functionsArray[] )( fstream & ) = { listHardwares, updateRecord, insertRecord, deleteRecord };
    
    if ( !file )
    {
@@ -30,13 +30,13 @@ int main()
 	   Hardware blankItem;
 	   for ( int i = 0; i < 100; i++ )
 	   file.write( reinterpret_cast< char * >( &blankItem ), sizeof( Hardware ) );
-	   cout << "Restart program...";
+	   cerr << "Creating File hardware.dat"<<endl<<"Restart the program...";
 	   return 0;
    }
 
    while ( ( choice = instructions() ) != 5 )
    {
-      ( *f[ choice - 1 ] )( file );
+      ( *functionsArray[ choice - 1 ] )( file );
       file.clear();
    }
 }
