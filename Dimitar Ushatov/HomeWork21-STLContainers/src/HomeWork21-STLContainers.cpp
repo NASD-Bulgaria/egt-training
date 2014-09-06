@@ -195,8 +195,8 @@ void solveTaskSeven() {
 
 void solveTaskEight() {
 	int array[] = { 4, 2, 2, 5, 2, 3, 2, 3, 1, 5, 2 };
-	list<int> evenCountNumbers(array, array + 8);
-	set<int> unique(array, array + 8);
+	list<int> evenCountNumbers(array, array + 11);
+	set<int> unique(array, array + 11);
 	for (set<int>::iterator it = unique.begin(); it != unique.end(); ++it) {
 		if (count(evenCountNumbers.begin(), evenCountNumbers.end(), *it) % 2
 				== 1) {
