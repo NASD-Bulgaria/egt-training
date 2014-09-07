@@ -16,10 +16,10 @@ using namespace std;
 
 int main() {
 
-	int array[] = { 4, 2, 2, 5, 2, 3, 2, 3, 1, 5, 2, 10 };
+	int array[] = { 4, 2, 2, 5, 2, 3, 2, 3, 1, 5, 2, 10, 12, 14 };
 
-	list<int> elements(array, array + 12);
-	set<int> evenElements(array, array + 12);
+	list<int> elements(array, array + 14);
+	set<int> evenElements(array, array + 14);
 
 	for (set<int>::iterator it = evenElements.begin(); it != evenElements.end();
 			++it) {
