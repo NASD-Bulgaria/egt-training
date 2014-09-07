@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <list>
+
 #include <stack>
 
 using namespace std;

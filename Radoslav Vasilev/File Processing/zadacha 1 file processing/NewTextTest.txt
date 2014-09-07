@@ -1,0 +1,5 @@
+1 gosho
+2 pesho
+3 ivan
+4 atanas
+5 varban

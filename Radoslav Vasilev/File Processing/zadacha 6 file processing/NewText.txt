@@ -1,0 +1,4 @@
+Write a program that reads a list of words from a file words.txt and finds starthow many times
+each of the words is contained in startanother file test.txt. The result should be written in the file
+result.txt and the words should be startsorted by the number finish of their occurrences in descending
+order. Handle all possible exceptions in your methods finish.

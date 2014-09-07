@@ -1,0 +1,4 @@
+Write a program that reads a list of words from a file words.txt and finds finishhhow many times
+each of the words is contained in finishanother file test.txt. The result should be written in the file
+result.txt and the words should be finishsorted by the number finish.of their occurrences in descending
+order. Handle all possible exceptions in your methods finish.

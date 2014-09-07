@@ -1,0 +1,2 @@
+that words  is contained in another file. in your text file .
+Modify the solution of the previous problem to replace only whole words
