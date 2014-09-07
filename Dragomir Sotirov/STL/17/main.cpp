@@ -16,8 +16,6 @@ int main()
 	unsigned position = str.find_first_of(",.!?:", 0);
 
 
-	//Removing delimiters...
-
 	while (position != string::npos)
 	{
 		str.replace(position, 1, "");
@@ -25,8 +23,6 @@ int main()
 	}
 
 	string res = "";
-
-	//Making all words to lower...
 
 	for (unsigned i = 0; i < str.length(); i++) {
 		char ch = tolower(str[i]);
@@ -36,7 +32,6 @@ int main()
 	int startPosition = 0;
 	int endPosition = 0;
 
-	//Copy all words from sentence to vector...
 
 	for (unsigned i = 0; i < res.length(); i++)
 	{
@@ -60,7 +55,6 @@ int main()
 
 	list<string> diffwords;
 
-	        //Taking different words from vector into new list...
 
 	        for (unsigned i = 0; i < words.size(); i++)
 	        {
