@@ -1,9 +1,6 @@
-Част от задачите за STL!
-
-
 //============================================================================
-// Name        : STL.cpp
-// Author      : Georgi Slavov
+// Name        : Domashni.cpp
+// Author      : 
 // Version     :
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
@@ -72,6 +69,8 @@ void majorantInArray(int[], int);
 //@param int [] - pass array elements;
 //@param int - array size;
 
+//zadacha10
+void bestOperations();
 
 //zadacha12
 void wordsCount(string);
@@ -368,18 +367,4 @@ void majorantInArray(int a[], int size) {
 		}
 	}
 	cout << "Major: " << major;
-}
-
-
-//zadacha12
-void wordsCount(string str) {
-	for(unsigned i = 0; i < str.length(); i++) {
-		str[i] = tolower(str[i]);
-	}
-
-	map<string,int> myMap;
-
-//	for(unsigned int i = 0; i < str.length(); i++) {
-//		if(myMap.find())
-//	}
 }
