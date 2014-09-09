@@ -6,12 +6,25 @@
 
 using namespace std;
 
-int main() {
+int main() 
+{
 	ifstream readFile("message.txt", ios::in);
 	ofstream writeFile("encoded-message.txt", ios::out);
 
 	string word = "";
 	string sentence = "";
+
+if (!readText)
+    {
+	ofstream write("message.txt");
+     write << "Hi over there! I’m back… ";
+	write.clear();
+	write.seekp(0);
+    cerr << "Creating file input.txt"<<endl<<"Please restart the program.";
+	exit(1);
+	}
+
+
 	while(readFile >> word)
 	{
 		sentence = sentence + word + " ";
@@ -47,6 +60,7 @@ int main() {
 				//continue;
 				matrix[j][i] = ' ';
 			}
+
 			else
 			{
 			matrix[j][i] = sentence[m];
@@ -58,6 +72,7 @@ int main() {
 
 	int h = 0;
 	string result = "";
+
 	for(int i = 0; i < size; i++)
 	{
 		for(int j = 0; j < size; j++)
@@ -66,7 +81,8 @@ int main() {
 			h++;
 		}
 	}
-	cout<<"\n"<<result;
+
+	cout<<endl<<result;
 	writeFile << result;
 
 	return 0;
