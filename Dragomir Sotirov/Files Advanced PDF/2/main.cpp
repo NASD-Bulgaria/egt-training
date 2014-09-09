@@ -13,14 +13,15 @@ using namespace std;
 int main()
 {
 
-	ifstream readText1("input.txt", ios::in);
+	ifstream readText("input.txt", ios::in);
+	ofstream writeText("output.txt", ios::out);
 
-	if (!readText1 )
+	if (!readText )
     {
-	ofstream write1("input.txt");
-    write1 << "1 1 2 3\n5 8 13 21\n34 55 89 144\n233 377 610 987";
-	write1.clear();
-	write1.seekp(0);
+	ofstream write("input.txt");
+    write << "1 1 2 3\n5 8 13 21\n34 55 89 144\n233 377 610 987";
+	write.clear();
+	write.seekp(0);
     cerr << "Creating file input.txt"<<endl<<"Please restart the program.";
 	exit(1);
 	}
@@ -45,8 +46,6 @@ int main()
 				}
 
 			}
-
-			ofstream writeText("output.txt", ios::out);
 
 			for (int i = 0; i < 4; i++)
 			{

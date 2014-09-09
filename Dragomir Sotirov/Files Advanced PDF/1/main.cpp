@@ -12,16 +12,14 @@ using namespace std;
 
 int main()
 {
-    map<string,int> different;
+	ifstream readText("input.txt", ios::in);
 
-	ifstream readText1("input.txt", ios::in);
-
-	if (!readText1 )
+	if (!readText)
     {
-	ofstream write1("input.txt");
-    write1 << "Aз обичам Java и Microsoft.";
-	write1.clear();
-	write1.seekp(0);
+	ofstream write("input.txt");
+    write << "Aз обичам Java и Microsoft.";
+	write.clear();
+	write.seekp(0);
     cerr << "Creating file input.txt"<<endl<<"Please restart the program.";
 	exit(1);
 	}
@@ -29,13 +27,13 @@ int main()
 	string text;
 	string word;
 
-	while (readText1 >> word)
+	while (readText >> word)
 	{
 		text.append(word + " ");
 	}
 
-	readText1.clear();
-	readText1.seekg(0);
+	readText.clear();
+	readText.seekg(0);
 
 	unsigned position = 0;
 
@@ -52,12 +50,8 @@ int main()
 		}
 
 	}
-
 		ofstream writeText("output.txt", ios::out);
 		writeText << text;
-
-		readText1.clear();
-		readText1.seekg(0);
 
 		cout << "Done! Check output.txt"<<endl;
 

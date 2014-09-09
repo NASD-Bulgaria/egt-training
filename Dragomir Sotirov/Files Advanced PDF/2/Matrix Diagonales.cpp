@@ -15,10 +15,10 @@ int main()
 
 	if(!readText)
 	{
-		ofstream write1("input.txt");
-	    write1 << "1 1 2 3\n5 8 13 21\n34 55 89 144\n233 377 610 987";
-		write1.clear();
-		write1.seekp(0);
+		ofstream write("input.txt");
+	    write << "1 1 2 3\n5 8 13 21\n34 55 89 144\n233 377 610 987";
+		write.clear();
+		write.seekp(0);
 	    cerr << "Creating file input.txt"<<endl<<"Please restart the program.";
 		exit(1);
 	}
