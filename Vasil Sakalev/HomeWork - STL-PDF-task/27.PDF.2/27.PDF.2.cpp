@@ -15,7 +15,7 @@
 #include <string>
 using namespace std;
 
-void print(string arr[][4], int);
+void print(string arr[][4], int, ofstream &);
 
 int main() {
 
@@ -47,18 +47,19 @@ int main() {
 	}
 
 	for (int i = 0; i < 4; i++)
-		print(arr, i);
+		print(arr, i, writeText);
 
 	for (int i = 4; i < 7; i++)
-		print(arr, i);
+		print(arr, i, writeText);
 
 	return 0;
 }
 
-void print(string arr[][4], int sum) {
+void print(string arr[][4], int sum, ofstream &file) {
 	for (int i = 3; i >= 0; i--)
 		for (int j = 3; j >= 0; j--)
 			if (sum == i + j)
-				cout << arr[i][j] << " ";
-	cout << endl;
+				file << arr[i][j] << " ";
+	file << endl;
 }
+
