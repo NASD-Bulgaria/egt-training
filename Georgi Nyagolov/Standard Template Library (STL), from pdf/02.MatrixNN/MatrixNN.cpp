@@ -15,10 +15,12 @@
 #include <cmath>
 using namespace std;
 
+const int SIZE = 5;
+
 int main() {
 
 	string newRow;
-	int array[5][5];
+	int array[SIZE][SIZE];
 	int count = 0;
 
 	ifstream inFile("matrix.txt", ios::in);
@@ -34,40 +36,40 @@ int main() {
 		exit(1);
 	} // end if
 
-	for (int i = 0; i < 5; ++i) {
-		for (int j = 0; j < 5; ++j) {
+	for (int i = 0; i < SIZE; ++i) {
+		for (int j = 0; j < SIZE; ++j) {
 			count++;
 			inFile >> newRow;
 			array[i][j] = atoi(newRow.c_str());
 		}
 	}
 
-	for (int i = 0; i < 5; ++i) {
-		for (int j = 0; j < i + 1; ++j) {
-			cout << array[i - j][j] << " ";
-			outFile << array[i - j][j] << " ";
+
+	for (int sum = 0; sum < 2 * SIZE; ++sum) {
+		for (int j = 0; j < SIZE; ++j) {
+			for (int i = 0; i < SIZE; ++i) {
+				if (i+j == sum) {
+					cout << array[i][j] << " ";
+					outFile << array[i][j] << " ";
+				}
+			}
 		}
 		cout << endl;
 		outFile << endl;
 	}
 
-
-	for (int k = 1; k < 5; ++k) {
-		int j = k;
-		int i = 4;
-		while(j<5){
-			cout << array[i][j] << " ";
-			outFile << array[i][j] << " ";
-			j++;
-			i--;
+	for (int sum = 1-SIZE; sum < SIZE; ++sum) {
+		for (int i = SIZE-1; i >= 0; --i) {
+			for (int j = SIZE-1; j >= 0; --j) {
+				if (i-j == sum) {
+					cout << array[i][j] << " ";
+					outFile << array[i][j] << " ";
+				}
+			}
 		}
 		cout << endl;
 		outFile << endl;
 	}
-
-
-
-
 
 	return 0;
 }
