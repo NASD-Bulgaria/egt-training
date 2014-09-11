@@ -1,0 +1,2 @@
+In Windows .EXE, .BAT and .COM files are executables. We all like ABBA because they
+are famous pop stars.
