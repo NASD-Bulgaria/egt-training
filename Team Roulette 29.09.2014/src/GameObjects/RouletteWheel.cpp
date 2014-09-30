@@ -9,19 +9,15 @@
 
 namespace GameObjects {
 
-RouletteWheel::RouletteWheel()
-{
+RouletteWheel::RouletteWheel() {
 	numbersDegrees[0][1] = 360 / 37.0 / 2.0;
-
-	for (int i = 1; i < 37; ++i)
-	{
+	for (int i = 1; i < 37; ++i) {
 		numbersDegrees[i][1] = numbersDegrees[i - 1][1] + 360 / 37.0;
 	}
-
 	spinSpeed = Stoped;
 	spinTime = 0;
 	speedInterval = 0;
-	currentNumberIndex = 0;
+	currentNumberIndex = -1;
 	currentDegrees = 0;
 }
 
@@ -67,10 +63,10 @@ RouletteWheelState RouletteWheel::getSpinSpeed() const {
 }
 
 short RouletteWheel::getWiningNumber() {
-	if (spinSpeed == Stoped) {
+	if (currentNumberIndex != -1) {
 		return (short)numbersDegrees[currentNumberIndex][0];
 	} else {
-		return -1;
+		return currentNumberIndex;
 	}
 }
 
@@ -83,6 +79,7 @@ void RouletteWheel::initiate() {
 	spinSpeed = VeryFastSpin;
 	spinTime = currentDegrees + 1800 + rand() % 360;
 	speedInterval = spinTime / VeryFastSpin;
+	currentNumberIndex = -1;
 }
 
 } /* namespace GameObjects */

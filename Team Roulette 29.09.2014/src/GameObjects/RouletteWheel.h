@@ -12,11 +12,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+
 using namespace std;
 namespace GameObjects {
 
-
 class RouletteWheel {
+	friend class RouletteApplication;
 public:
 	RouletteWheel();
 	void spin();

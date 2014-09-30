@@ -15,7 +15,7 @@ TypeBet::TypeBet(Type type, int chipCount)
 }
 
 TypeBet::~TypeBet() {
-	// TODO Auto-generated destructor stub
+	free();
 }
 
 Type TypeBet::getType() {

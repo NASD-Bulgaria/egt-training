@@ -15,6 +15,7 @@ ColorBet::ColorBet(Color betOnColor, int chipCount)
 }
 
 ColorBet::~ColorBet() {
+	free();
 }
 
 Color ColorBet::getColor() {

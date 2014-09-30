@@ -15,7 +15,7 @@ TypeSector::TypeSector(Type type) {
 }
 
 TypeSector::~TypeSector() {
-	// TODO Auto-generated destructor stub
+	free();
 }
 
 Type TypeSector::getType() const {
@@ -26,4 +26,26 @@ Type TypeSector::getType() const {
 
 void GameObjects::TypeSector::placeTypeBet(TypeBet* typeBet) {
 		this->typeBet = typeBet;
+}
+
+void GameObjects::TypeSector::free() {
+	if (typeBet) {
+		typeBet->free();
+	}
+	IRendable::free();
+}
+
+void GameObjects::TypeSector::draw(SDL_Renderer* gRenderer) {
+	IRendable::draw(gRenderer);
+
+	if (this->typeBet) {
+		this->typeBet->setX(
+				this->getX()
+						+ (this->getWidth() - this->typeBet->getWidth()) / 2);
+		this->typeBet->setY(
+				this->getY()
+						+ (this->getHeight() - this->typeBet->getHeight())
+								/ 2);
+		this->typeBet->draw(gRenderer);
+	}
 }

@@ -15,11 +15,17 @@ NumberBet::NumberBet(short number, int chipCount)
 }
 
 NumberBet::~NumberBet() {
-	// TODO Auto-generated destructor stub
+	free();
 }
 
 short NumberBet::getNumber() {
 	return this->number;
+}
+
+void NumberBet::setNumber(short num) {
+	if (num >= 0 && num <= 36) {
+		this->number = num;
+	}
 }
 
 } /* namespace GameObjects */

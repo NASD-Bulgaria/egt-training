@@ -12,16 +12,18 @@
 
 namespace GameObjects {
 
-class TypeSector {
+class TypeSector : public virtual IRendable{
 
 	friend class GameBoard;
+	friend class RouletteApplication;
 
 public:
 	TypeSector(Type type);
 	virtual ~TypeSector();
 	Type getType() const;
 	void placeTypeBet(TypeBet * typeBet);
-
+	virtual void free();
+	virtual void draw(SDL_Renderer * gRenderer);
 private:
 	Type type;
 	TypeBet * typeBet;

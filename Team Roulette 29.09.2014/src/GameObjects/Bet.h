@@ -10,16 +10,18 @@
 
 #include <cstdlib>
 
+#include "EnumTypes.h"
+#include "IRendable.h"
 namespace GameObjects {
 
-#include "EnumTypes.h"
 
-class Bet {
+class Bet : public IRendable{
 public:
 	Bet(int winCoef, int credits = 5);
 	virtual ~Bet();
 	int getCoef();
 	int getCredits();
+	void setCredits(int credits);
 private:
 	int winCoef;
 	int credits;

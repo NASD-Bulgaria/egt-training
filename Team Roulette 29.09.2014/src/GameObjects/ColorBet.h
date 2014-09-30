@@ -17,9 +17,9 @@ public:
 	ColorBet(Color betOnColor, int chipCount = 1);
 	virtual ~ColorBet();
 	Color getColor();
+	void setColor(Color color);
 private:
 	Color betOnColor;
-	void setColor(Color color);
 
 	static const int ColorCoef = 2;
 };

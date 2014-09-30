@@ -8,7 +8,7 @@
 #ifndef ENUMTYPES_H_
 #define ENUMTYPES_H_
 
-
+namespace GameObjects{
 enum Color {
 	RedColor,
 	BlackColor,
@@ -36,6 +36,6 @@ enum RouletteWheelState{
 	VeryFastSpin = 6,
 	Stoped = 7
 };
-
+}
 
 #endif /* ENUMTYPES_H_ */

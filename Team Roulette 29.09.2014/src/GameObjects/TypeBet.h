@@ -17,9 +17,9 @@ public:
 	TypeBet(Type type, int chipCount = 1);
 	virtual ~TypeBet();
 	Type getType();
+	void setType(Type type);
 private:
 	Type type;
-	void setType(Type type);
 	const static int TypeCoef = 2;
 };
 

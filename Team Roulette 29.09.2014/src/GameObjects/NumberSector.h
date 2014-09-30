@@ -12,6 +12,7 @@
 #include "TypeSector.h"
 #include "HalfSector.h"
 #include "NumberBet.h"
+#include "IRendable.h"
 
 namespace GameObjects {
 
@@ -20,12 +21,17 @@ class NumberSector : public ColorSector,
 					 public HalfSector{
 
 	friend class GameBoard;
+	friend class RouletteApplication;
 
 public:
 	NumberSector(short number, Color color, Type type, Half half);
 	~NumberSector();
 	short getNumber() const;
 	void placeNumberBet(NumberBet * numberBet);
+	virtual void free();
+	virtual void draw(SDL_Renderer * gRenderer);
+	NumberBet* getNumberBet();
+
 private:
 	short number;
 	NumberBet * numberBet;

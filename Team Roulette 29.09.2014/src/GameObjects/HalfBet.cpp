@@ -15,7 +15,7 @@ HalfBet::HalfBet(Half half, int chipCount)
 }
 
 HalfBet::~HalfBet() {
-	// TODO Auto-generated destructor stub
+	free();
 }
 
 Half HalfBet::getHalf() {

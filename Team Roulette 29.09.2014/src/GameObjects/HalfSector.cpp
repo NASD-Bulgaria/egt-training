@@ -15,7 +15,7 @@ HalfSector::HalfSector(Half half) {
 }
 
 HalfSector::~HalfSector() {
-	// TODO Auto-generated destructor stub
+	free();
 }
 
 Half HalfSector::getHalf() const {
@@ -24,6 +24,28 @@ Half HalfSector::getHalf() const {
 
 void HalfSector::placeHalfBet(HalfBet * halfBet) {
 	this->halfBet = halfBet;
+}
+
+void GameObjects::HalfSector::free() {
+	if (halfBet) {
+		halfBet->free();
+	}
+	IRendable::free();
+}
+
+void HalfSector::draw(SDL_Renderer* gRenderer) {
+	IRendable::draw(gRenderer);
+
+	if (this->halfBet) {
+		this->halfBet->setX(
+				this->getX()
+						+ (this->getWidth() - this->halfBet->getWidth()) / 2);
+		this->halfBet->setY(
+				this->getY()
+						+ (this->getHeight() - this->halfBet->getHeight())
+								/ 2);
+		this->halfBet->draw(gRenderer);
+	}
 }
 
 } /* namespace GameObjects */

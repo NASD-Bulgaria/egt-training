@@ -12,14 +12,17 @@
 
 namespace GameObjects {
 
-class ColorSector {
+class ColorSector : public virtual IRendable{
 
 	friend class GameBoard;
+	friend class RouletteApplication;
 
 public:
 	ColorSector(Color color);
 	virtual ~ColorSector();
 	Color getColor() const;
+	virtual void free();
+	virtual void draw(SDL_Renderer * gRenderer);
 	void placeColorBet(ColorBet * colorBet);
 private:
 	Color color;

@@ -17,6 +17,7 @@ public:
 	NumberBet(short number, int chipCount = 1);
 	virtual ~NumberBet();
 	short getNumber();
+	void setNumber(short num);
 private:
 	short number;
 

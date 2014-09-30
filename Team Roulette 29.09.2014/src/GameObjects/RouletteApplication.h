@@ -16,10 +16,12 @@ namespace GameObjects {
 
 class RouletteApplication {
 public:
-	RouletteApplication(int initialBalance);
+	RouletteApplication(GameBoard* board, Player* player, RouletteWheel* wheel);
 	virtual ~RouletteApplication();
+	void handleBetCreation(int mouseX, int mouseY);
+	void loadMedia();
 	void init();
-private:
+//private:
 	RouletteWheel* wheel;
 	GameBoard* board;
 	Player* player;

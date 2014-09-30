@@ -1,31 +1,23 @@
 #include <sstream>
-#include "../GameObjects/RouletteWheel.h"
-#include "../GameObjects/GameBoard.h"
+#include "../src/GameObjects/RouletteApplication.h"
 #include "LTexture.h"
 
-using namespace std;
 using namespace GameObjects;
+using namespace std;
 
 //Screen Dimensions
 const int SCREEN_WIDTH = 1192;
 const int SCREEN_HEIGHT = 460;
 
-//Start-Stop spin
-int spin = 0;
-int stop = 1;
-GameBoard board;
-//Random number Z
-int z = 0;
-
-//Key Disable after press
-bool press = true;
-
-//Wheel Degrees
-double degrees = 0;
-
 bool init();
 bool loadMedia();
 void close();
+
+//Key Disable after press
+bool press = true;
+bool music = true;
+bool info = true;
+bool stat = true;
 
 SDL_Renderer* gRenderer = NULL;
 SDL_Window* gWindow = NULL;
@@ -33,22 +25,30 @@ Mix_Music* gMusic = NULL;
 Mix_Chunk* gTick = NULL;
 LTexture gTable;
 LTexture gWheel;
-LTexture gGalaxynet;
 LTexture gSpinButton;
 LTexture gClearButton;
-LTexture gChipButton;
 LTexture gNumber;
 LTexture gWin;
 LTexture gBet;
 LTexture gBalance;
 LTexture gArrow;
-LTexture gChipPressed;
-LTexture gChipUnpressed;
-LTexture gChipontable;
-
+LTexture gMusicPic;
+LTexture gNoMusicPic;
+LTexture gMusicDefault;
+LTexture gInfo;
+LTexture gStat;
+LTexture gInfoBackground;
+LTexture gBack;
+LTexture gAbout;
+LTexture gStatBackground;
+GameBoard board;
+RouletteWheel wheel;
+Player player(1000);
+RouletteApplication app(&board, &player, &wheel);
 LTexture g[37];
 
-int main(int argc, char* args[]) {
+int main(int argc, char* args[])
+{
 
 	init();
 
@@ -64,103 +64,150 @@ int main(int argc, char* args[]) {
 
 	//x,y  mouse
 	int x, y;
-
-	//mouse button press
-	bool chipbutton = false;
-
-	//chips on table
-	bool chip[37] = { false };
-
+	int winningNum = -1;
 	//Flip type
 	SDL_RendererFlip flipType = SDL_FLIP_NONE;
 
 	//Initialize music
 	Mix_PlayMusic(gMusic, -1);
-	board.initSectorPositions();
-	GameObjects::RouletteWheel wheel;
+
+	app.board->initSectorPositions();
+
 	//While application is running
-	while (!quit) {
+	while (!quit)
+	{
 		//Handle events on queue
-		while (SDL_PollEvent(&e) != 0) {
+		while (SDL_PollEvent(&e) != 0)
+		{
 
 			//User requests quit
-			if (e.type == SDL_QUIT) {
+			if (e.type == SDL_QUIT)
+			{
 				quit = true;
 			}
 
-			if (e.type == SDL_KEYDOWN) {
-				switch (e.key.keysym.sym) {
+			if (e.type == SDL_MOUSEBUTTONDOWN)
+			{
+				SDL_GetMouseState(&x, &y);
 
-				case SDLK_SPACE:
-					degrees += 1;
-					break;
-				}
-			}
-			//return current mouse x and y on the screen
-			SDL_GetMouseState(&x, &y);
-
-			if (e.type == SDL_MOUSEBUTTONDOWN) {
-				//Chip Button
-				if (x > 780 && x < 840 && y > 320 && y < 370) {
-
-					if (chipbutton) {
-						gChipButton = gChipUnpressed;
-						chipbutton = false;
-					}
-
-					else {
-						gChipButton = gChipPressed;
-						chipbutton = true;
-
+				//Info Screen home button
+				if (!info || !stat)
+				{
+					if (x > 1135 && x < 1180 && y > 0 && y < 55)
+					{
+						info = true;
+						stat = true;
 					}
 				}
 
-				//Alienware picture
-				if (x > 1121 && x < 1163 && y > 318 && y < 373) {
-					SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
-							"About", "SDL by GalaxyNET\nLogic by NAND", NULL);
+				//Info button
+				if (info)
+				{
+					if (x > 1115 && x < 1165 && y > 210 && y < 255)
+					{
+						info = false;
+					}
 				}
 
-				//Spin button
-				if (press) {
-					if (chipbutton) {
-						if (x > 1043 && x < 1146 && y > 399 && y < 445) {
-							wheel.initiate();
-							press = false;
-							break;
+				//Statistics button
+				if (stat)
+				{
+					if (x > 1115 && x < 1165 && y > 150 && y < 195)
+					{
+						stat = false;
+					}
+				}
+
+				//Music button
+				if (info && stat)
+				{
+					if (x > 1115 && x < 1155 && y > 35 && y < 75)
+					{
+
+						if (music)
+						{
+							gMusicDefault = gNoMusicPic;
+							Mix_PauseMusic();
+							music = false;
+
+						}
+
+						else
+						{
+							gMusicDefault = gMusicPic;
+							Mix_ResumeMusic();
+							music = true;
+
 						}
 					}
 				}
-				if (press) {
-					//Clear button
-					if (x > 443 && x < 548 && y > 399 && y < 439) {
-						board.clearAllBets();
 
-						gChipButton = gChipUnpressed;
-						chipbutton = false;
+				//About
+				if (info && stat)
+				{
+					if (x > 1121 && x < 1163 && y > 318 && y < 373)
+					{
+						SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
+								"About",
+								"SDL by GalaxyNET and Kamelia\nLogic by NAND and Stan",
+								NULL);
 					}
-
 				}
 
-				//Chips on table
-				if (true) {
-					if (board.isClicked(x, y)) {
-						int num = board.getClickedSectorValue(x, y);
-						cout << num << endl;
-						NumberBet bet(num, 5);
-						board.placeNumberBet(bet);
+				//Spin button
+				if (info && stat)
+				{
+					if (app.wheel->getSpinSpeed() == Stoped)
+					{
+						//Spin button
+						if (x > 1043 && x < 1146 && y > 399 && y < 445
+								&& app.board->getAllBetValue() > 0)
+						{
+							app.wheel->initiate();
+							app.player->creditBalance(app.player->getOldBet());
+							winningNum = -1;
+							break;
+						}
+
+						//Clear Button
+						if (x > 443 && x < 548 && y > 399 && y < 439)
+						{
+							app.board->clearAllBets();
+							app.player->setOldBet(0);
+						}
+						app.handleBetCreation(x, y);
 					}
 				}
 
 			}
-
 		}
 
-		if (wheel.getSpinSpeed() != Stoped) {
-			wheel.spin();
-		} else {
-			press = true;
-			gNumber = g[wheel.getWiningNumber()];
+		if (app.wheel->getSpinSpeed() != Stoped)
+		{
+			app.wheel->spin();
+			if (music)
+			{
+				Mix_PlayChannel(-1, gTick, 0);
+			}
+		}
+
+		else if (app.wheel->getWiningNumber() != -1)
+		{
+			if (winningNum != app.wheel->getWiningNumber())
+			{
+				winningNum = app.wheel->getWiningNumber();
+				app.board->setWiningNumberSector(winningNum);
+				cout << "The old player balance is: "
+						<< app.player->getBalance() << endl
+						<< "The winning value is: "
+						<< app.board->collectWinings() << endl
+						<< "The total bet is: " << app.board->getAllBetValue()
+						<< endl << "The new balance is: ";
+				app.player->setOldBet(app.board->getAllBetValue());
+				app.player->addToBalance(app.board->collectWinings());
+				cout << app.player->getBalance() << endl;
+				gNumber = g[winningNum];
+			}
 		}
 
 		//Clear screen
@@ -168,26 +215,47 @@ int main(int argc, char* args[]) {
 		SDL_RenderClear(gRenderer);
 
 		//Render Table elements
-		gTable.render(gRenderer, (SCREEN_WIDTH - gTable.getWidth()) / 2,
-				(SCREEN_HEIGHT - gTable.getHeight()) / 2, NULL, 0, NULL,
-				flipType);
-		gWheel.render(gRenderer, 80, 101, NULL, wheel.getCurrentDegrees(), NULL,
-				flipType);
-		gGalaxynet.render(gRenderer, 1100, 315, NULL, 0, NULL, flipType);
-		gSpinButton.render(gRenderer, 1040, 396, NULL, 0, NULL, flipType);
-		gClearButton.render(gRenderer, 440, 396, NULL, 0, NULL, flipType);
-		gChipButton.render(gRenderer, 780, 320, NULL, 0, NULL, flipType);
-		gNumber.render(gRenderer, 370, 394, NULL, 0, NULL, flipType);
-		gBet.render(gRenderer, 720, 395, NULL, 0, NULL, flipType);
-		gWin.render(gRenderer, 560, 395, NULL, 0, NULL, flipType);
-		gBalance.render(gRenderer, 877, 395, NULL, 0, NULL, flipType);
-		gArrow.render(gRenderer, 185, 40, NULL, 0, NULL, flipType);
-		board.draw(gRenderer);
+		if (info && stat)
+		{
+			gTable.render(gRenderer, (SCREEN_WIDTH - gTable.getWidth()) / 2,
+					(SCREEN_HEIGHT - gTable.getHeight()) / 2, NULL, 0, NULL,
+					flipType);
+			gWheel.render(gRenderer, 80, 101, NULL, wheel.getCurrentDegrees(),
+			NULL, flipType);
+			gSpinButton.render(gRenderer, 1040, 396, NULL, 0, NULL, flipType);
+			gClearButton.render(gRenderer, 440, 396, NULL, 0, NULL, flipType);
+			gNumber.render(gRenderer, 370, 394, NULL, 0, NULL, flipType);
+			gBet.render(gRenderer, 720, 395, NULL, 0, NULL, flipType);
+			gWin.render(gRenderer, 560, 395, NULL, 0, NULL, flipType);
+			gBalance.render(gRenderer, 877, 395, NULL, 0, NULL, flipType);
+			gArrow.render(gRenderer, 185, 40, NULL, 0, NULL, flipType);
+			app.board->draw(gRenderer);
+			gMusicDefault.render(gRenderer, 1115, 27, NULL, 0, NULL, flipType);
+			gStat.render(gRenderer, 1115, 145, NULL, 0, NULL, flipType);
+			gInfo.render(gRenderer, 1112, 205, NULL, 0, NULL, flipType);
+			gAbout.render(gRenderer, 1115, 328, NULL, 0, NULL, flipType);
 
-		if (chip[15]) {
-			gChipontable.render(gRenderer, 708, 66, NULL, 0, NULL, flipType);
 		}
 
+		if (!info)
+		{
+			gInfoBackground.render(gRenderer,
+					(SCREEN_WIDTH - gTable.getWidth()) / 2,
+					(SCREEN_HEIGHT - gTable.getHeight()) / 2, NULL, 0, NULL,
+					flipType);
+			gBack.render(gRenderer, 1135, 5, NULL, 0, NULL, flipType);
+
+		}
+
+		if (!stat)
+		{
+			gStatBackground.render(gRenderer,
+					(SCREEN_WIDTH - gTable.getWidth()) / 2,
+					(SCREEN_HEIGHT - gTable.getHeight()) / 2, NULL, 0, NULL,
+					flipType);
+			gBack.render(gRenderer, 1135, 5, NULL, 0, NULL, flipType);
+
+		}
 		//Update screen
 		SDL_RenderPresent(gRenderer);
 
@@ -199,76 +267,61 @@ int main(int argc, char* args[]) {
 	return 0;
 }
 
-bool init() {
+bool init()
+{
 	bool success = true;
 
-	if (SDL_Init( SDL_INIT_VIDEO) < 0) {
-		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
-		success = false;
-	} else {
-		if (!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-			printf("Warning: Linear texture filtering not enabled!");
-		}
+	SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
-		//Create window
-		gWindow = SDL_CreateWindow("Chess", SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT,
-				SDL_WINDOW_SHOWN);
-		if (gWindow == NULL) {
-			printf("Window could not be created! SDL Error: %s\n",
-					SDL_GetError());
-			success = false;
-		} else {
-			//Create vsynced renderer for window
-			gRenderer = SDL_CreateRenderer(gWindow, -1,
-					SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-			if (gRenderer == NULL) {
-				printf("Renderer could not be created! SDL Error: %s\n",
-						SDL_GetError());
-				success = false;
-			} else {
-				//Initialize renderer color
-				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
-				//Initialize PNG loading
-				int imgFlags = IMG_INIT_PNG;
-				if (!(IMG_Init(imgFlags) & imgFlags)) {
-					printf(
-							"SDL_image could not initialize! SDL_image Error: %s\n",
-							IMG_GetError());
-					success = false;
-				}
-			}
-		}
-	}
+	gWindow = SDL_CreateWindow("European Roulette", SDL_WINDOWPOS_UNDEFINED,
+	SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+	gRenderer = SDL_CreateRenderer(gWindow, -1,
+			SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+	int imgFlags = IMG_INIT_PNG;
+
+	IMG_Init(imgFlags);
+
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
 
 	return success;
 }
 
-bool loadMedia() {
+bool loadMedia()
+{
 	bool success = true;
 	board.loadFromFile(gRenderer, "Roulette/proba.png");
 	gTable.loadFromFile(gRenderer, "Roulette/table.png");
 	gMusic = Mix_LoadMUS("Roulette/roulette.mp3");
 	gTick = Mix_LoadWAV("Roulette/tick.wav");
 	gWheel.loadFromFile(gRenderer, "Roulette/wheel.png");
-	gGalaxynet.loadFromFile(gRenderer, "Roulette/galaxynet.png");
 	gSpinButton.loadFromFile(gRenderer, "Roulette/spin_button.png");
 	gClearButton.loadFromFile(gRenderer, "Roulette/clear_button.png");
-	gChipButton.loadFromFile(gRenderer, "Roulette/chip_button_unpressed.png");
 	gNumber.loadFromFile(gRenderer, "Roulette/number_from_roulette.png");
 	gWin.loadFromFile(gRenderer, "Roulette/winning_amount.png");
 	gBet.loadFromFile(gRenderer, "Roulette/total_bet.png");
 	gBalance.loadFromFile(gRenderer, "Roulette/balance_amount.png");
 	gArrow.loadFromFile(gRenderer, "Roulette/arrow.png");
-	gChipPressed.loadFromFile(gRenderer, "Roulette/chip_button_pressed.png");
-	gChipUnpressed.loadFromFile(gRenderer,
-			"Roulette/chip_button_unpressed.png");
-	gChipontable.loadFromFile(gRenderer, "Roulette/chip_on_table.png");
+	player.initPlayer(gRenderer, "Roulette/chip_on_table.png");
+	gMusicDefault.loadFromFile(gRenderer, "Roulette/music.png");
+	gMusicPic.loadFromFile(gRenderer, "Roulette/music.png");
+	gNoMusicPic.loadFromFile(gRenderer, "Roulette/nomusic.png");
+	gInfo.loadFromFile(gRenderer, "Roulette/info.png");
+	gStat.loadFromFile(gRenderer, "Roulette/stat.png");
+	gInfoBackground.loadFromFile(gRenderer, "Roulette/instruction.png");
+	gBack.loadFromFile(gRenderer, "Roulette/back.png");
+	gAbout.loadFromFile(gRenderer, "Roulette/about.png");
+	gStatBackground.loadFromFile(gRenderer, "Roulette/statistics.png");
 
 	//Load Winning numbers
 	stringstream ss;
-	for (int i = 0; i < 37; i++) {
+	for (int i = 0; i < 37; i++)
+	{
 		ss << i;
 		g[i].loadFromFile(gRenderer, "Roulette/numbers/" + ss.str() + ".png");
 		ss.str("");
@@ -277,20 +330,19 @@ bool loadMedia() {
 	return success;
 }
 
-void close() {
+void close()
+{
+	board.clearAllBets();
+	app.board->free();
 	gTable.free();
 	gWheel.free();
-	gGalaxynet.free();
 	gSpinButton.free();
 	gClearButton.free();
-	gChipButton.free();
 	gNumber.free();
 	gWin.free();
 	gBet.free();
 	gBalance.free();
 	gArrow.free();
-	gChipPressed.free();
-	gChipontable.free();
 
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);

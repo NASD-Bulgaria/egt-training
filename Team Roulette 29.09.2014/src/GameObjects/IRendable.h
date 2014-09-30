@@ -8,9 +8,9 @@
 #ifndef IRENDABLE_H_
 #define IRENDABLE_H_
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <string>
 #include <iostream>
 #include <stdio.h>
@@ -25,6 +25,7 @@ public:
 	virtual ~IRendable();
 	virtual void draw(SDL_Renderer*);
 	virtual bool isClicked(int x, int y);
+	virtual void free();
 	int getHeight() const;
 	void setHeight(int height);
 	int getWidth() const;

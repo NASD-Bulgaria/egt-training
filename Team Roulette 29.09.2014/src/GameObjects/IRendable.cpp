@@ -18,7 +18,7 @@ IRendable::IRendable(int x, int y, int width, int height) {
 }
 
 IRendable::~IRendable() {
-	// TODO Auto-generated destructor stub
+	free();
 }
 
 int IRendable::getHeight() const {
@@ -53,6 +53,13 @@ void IRendable::draw(SDL_Renderer* gRenderer) {
 	SDL_RenderCopy(gRenderer, mTexture, NULL, &rect );
 }
 
+void IRendable::free() {
+	if (mTexture) {
+		SDL_DestroyTexture(mTexture);
+		mTexture = NULL;
+	}
+}
+
 void IRendable::setY(int y) {
 	this->rect.y = y;
 }
@@ -68,8 +75,8 @@ bool IRendable::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
 
 
 bool IRendable::isClicked(int x, int y) {
-	if (x >= this->getX() && x <= this->getWidth() + this->getX()
-		&& y >= this->getY() && y <= this->getY() + this->getHeight()){
+	if (x >= getX() && x <= getWidth() + getX()
+		&& y >= getY() && y <= getY() + getHeight()){
 		return true;
 	}
 	return false;

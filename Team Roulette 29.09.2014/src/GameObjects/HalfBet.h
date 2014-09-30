@@ -17,9 +17,9 @@ public:
 	HalfBet(Half half, int chipCount = 1);
 	virtual ~HalfBet();
 	Half getHalf();
+	void setHalf(Half half);
 private:
 	Half half;
-	void setHalf(Half half);
 
 	static const int HalfCoef = 2;
 };
