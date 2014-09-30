@@ -21,19 +21,21 @@ void FrequencyNumber::printMap()
 
 	int counter = 0;
 
-	cout << "\nStatistics" << endl;
-	cout << setw(6) << right <<"number" << setw(11) << right <<"frequency" << endl;
+//	cout << "\nStatistics" << endl;
+//	cout << setw(6) << right <<"number" << setw(11) << right <<"frequency" << endl;
 
 	for (it=sorted.begin(); it != sorted.end(); it++)
 	{
 
-		if(counter == 10)
+		if(counter == 5)
 		{
 			break;
 		}
 
-		cout << setw(6) << right << it->first<< setw(11) << right << it->second << endl;
+//		cout << setw(6) << right << it->first<< setw(11) << right << it->second << endl;
 		counter++;
+		numb.push_back(it->first);
+		freq.push_back(it->second);
 
 	}
 
@@ -56,6 +58,19 @@ void FrequencyNumber::setMap(vector<int> randomNumbers)
 map<int,int> FrequencyNumber::getMap()
 {
 	return numberFrequency;
+}
+
+vector<int> FrequencyNumber::getNumb() {
+	return numb;
+}
+
+vector<int> FrequencyNumber::getFreq() {
+	return freq;
+}
+
+void FrequencyNumber::clear() {
+	numb.clear();
+	freq.clear();
 }
 
 bool FrequencyNumber::pairComparer(pair<int, int> first, pair<int, int> second)

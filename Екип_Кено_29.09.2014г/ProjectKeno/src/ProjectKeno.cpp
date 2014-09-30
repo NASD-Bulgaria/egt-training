@@ -1,7 +1,6 @@
 #include "Global.h"
 #include "Numbers.h"
 #include "Balance.h"
-#include "PayTable.h"
 #include "Statistics.h"
 #include "Recovery.h"
 #include "KTexture.h"
@@ -11,6 +10,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <SDL.h>
 #include <SDL2/SDL_image.h>
@@ -39,6 +39,9 @@ void loadFrequencyFromFile(fstream &, FrequencyNumber &);
 void loadSelectedNumbers();
 void setInitialColor();
 void loadTTF();
+void payTable(int);
+void displayBalance(int);
+void displayStatistics(FrequencyNumber &, Statistics &);
 
 bool init();
 bool loadMedia();
@@ -73,9 +76,13 @@ Mix_Chunk *gQuickPick = NULL;
 Mix_Chunk *gSelect = NULL;
 Mix_Chunk *gClear = NULL;
 
-TTF_Font *gFont = NULL;
+TTF_Font *gameBoardFont = NULL;
+TTF_Font *infoFont = NULL;
+TTF_Font *balanceFont = NULL;
 KTexture gText;
 SDL_Color textColor = {0, 0, 0};
+SDL_Color payTableColor = {165, 225, 169};
+SDL_Color balanceColor = {255, 242, 59};
 
 int main(int args, char* argc[]) {
 
@@ -107,7 +114,7 @@ int main(int args, char* argc[]) {
 //	static char choice = 'y';
 
 	Recovery recover;
-//	getRecovery(fileRecovery, recover);
+	getRecovery(fileRecovery, recover);
 
 	Balance credits(recover.getRecoveryBalance());
 
@@ -115,19 +122,15 @@ int main(int args, char* argc[]) {
 
 	FrequencyNumber freq;
 	loadFrequencyFromFile(fileFrequency, freq);
-//
+
+	freq.printMap();
+
 	saveFrequencyInFile(fileFrequency, freq);
 //	saveDataInFile(Logs,stats);
 
 	getDataFromFile(Logs, stats);
 	printStatistic(cout, stats, Logs);
-//
-//	while (choice == 'y') {
 
-//		cout << "Enter numbers from 1 to 80 (press 0 to end input)" << endl;
-
-//		int number;
-//		cin >> number;
 	unsigned pick = 10;
 	bool play = false;
 	bool clear = false;
@@ -142,6 +145,7 @@ int main(int args, char* argc[]) {
 
 			loadLights();
 			loadSelectedNumbers();
+
 			//Main loop flag
 			bool quit = false;
 
@@ -154,7 +158,8 @@ int main(int args, char* argc[]) {
 			bool help2 = false;
 
 			//While application is running
-			while (!quit) {
+			while (!quit)
+			{
 
 				//Handle events on queue
 				while (SDL_PollEvent(&e) != 0) {
@@ -338,18 +343,23 @@ int main(int args, char* argc[]) {
 					Mix_PlayMusic(gMainMelody, -1);
 				}
 
+
+
 				//Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
 				SDL_RenderClear(gRenderer);
 
 				SDL_RenderCopy(gRenderer, background, NULL, NULL);
+
+
 				if (userSelects.size() >= 2) {
 					playButton.button(gRenderer, 460, 385, 130, 132);
 				}
 
-				SDL_Rect* currentClip = &gLightsClips[frame / 1000];
+				SDL_Rect* currentClip = &gLightsClips[frame / 60];
 				gLightsSheetTexture.render(gRenderer, 0, 496, currentClip);
+
 
 				for (int rows = 0; rows < 8; rows++) {
 					for (int cols = 0; cols < 10; cols++) {
@@ -361,8 +371,10 @@ int main(int args, char* argc[]) {
 
 //				gText.renderText(gRenderer, 100, 100);
 //				gText.loadFromRenderedText(gRenderer, gFont, "asodkasd", textColor);
-				loadTTF();
-
+				if (help == false)
+				{
+					loadTTF();
+				}
 				if (help== true)
 				{
 					infoButton.help(gRenderer, 0, 0, 878, 640);
@@ -377,6 +389,21 @@ int main(int args, char* argc[]) {
 					musicButton.button(gRenderer, 849, 0, 29, 31);
 				}
 
+//				if(userSelects.size() > 1)
+//				{
+//				 payTable(userSelects.size());
+//				}
+				if(help == false)
+				{
+					if(userSelects.size() > 1)
+					{
+						 payTable(userSelects.size());
+					}
+					displayBalance(credits.getCredit());
+					freq.printMap();
+					displayStatistics(freq,stats);
+					freq.clear();
+				}
 
 
 				//Update screen
@@ -386,7 +413,7 @@ int main(int args, char* argc[]) {
 				++frame;
 
 				//Cycle animation
-				if (frame / 1000 >= LIGHTS_ANIMATION)
+				if (frame / 60 >= LIGHTS_ANIMATION)
 				{
 					frame = 0;
 				}
@@ -402,9 +429,8 @@ int main(int args, char* argc[]) {
 
 					cout << "\n" << numb.getHits();
 					cout << endl;
-
-					PayTable b(userSelects.size());
-					b.print();
+//					PayTable b(userSelects.size());
+//					b.print();
 
 					credits.setCredit();
 					credits.calculateWin(userSelects.size(), numb.getHits(),
@@ -427,10 +453,9 @@ int main(int args, char* argc[]) {
 					saveDataInFile(fileRecovery, recover);
 
 					freq.setMap(numb.getRandoms());
-					freq.printMap();
+//					freq.printMap();
 
 					numb.clearReset();
-
 					cout << "\nYour Credits are: " << credits.getCredit()
 							<< endl;
 					cout << "For continue playing press \"Y\" " << endl;
@@ -564,7 +589,7 @@ bool init() {
 		} else {
 			//Create renderer for window
 			gRenderer = SDL_CreateRenderer(gWindow, -1,
-					SDL_RENDERER_ACCELERATED);
+					SDL_RENDERER_ACCELERATED || SDL_RENDERER_PRESENTVSYNC);
 			if (gRenderer == NULL) {
 				printf("Renderer could not be created! SDL Error: %s\n",
 						SDL_GetError());
@@ -588,6 +613,7 @@ bool init() {
 							Mix_GetError());
 					success = false;
 				}
+
 
 				if( TTF_Init() == -1 )
 				{
@@ -660,7 +686,7 @@ bool loadMedia()
 		success = false;
 	}
 
-	gPlay = Mix_LoadWAV("Sounds/Playbutton.wav");
+	gPlay = Mix_LoadWAV("Sounds/playButton.wav");
 	Mix_VolumeChunk(gPlay,128);
 	if (gPlay == NULL)
 	{
@@ -696,8 +722,9 @@ bool loadMedia()
 		success = false;
 	}
 
-	gFont = TTF_OpenFont("moonhouse.ttf", 18 );
-	if( gFont == NULL )
+	gameBoardFont = TTF_OpenFont("moonhouse.ttf", 18 );
+	TTF_SetFontStyle(gameBoardFont, TTF_STYLE_BOLD);
+	if( gameBoardFont == NULL )
 	{
 		printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
 		success = false;
@@ -706,7 +733,43 @@ bool loadMedia()
 	{
 		//Render text
 		SDL_Color textColor = { 0, 0, 0 };
-		if( !gText.loadFromRenderedText(gRenderer, gFont, "The quick brown fox jumps over the lazy dog", textColor ) )
+		if( !gText.loadFromRenderedText(gRenderer, gameBoardFont, "The quick brown fox jumps over the lazy dog", textColor ) )
+		{
+			printf( "Failed to render text texture!\n" );
+			success = false;
+		}
+	}
+
+	infoFont = TTF_OpenFont("Days.otf", 16 );
+	if( infoFont == NULL )
+	{
+		printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+		success = false;
+	}
+	else
+	{
+		//Render text
+		SDL_Color textColor = { 0, 0, 0 };
+		if( !gText.loadFromRenderedText(gRenderer, infoFont, "The quick brown fox jumps over the lazy dog", textColor ) )
+		{
+			printf( "Failed to render text texture!\n" );
+			success = false;
+		}
+	}
+
+
+	balanceFont = TTF_OpenFont("Balance.ttf", 14 );
+	TTF_SetFontStyle(balanceFont, TTF_STYLE_BOLD);
+	if( balanceFont == NULL )
+	{
+		printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+		success = false;
+	}
+	else
+	{
+		//Render text
+		SDL_Color textColor = { 0, 0, 0 };
+		if( !gText.loadFromRenderedText(gRenderer, balanceFont, "The quick brown fox jumps over the lazy dog", textColor ) )
 		{
 			printf( "Failed to render text texture!\n" );
 			success = false;
@@ -762,7 +825,6 @@ SDL_Texture* loadTexture(std::string path) {
 }
 
 bool loadLights() {
-	//Loading success flag
 	bool success = true;
 
 	//Load sprite sheet texture
@@ -810,24 +872,46 @@ void loadSelectedNumbers() {
 }
 
 void loadTTF() {
-	int x = 225;
+	int x = 233;
 	int y = 41;
 
 
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 10; j++)
 		{
+			if (i > 0 && j == 0)
+			{
+				x += 6;
+			}
+			if(i == 1)
+			{
+				x+=6;
+			}
+			if(i == 1 && j == 9)
+			{
+					x-=5;
+			}
 			stringstream ss;
 			ss<<gButtons[i][j].getNumber();
-
-			gText.loadFromRenderedText(gRenderer, gFont,ss.str(), textColor);
+			gText.loadFromRenderedText(gRenderer, gameBoardFont,ss.str(), textColor);
 			gText.renderText(gRenderer, x, y);
-
 			x += Button::WIDTH;
+			if (i > 0 && j == 0)
+						{
+				x -= 6;
+			}
+			if(i == 1)
+			{
+				x-=6;
+			}
+			if(i == 1 && j == 9)
+			{
+					x+=5;
+			}
 			ss<<"";
 
 		}
-		x=225;
+		x=224;
 		y += Button::HEIGHT;
 
 	}
@@ -836,14 +920,115 @@ void loadTTF() {
 void setInitialColor() {
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 10; j++) {
-//				gButtons[i][j].setPosition(x, y);
 			gButtons[i][j].setInitialColor();
 			gButtons[i][j].Clicked = false;
 
-//				x += Button::WIDTH;
 		}
-//			y += Button::HEIGHT;
-//			x = 218;
 	}
 }
 
+void payTable(int numbers)
+{
+	int y = 80;
+	gText.loadFromRenderedText(gRenderer, infoFont,"Hits", payTableColor);
+	gText.renderText(gRenderer, 40, 60);
+	gText.loadFromRenderedText(gRenderer, infoFont,"Payout", payTableColor);
+	gText.renderText(gRenderer, 93, 60);
+
+		for (int j = numbers; j >0; j--)
+		{
+			int x = 41;
+			stringstream ss;
+			stringstream ss2;
+			ss << j;
+			gText.loadFromRenderedText(gRenderer, infoFont,ss.str(), payTableColor);
+			gText.renderText(gRenderer, x, y);
+			ss<<"";
+			ss.clear();
+			ss2<<coefficient[numbers][j];
+			x = 93;
+			gText.loadFromRenderedText(gRenderer, infoFont,ss2.str(), payTableColor);
+			gText.renderText(gRenderer, x, y);
+
+			y+=20;
+			ss2<<"";
+			ss2.clear();
+		}
+}
+
+void displayBalance(int balance)
+{
+	int x = 390;
+	int y = 239;
+
+	gText.loadFromRenderedText(gRenderer, balanceFont,"Credit:", balanceColor);
+	gText.renderText(gRenderer, 326, y);
+	stringstream ss;
+	ss<<balance;
+	gText.loadFromRenderedText(gRenderer, balanceFont,ss.str(), balanceColor);
+	gText.renderText(gRenderer, x, y);
+	ss<<"";
+	ss.clear();
+	gText.loadFromRenderedText(gRenderer, balanceFont,"Bet:10", balanceColor);
+	gText.renderText(gRenderer, 487, y);
+}
+
+void displayStatistics(FrequencyNumber &freq, Statistics &stat)
+{
+	int y=75;
+	gText.loadFromRenderedText(gRenderer, infoFont,"Num", payTableColor);
+	gText.renderText(gRenderer, 719, 55);
+	gText.loadFromRenderedText(gRenderer, infoFont,"Freq", payTableColor);
+	gText.renderText(gRenderer, 794, 55);
+	for(unsigned i = 0; i<freq.getNumb().size(); i++)
+	{
+		stringstream ss;
+		ss<<freq.getNumb()[i];
+		gText.loadFromRenderedText(gRenderer, infoFont,ss.str(), payTableColor);
+		gText.renderText(gRenderer, 719, y);
+		ss<<"";
+		ss.clear();
+		stringstream ss2;
+		ss2<<freq.getFreq()[i];
+		gText.loadFromRenderedText(gRenderer, infoFont,ss2.str(), payTableColor);
+		gText.renderText(gRenderer, 794, y);
+		ss2<<"";
+		ss2.clear();
+		y+=20;
+
+	}
+	gText.loadFromRenderedText(gRenderer, infoFont,"Games", payTableColor);
+	gText.renderText(gRenderer, 719, 180);
+	stringstream games;
+	games<<stat.getNumberOfGames();
+	gText.loadFromRenderedText(gRenderer, infoFont,games.str(), payTableColor);
+	gText.renderText(gRenderer, 794, 180);
+	games<<"";
+
+	gText.loadFromRenderedText(gRenderer, infoFont,"Won", payTableColor);
+	gText.renderText(gRenderer, 719, 200);
+	stringstream won;
+	won<<stat.getWinningGames();
+	gText.loadFromRenderedText(gRenderer, infoFont,won.str(), payTableColor);
+	gText.renderText(gRenderer, 794, 200);
+	won<<"";
+
+	gText.loadFromRenderedText(gRenderer, infoFont,"Lost", payTableColor);
+	gText.renderText(gRenderer, 719, 220);
+	stringstream lost;
+	lost<<stat.getLostGames();
+	gText.loadFromRenderedText(gRenderer, infoFont,lost.str(), payTableColor);
+	gText.renderText(gRenderer, 794, 220);
+	lost<<"";
+
+	gText.loadFromRenderedText(gRenderer, infoFont,"Max   Payout", payTableColor);
+	gText.renderText(gRenderer, 719, 245);
+	stringstream pay;
+	pay<<stat.getMaxPayout();
+	gText.loadFromRenderedText(gRenderer, infoFont,pay.str(), payTableColor);
+	gText.renderText(gRenderer, 754, 265);
+	pay<<"";
+
+
+
+}
