@@ -17,6 +17,7 @@
 namespace GameObjects {
 
 class Player {
+	friend class RouletteApplication;
 public:
 	Player(int balance);
 	void addToBalance(int amount);

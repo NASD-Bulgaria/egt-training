@@ -19,12 +19,18 @@ RouletteApplication::~RouletteApplication() {
 	if (board != NULL) {
 		board->free();
 	}
-	delete board;
-	delete wheel;
-	delete player;
-	board = NULL;
-	wheel = NULL;
-	player = NULL;
+	if (player->colorBet) {
+		player->colorBet->free();
+	}
+	if (player->halfBet) {
+		player->halfBet->free();
+	}
+	if (player->typeBet) {
+		player->typeBet->free();
+	}
+	if (player->numberBet) {
+		player->numberBet->free();
+	}
 }
 
 void RouletteApplication::loadMedia() {
@@ -61,7 +67,7 @@ void RouletteApplication::handleBetCreation(int mouseX, int mouseY) {
 				player->addToBalance(typeSector->typeBet->getCredits());
 				typeSector->typeBet = NULL;
 			}
-		} else if (colorSector->isClicked(mouseX, mouseY)) {
+		} else if (colorSector != NULL) {
 			if (colorSector->colorBet == NULL) {
 				board->placeColorBet(
 						*player->createColorBet(colorSector->getColor(), 5));
@@ -69,7 +75,7 @@ void RouletteApplication::handleBetCreation(int mouseX, int mouseY) {
 				player->addToBalance(colorSector->colorBet->getCredits());
 				colorSector->colorBet = NULL;
 			}
-		} else if (halfSector->isClicked(mouseX, mouseY)) {
+		} else if (halfSector != NULL) {
 			if (halfSector->halfBet == NULL) {
 				board->placeHalfBet(
 						*player->createHalfBet(halfSector->getHalf(), 5));

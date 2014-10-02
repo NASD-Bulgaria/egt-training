@@ -13,6 +13,7 @@
 #include "HalfSector.h"
 #include "NumberBet.h"
 #include "IRendable.h"
+#include <sstream>
 
 namespace GameObjects {
 
@@ -30,11 +31,14 @@ public:
 	void placeNumberBet(NumberBet * numberBet);
 	virtual void free();
 	virtual void draw(SDL_Renderer * gRenderer);
+	virtual bool loadFromFile(SDL_Renderer * gRenderer, string path);
 	NumberBet* getNumberBet();
 
 private:
 	short number;
 	NumberBet * numberBet;
+	SDL_Texture* textTexture;
+	SDL_Rect textRect;
 };
 
 } /* namespace GameObjects */

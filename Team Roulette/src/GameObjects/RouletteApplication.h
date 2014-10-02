@@ -11,6 +11,7 @@
 #include "GameBoard.h"
 #include "RouletteWheel.h"
 #include "Player.h"
+#include "Statistics.h"
 
 namespace GameObjects {
 

@@ -1,6 +1,5 @@
 #include <sstream>
 #include "../src/GameObjects/RouletteApplication.h"
-#include "LTexture.h"
 
 using namespace GameObjects;
 using namespace std;
@@ -11,48 +10,70 @@ const int SCREEN_HEIGHT = 460;
 
 bool init();
 bool loadMedia();
+void initPositions();
 void close();
 
 //Key Disable after press
 bool press = true;
 bool music = true;
+bool fx = true;
 bool info = true;
 bool stat = true;
+bool start = true;
+
+//Global Mouse
+int cX, cY;
 
 SDL_Renderer* gRenderer = NULL;
 SDL_Window* gWindow = NULL;
 Mix_Music* gMusic = NULL;
+Mix_Chunk* gPlay = NULL;
+Mix_Chunk* gChip = NULL;
 Mix_Chunk* gTick = NULL;
-LTexture gTable;
-LTexture gWheel;
-LTexture gSpinButton;
-LTexture gClearButton;
-LTexture gNumber;
-LTexture gWin;
-LTexture gBet;
-LTexture gBalance;
-LTexture gArrow;
-LTexture gMusicPic;
-LTexture gNoMusicPic;
-LTexture gMusicDefault;
-LTexture gInfo;
-LTexture gStat;
-LTexture gInfoBackground;
-LTexture gBack;
-LTexture gAbout;
-LTexture gStatBackground;
+IRendable gTable;
+IRendable gWheel;
+IRendable gSpinButton;
+IRendable gClearButton;
+IRendable gNumber;
+IRendable gWin;
+IRendable gBet;
+IRendable gBalance;
+IRendable gArrow;
+IRendable gMusicPic;
+IRendable gNoMusicPic;
+IRendable gMusicDefault;
+IRendable gInfo;
+IRendable gStat;
+IRendable gInfoBackground;
+IRendable gBack;
+IRendable gAbout;
+IRendable gStartScreen;
+IRendable gPlayButton;
+IRendable gPlayerStat;
+IRendable gGetChips;
+IRendable gHome;
+IRendable gFxDefault;
+IRendable gFxPic;
+IRendable gNoFxPic;
+IRendable gCursorDefault;
+IRendable gCursor;
+IRendable gCursorClicked;
 GameBoard board;
 RouletteWheel wheel;
 Player player(1000);
 RouletteApplication app(&board, &player, &wheel);
-LTexture g[37];
+Statistics gameStatistics("stats.txt", 1000);
+IRendable g[37];
 
 int main(int argc, char* args[])
 {
 
 	init();
 
-	loadMedia();
+	if (loadMedia())
+	{
+		initPositions();
+	}
 
 	srand(time(0));
 
@@ -62,20 +83,27 @@ int main(int argc, char* args[])
 	//Event handler
 	SDL_Event e;
 
+	//Hide system cursor
+	SDL_ShowCursor(0);
+
 	//x,y  mouse
 	int x, y;
 	int winningNum = -1;
-	//Flip type
-	SDL_RendererFlip flipType = SDL_FLIP_NONE;
-
-	//Initialize music
-	Mix_PlayMusic(gMusic, -1);
 
 	app.board->initSectorPositions();
 
 	//While application is running
 	while (!quit)
 	{
+		//Handle mouse cursor
+		SDL_GetMouseState(&cX, &cY);
+		gCursorDefault.setX(cX);
+		gCursorDefault.setY(cY);
+		gCursor.setX(cX);
+		gCursor.setY(cY);
+		gCursorClicked.setX(cX);
+		gCursorClicked.setY(cY);
+
 		//Handle events on queue
 		while (SDL_PollEvent(&e) != 0)
 		{
@@ -86,186 +114,274 @@ int main(int argc, char* args[])
 				quit = true;
 			}
 
+			if (e.type == SDL_MOUSEBUTTONUP)
+			{
+				gCursorDefault = gCursor;
+			}
+
 			if (e.type == SDL_MOUSEBUTTONDOWN)
 			{
 				SDL_GetMouseState(&x, &y);
 
-				//Info Screen home button
-				if (!info || !stat)
-				{
-					if (x > 1135 && x < 1180 && y > 0 && y < 55)
-					{
-						info = true;
-						stat = true;
-					}
-				}
+				gCursorDefault = gCursorClicked;
 
-				//Info button
-				if (info)
+				//Start Screen
+				if (start)
 				{
-					if (x > 1115 && x < 1165 && y > 210 && y < 255)
+					if (gPlayButton.isClicked(x, y))
 					{
-						info = false;
-					}
-				}
+						start = false;
 
-				//Statistics button
-				if (stat)
-				{
-					if (x > 1115 && x < 1165 && y > 150 && y < 195)
-					{
-						stat = false;
-					}
-				}
-
-				//Music button
-				if (info && stat)
-				{
-					if (x > 1115 && x < 1155 && y > 35 && y < 75)
-					{
-
-						if (music)
+						//Initialize music
+						if (fx)
 						{
-							gMusicDefault = gNoMusicPic;
-							Mix_PauseMusic();
-							music = false;
-
+							Mix_PlayChannel(0, gPlay, 0);
 						}
 
-						else
-						{
-							gMusicDefault = gMusicPic;
-							Mix_ResumeMusic();
-							music = true;
+						SDL_Delay(500);
 
+						if (Mix_PlayingMusic() == 0)
+						{
+							Mix_PlayMusic(gMusic, -1);
 						}
+
 					}
 				}
 
-				//About
-				if (info && stat)
+				//Table Screen
+				else
 				{
-					if (x > 1121 && x < 1163 && y > 318 && y < 373)
+					//Home button
+					if (!start && app.wheel->getSpinSpeed() == Stoped)
 					{
-						SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
-								"About",
-								"SDL by GalaxyNET and Kamelia\nLogic by NAND and Stan",
-								NULL);
-					}
-				}
-
-				//Spin button
-				if (info && stat)
-				{
-					if (app.wheel->getSpinSpeed() == Stoped)
-					{
-						//Spin button
-						if (x > 1043 && x < 1146 && y > 399 && y < 445
-								&& app.board->getAllBetValue() > 0)
+						if (gHome.isClicked(x, y))
 						{
-							app.wheel->initiate();
-							app.player->creditBalance(app.player->getOldBet());
-							winningNum = -1;
-							break;
+							if (fx)
+							{
+								Mix_PlayChannel(0, gPlay, 0);
+							}
+
+							start = true;
+						}
+					}
+
+					//Info button
+					if (info)
+					{
+						if (gInfo.isClicked(x, y))
+						{
+							info = false;
+						}
+					}
+
+					//Statistics button
+					if (stat)
+					{
+						if (gStat.isClicked(x, y))
+						{
+							stat = false;
+							gameStatistics.read(gRenderer);
+						}
+					}
+
+					//Music button
+					if (info && stat)
+					{
+						if (gMusicDefault.isClicked(x, y))
+						{
+
+							if (music)
+							{
+								gMusicDefault = gNoMusicPic;
+								Mix_PauseMusic();
+								music = false;
+
+							}
+
+							else
+							{
+								gMusicDefault = gMusicPic;
+								Mix_ResumeMusic();
+								music = true;
+							}
 						}
 
-						//Clear Button
-						if (x > 443 && x < 548 && y > 399 && y < 439)
+						//FX button
+						if (info && stat)
 						{
-							app.board->clearAllBets();
-							app.player->setOldBet(0);
-						}
-						app.handleBetCreation(x, y);
-					}
-				}
+							if (gFxDefault.isClicked(x, y))
+							{
 
+								if (fx)
+								{
+									gFxDefault = gNoFxPic;
+									fx = false;
+
+								}
+
+								else
+								{
+									gFxDefault = gFxPic;
+									fx = true;
+								}
+							}
+
+							//About button
+							if (gAbout.isClicked(x, y))
+							{
+								SDL_ShowSimpleMessageBox(
+										SDL_MESSAGEBOX_INFORMATION, "About",
+										"SDL by GalaxyNET and Kamelia\nLogic by NAND and Stan",
+										NULL);
+							}
+
+							if (app.wheel->getSpinSpeed() == Stoped)
+							{
+								//Spin button
+								if (gSpinButton.isClicked(x, y)
+										&& app.board->getAllBetValue() > 0)
+								{
+									app.wheel->initiate();
+									app.player->creditBalance(
+											app.player->getOldBet());
+									winningNum = -1;
+									break;
+								}
+
+								//Clear Button
+								if (gClearButton.isClicked(x, y))
+								{
+									app.board->clearAllBets();
+									app.player->setOldBet(0);
+								}
+
+								if (x > 460 && x < 1110 && y > 60 && y < 290)
+								{
+									if (fx)
+									{
+										Mix_PlayChannel(0, gChip, 0);
+									}
+								}
+
+								app.handleBetCreation(x, y);
+							}
+
+						}
+					}
+						//Info Screen home button
+						if (!info || !stat)
+						{
+							if (gBack.isClicked(x, y))
+							{
+								info = true;
+								stat = true;
+							}
+						}
+					}
+
+				}
 			}
-		}
 
-		if (app.wheel->getSpinSpeed() != Stoped)
-		{
-			app.wheel->spin();
-			if (music)
+			if (app.wheel->getSpinSpeed() != Stoped)
 			{
-				Mix_PlayChannel(-1, gTick, 0);
-			}
-		}
+				app.wheel->spin();
 
-		else if (app.wheel->getWiningNumber() != -1)
-		{
-			if (winningNum != app.wheel->getWiningNumber())
+				if (fx)
+				{
+					Mix_PlayChannel(-1, gTick, 0);
+				}
+
+			}
+
+			else if (app.wheel->getWiningNumber() != -1)
 			{
-				winningNum = app.wheel->getWiningNumber();
-				app.board->setWiningNumberSector(winningNum);
-				cout << "The old player balance is: "
-						<< app.player->getBalance() << endl
-						<< "The winning value is: "
-						<< app.board->collectWinings() << endl
-						<< "The total bet is: " << app.board->getAllBetValue()
-						<< endl << "The new balance is: ";
-				app.player->setOldBet(app.board->getAllBetValue());
-				app.player->addToBalance(app.board->collectWinings());
-				cout << app.player->getBalance() << endl;
-				gNumber = g[winningNum];
+				if (winningNum != app.wheel->getWiningNumber())
+				{
+					winningNum = app.wheel->getWiningNumber();
+					app.board->setWiningNumberSector(winningNum);
+					cout << "The old player balance is: "
+							<< app.player->getBalance() << endl
+							<< "The winning value is: "
+							<< app.board->collectWinings() << endl
+							<< "The total bet is: "
+							<< app.board->getAllBetValue() << endl
+							<< "The new balance is: ";
+					app.player->setOldBet(app.board->getAllBetValue());
+					app.player->addToBalance(app.board->collectWinings());
+					cout << app.player->getBalance() << endl;
+					gameStatistics.write(winningNum,
+							app.board->getWiningNumberSector()->getColor(),
+							app.board->getAllBetValue(),
+							app.board->collectWinings(),
+							app.player->getBalance());
+					gNumber = g[winningNum];
+				}
 			}
+
+			//Clear screen
+			SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+			SDL_RenderClear(gRenderer);
+
+			if (start)
+			{
+				gStartScreen.draw(gRenderer);
+				gPlayButton.draw(gRenderer);
+				gPlayerStat.draw(gRenderer);
+				gGetChips.draw(gRenderer);
+			}
+
+			//Render Table elements
+			if (!start)
+			{
+				if (info && stat)
+				{
+					gTable.draw(gRenderer);
+					gWheel.draw(gRenderer, wheel.getCurrentDegrees());
+					gSpinButton.draw(gRenderer);
+					gClearButton.draw(gRenderer);
+					gNumber.draw(gRenderer);
+					gBet.draw(gRenderer);
+					gWin.draw(gRenderer);
+					gBalance.draw(gRenderer);
+					gArrow.draw(gRenderer);
+					app.board->draw(gRenderer);
+					gMusicDefault.draw(gRenderer);
+					gStat.draw(gRenderer);
+					gInfo.draw(gRenderer);
+					gAbout.draw(gRenderer);
+					gHome.draw(gRenderer);
+					gFxDefault.draw(gRenderer);
+				}
+
+				if (!info)
+				{
+					gInfoBackground.draw(gRenderer);
+					gBack.draw(gRenderer);
+
+				}
+
+				if (!stat)
+				{
+					gameStatistics.draw(gRenderer);
+					gBack.draw(gRenderer);
+
+				}
+			}
+
+			//Render Cursor
+			gCursorDefault.draw(gRenderer);
+
+			//Update screen
+			SDL_RenderPresent(gRenderer);
+
 		}
 
-		//Clear screen
-		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderClear(gRenderer);
+		//Free resources and close SDL
+		close();
 
-		//Render Table elements
-		if (info && stat)
-		{
-			gTable.render(gRenderer, (SCREEN_WIDTH - gTable.getWidth()) / 2,
-					(SCREEN_HEIGHT - gTable.getHeight()) / 2, NULL, 0, NULL,
-					flipType);
-			gWheel.render(gRenderer, 80, 101, NULL, wheel.getCurrentDegrees(),
-			NULL, flipType);
-			gSpinButton.render(gRenderer, 1040, 396, NULL, 0, NULL, flipType);
-			gClearButton.render(gRenderer, 440, 396, NULL, 0, NULL, flipType);
-			gNumber.render(gRenderer, 370, 394, NULL, 0, NULL, flipType);
-			gBet.render(gRenderer, 720, 395, NULL, 0, NULL, flipType);
-			gWin.render(gRenderer, 560, 395, NULL, 0, NULL, flipType);
-			gBalance.render(gRenderer, 877, 395, NULL, 0, NULL, flipType);
-			gArrow.render(gRenderer, 185, 40, NULL, 0, NULL, flipType);
-			app.board->draw(gRenderer);
-			gMusicDefault.render(gRenderer, 1115, 27, NULL, 0, NULL, flipType);
-			gStat.render(gRenderer, 1115, 145, NULL, 0, NULL, flipType);
-			gInfo.render(gRenderer, 1112, 205, NULL, 0, NULL, flipType);
-			gAbout.render(gRenderer, 1115, 328, NULL, 0, NULL, flipType);
-
-		}
-
-		if (!info)
-		{
-			gInfoBackground.render(gRenderer,
-					(SCREEN_WIDTH - gTable.getWidth()) / 2,
-					(SCREEN_HEIGHT - gTable.getHeight()) / 2, NULL, 0, NULL,
-					flipType);
-			gBack.render(gRenderer, 1135, 5, NULL, 0, NULL, flipType);
-
-		}
-
-		if (!stat)
-		{
-			gStatBackground.render(gRenderer,
-					(SCREEN_WIDTH - gTable.getWidth()) / 2,
-					(SCREEN_HEIGHT - gTable.getHeight()) / 2, NULL, 0, NULL,
-					flipType);
-			gBack.render(gRenderer, 1135, 5, NULL, 0, NULL, flipType);
-
-		}
-		//Update screen
-		SDL_RenderPresent(gRenderer);
-
+		return 0;
 	}
 
-	//Free resources and close SDL
-	close();
-
-	return 0;
-}
 
 bool init()
 {
@@ -276,7 +392,7 @@ bool init()
 	SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
 	gWindow = SDL_CreateWindow("European Roulette", SDL_WINDOWPOS_UNDEFINED,
-	SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+			SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 	gRenderer = SDL_CreateRenderer(gWindow, -1,
 			SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -286,7 +402,7 @@ bool init()
 	int imgFlags = IMG_INIT_PNG;
 
 	IMG_Init(imgFlags);
-
+	TTF_Init();
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
 
 	return success;
@@ -298,6 +414,8 @@ bool loadMedia()
 	board.loadFromFile(gRenderer, "Roulette/proba.png");
 	gTable.loadFromFile(gRenderer, "Roulette/table.png");
 	gMusic = Mix_LoadMUS("Roulette/roulette.mp3");
+	gPlay = Mix_LoadWAV("Roulette/play.wav");
+	gChip = Mix_LoadWAV("Roulette/chip.wav");
 	gTick = Mix_LoadWAV("Roulette/tick.wav");
 	gWheel.loadFromFile(gRenderer, "Roulette/wheel.png");
 	gSpinButton.loadFromFile(gRenderer, "Roulette/spin_button.png");
@@ -316,7 +434,18 @@ bool loadMedia()
 	gInfoBackground.loadFromFile(gRenderer, "Roulette/instruction.png");
 	gBack.loadFromFile(gRenderer, "Roulette/back.png");
 	gAbout.loadFromFile(gRenderer, "Roulette/about.png");
-	gStatBackground.loadFromFile(gRenderer, "Roulette/statistics.png");
+	gStartScreen.loadFromFile(gRenderer, "Roulette/startscreen.png");
+	gPlayButton.loadFromFile(gRenderer, "Roulette/play.png");
+	gPlayerStat.loadFromFile(gRenderer, "Roulette/playerstat.png");
+	gGetChips.loadFromFile(gRenderer, "Roulette/getchips.png");
+	gHome.loadFromFile(gRenderer, "Roulette/back.png");
+	gameStatistics.loadFromFile(gRenderer, "Roulette/statistics.png");
+	gFxDefault.loadFromFile(gRenderer, "Roulette/fx.png");
+	gFxPic.loadFromFile(gRenderer, "Roulette/fx.png");
+	gNoFxPic.loadFromFile(gRenderer, "Roulette/nofx.png");
+	gCursorDefault.loadFromFile(gRenderer, "Roulette/cursor.png");
+	gCursor.loadFromFile(gRenderer, "Roulette/cursor.png");
+	gCursorClicked.loadFromFile(gRenderer, "Roulette/cursorclicked.png");
 
 	//Load Winning numbers
 	stringstream ss;
@@ -343,6 +472,23 @@ void close()
 	gBet.free();
 	gBalance.free();
 	gArrow.free();
+	gMusicPic.free();
+	gNoMusicPic.free();
+	gMusicDefault.free();
+	gInfo.free();
+	gStat.free();
+	gInfoBackground.free();
+	gBack.free();
+	gAbout.free();
+	gameStatistics.free();
+	gStartScreen.free();
+	gPlayButton.free();
+	gPlayerStat.free();
+	gGetChips.free();
+	gHome.free();
+	gFxDefault.free();
+	gFxPic.free();
+	gNoFxPic.free();
 
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
@@ -352,6 +498,65 @@ void close()
 	gMusic = NULL;
 
 	IMG_Quit();
+	Mix_Quit();
+	TTF_Quit();
 	SDL_Quit();
 }
 
+void initPositions()
+{
+	gWheel.setX(80);
+	gWheel.setY(101);
+	gSpinButton.setX(1040);
+	gSpinButton.setY(396);
+	gClearButton.setX(440);
+	gClearButton.setY(396);
+	gNumber.setX(370);
+	gNumber.setY(394);
+	gBet.setX(720);
+	gBet.setY(395);
+	gWin.setX(560);
+	gWin.setY(395);
+	gBalance.setX(877);
+	gBalance.setY(395);
+	gArrow.setX(185);
+	gArrow.setY(40);
+	gMusicDefault.setX(1112);
+	gMusicDefault.setY(30);
+	gMusicPic.setX(1112);
+	gMusicPic.setY(30);
+	gNoMusicPic.setX(1112);
+	gNoMusicPic.setY(30);
+	gStat.setX(1112);
+	gStat.setY(145);
+	gInfo.setX(1112);
+	gInfo.setY(205);
+	gAbout.setX(1112);
+	gAbout.setY(320);
+	gameStatistics.setX(0);
+	gameStatistics.setY(0);
+	gBack.setX(1135);
+	gBack.setY(5);
+	gStartScreen.setX(0);
+	gStartScreen.setY(0);
+	gPlayButton.setX(950);
+	gPlayButton.setY(395);
+	gPlayerStat.setX(450);
+	gPlayerStat.setY(280);
+	gGetChips.setX(40);
+	gGetChips.setY(395);
+	gHome.setX(20);
+	gHome.setY(395);
+	gFxDefault.setX(1112);
+	gFxDefault.setY(87);
+	gFxPic.setX(1112);
+	gFxPic.setY(87);
+	gNoFxPic.setX(1112);
+	gNoFxPic.setY(87);
+
+	for (int i = 0; i < 37; ++i)
+	{
+		g[i].setX(gNumber.getX());
+		g[i].setY(gNumber.getY());
+	}
+}

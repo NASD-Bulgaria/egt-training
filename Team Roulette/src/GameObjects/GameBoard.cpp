@@ -259,6 +259,8 @@ void GameObjects::GameBoard::initSectorPositions() {
 	int counter = 0;
 	numberSectors[0]->setX(x);
 	numberSectors[0]->setY(y);
+	numberSectors[0]->textRect.y = y + 75;
+	numberSectors[0]->textRect.x = x + 15;
 	for (unsigned int i = 1; i < numberSectors.size(); ++i) {
 		if (counter % 3 == 0) {
 			x += numberSectors[i - 1]->getWidth();
@@ -268,6 +270,8 @@ void GameObjects::GameBoard::initSectorPositions() {
 				- ((counter + 1) * numberSectors[0]->getHeight() / 3);
 		numberSectors[i]->setX(x);
 		numberSectors[i]->setY(y);
+		numberSectors[i]->textRect.x = x + 15;
+		numberSectors[i]->textRect.y = y + 17;
 		counter++;
 	}
 	halfSectors[0]->setX(this->getX() + numberSectors[0]->getWidth());

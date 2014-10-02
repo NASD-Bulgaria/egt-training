@@ -49,8 +49,9 @@ int IRendable::getY() const {
 	return rect.y;
 }
 
-void IRendable::draw(SDL_Renderer* gRenderer) {
-	SDL_RenderCopy(gRenderer, mTexture, NULL, &rect );
+void IRendable::draw(SDL_Renderer* gRenderer, double angle, SDL_Point* center,
+		SDL_RendererFlip flip) {
+	SDL_RenderCopyEx(gRenderer, mTexture, NULL, &rect,angle,center, flip);
 }
 
 void IRendable::free() {
@@ -60,23 +61,34 @@ void IRendable::free() {
 	}
 }
 
+void IRendable::setColor(Uint8 red, Uint8 green, Uint8 blue) {
+	SDL_SetTextureColorMod(mTexture, red, green, blue);
+}
+
+void IRendable::setBlendMode(SDL_BlendMode blending) {
+	SDL_SetTextureBlendMode(mTexture, blending);
+}
+
+void IRendable::setAlpha(Uint8 alpha) {
+	SDL_SetTextureAlphaMod(mTexture, alpha);
+}
+
 void IRendable::setY(int y) {
 	this->rect.y = y;
 }
 
 bool IRendable::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
 	SDL_Surface * loadedSurface = IMG_Load(path.data());
-	mTexture = SDL_CreateTextureFromSurface(gRenderer,loadedSurface);
+	mTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
 	this->setWidth(loadedSurface->w);
 	this->setHeight(loadedSurface->h);
 	SDL_FreeSurface(loadedSurface);
 	return mTexture != NULL;
 }
 
-
 bool IRendable::isClicked(int x, int y) {
-	if (x >= getX() && x <= getWidth() + getX()
-		&& y >= getY() && y <= getY() + getHeight()){
+	if (x >= getX() && x <= getWidth() + getX() && y >= getY()
+			&& y <= getY() + getHeight()) {
 		return true;
 	}
 	return false;
