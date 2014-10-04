@@ -17,15 +17,18 @@ namespace GameObjects {
 
 class RouletteApplication {
 public:
-	RouletteApplication(GameBoard* board, Player* player, RouletteWheel* wheel);
+	RouletteApplication(GameBoard* board, Player* player, RouletteWheel* wheel,
+			IRendable* bet, IRendable* win, IRendable* balance);
 	virtual ~RouletteApplication();
 	void handleBetCreation(int mouseX, int mouseY);
 	void loadMedia();
 	void init();
+	void changeInfoValues(SDL_Renderer* gRenderer);
 //private:
 	RouletteWheel* wheel;
 	GameBoard* board;
 	Player* player;
+	IRendable* infoFields[3];
 };
 
 } /* namespace GameObjects */

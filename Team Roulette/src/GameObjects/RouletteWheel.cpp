@@ -82,4 +82,8 @@ void RouletteWheel::initiate() {
 	currentNumberIndex = -1;
 }
 
+void RouletteWheel::resetWiningNumber() {
+	currentNumberIndex = -1;
+}
 } /* namespace GameObjects */
+

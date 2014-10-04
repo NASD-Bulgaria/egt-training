@@ -9,10 +9,15 @@
 
 namespace GameObjects {
 
-RouletteApplication::RouletteApplication(GameBoard* board, Player* player, RouletteWheel* wheel) {
+RouletteApplication::RouletteApplication(GameBoard* board, Player* player,
+		RouletteWheel* wheel, IRendable* bet, IRendable* win,
+		IRendable* balance) {
 	this->board = board;
 	this->wheel = wheel;
 	this->player = player;
+	this->infoFields[0] = bet;
+	this->infoFields[1] = win;
+	this->infoFields[2] = balance;
 }
 
 RouletteApplication::~RouletteApplication() {
@@ -30,6 +35,11 @@ RouletteApplication::~RouletteApplication() {
 	}
 	if (player->numberBet) {
 		player->numberBet->free();
+	}
+	for (int i = 0; i < 3; ++i) {
+		if (infoFields[i]) {
+			infoFields[i]->free();
+		}
 	}
 }
 
@@ -53,9 +63,9 @@ void RouletteApplication::handleBetCreation(int mouseX, int mouseY) {
 		if (numSector != NULL) {
 			clickedNum = numSector->getNumber();
 			if (numSector->numberBet == NULL) {
-				board->placeNumberBet(
-						*player->createNumberBet(clickedNum, 5));
+				board->placeNumberBet(*player->createNumberBet(clickedNum, 5));
 			} else {
+				player->totalBet -= numSector->numberBet->getCredits();
 				player->addToBalance(numSector->numberBet->getCredits());
 				numSector->numberBet = NULL;
 			}
@@ -64,6 +74,7 @@ void RouletteApplication::handleBetCreation(int mouseX, int mouseY) {
 				board->placeTypeBet(
 						*player->createTypeBet(typeSector->getType(), 5));
 			} else {
+				player->totalBet -= typeSector->typeBet->getCredits();
 				player->addToBalance(typeSector->typeBet->getCredits());
 				typeSector->typeBet = NULL;
 			}
@@ -72,6 +83,7 @@ void RouletteApplication::handleBetCreation(int mouseX, int mouseY) {
 				board->placeColorBet(
 						*player->createColorBet(colorSector->getColor(), 5));
 			} else {
+				player->totalBet -= colorSector->colorBet->getCredits();
 				player->addToBalance(colorSector->colorBet->getCredits());
 				colorSector->colorBet = NULL;
 			}
@@ -80,11 +92,39 @@ void RouletteApplication::handleBetCreation(int mouseX, int mouseY) {
 				board->placeHalfBet(
 						*player->createHalfBet(halfSector->getHalf(), 5));
 			} else {
+				player->totalBet -= halfSector->halfBet->getCredits();
 				player->addToBalance(halfSector->halfBet->getCredits());
 				halfSector->halfBet = NULL;
 			}
 		}
 	}
+	numSector = NULL;
+	typeSector = NULL;
+	halfSector = NULL;
+	colorSector = NULL;
 }
 
-} /* namespace GameObjects */
+void RouletteApplication::changeInfoValues(SDL_Renderer* gRenderer) {
+	stringstream ss;
+	int value = 0;
+	for (int i = 0; i < 3; ++i) {
+		if (i == 0) {
+			value = player->getTotalBet();
+		} else if (i == 1) {
+			value = board->collectWinings();
+		} else {
+			value = player->getBalance();
+		}
+		ss << value;
+		infoFields[i]->setRenderedText(gRenderer, ss.str());
+		infoFields[i]->setTextRectSize(
+				infoFields[i]->getX()
+				+ (infoFields[i]->getWidth() - ss.str().length() * 10) / 2,
+				infoFields[i]->getY() + infoFields[i]->getHeight() / 2,
+				ss.str().length() * 10, 20);
+		ss.str("");
+		infoFields[i]->draw(gRenderer);
+	}
+}
+
+}

@@ -25,6 +25,7 @@ public:
 	RouletteWheelState getSpinSpeed() const;
 	short getWiningNumber();
 	double getCurrentDegrees();
+	void resetWiningNumber();
 	void initiate();
 private:
 	RouletteWheelState spinSpeed;

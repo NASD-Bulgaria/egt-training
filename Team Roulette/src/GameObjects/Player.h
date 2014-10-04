@@ -29,11 +29,14 @@ public:
 	HalfBet* createHalfBet(Half half, int amount);
 	int getBalance();
 	virtual ~Player();
+	int getTotalBet() const;
+	void resetBet();
 	int getOldBet() const;
 	void setOldBet(int oldBet);
 
 private:
 	int balance;
+	int totalBet;
 	int oldBet;
 	ColorBet * colorBet;
 	NumberBet * numberBet;

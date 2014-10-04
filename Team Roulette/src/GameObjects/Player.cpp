@@ -11,6 +11,7 @@ namespace GameObjects {
 
 Player::Player(int balance) {
 	this->balance = balance;
+	totalBet = 0;
 	oldBet = 0;
 	colorBet = NULL;
 	numberBet = NULL;
@@ -26,40 +27,40 @@ NumberBet * Player::createNumberBet(short number,int amount) {
 	if (this->creditBalance(amount)) {
 		numberBet->setCredits(amount);
 		numberBet->setNumber(number);
+		totalBet += amount;
 		return numberBet;
-	} else {
-		exit(1);
 	}
+	return NULL;
 }
 
 ColorBet * Player::createColorBet(Color color,int amount) {
 	if (this->creditBalance(amount)) {
 		colorBet->setColor(color);
 		colorBet->setCredits(amount);
+		totalBet += amount;
 		return colorBet;
-	} else {
-		exit(1);
 	}
+	return NULL;
 }
 
 TypeBet * Player::createTypeBet(Type type, int amount) {
 	if (this->creditBalance(amount)) {
 		typeBet->setCredits(amount);
 		typeBet->setType(type);
+		totalBet += amount;
 		return typeBet;
-	} else {
-		exit(1);
 	}
+	return NULL;
 }
 
 HalfBet * Player::createHalfBet(Half half, int amount) {
 	if (this->creditBalance(amount)) {
 		halfBet->setCredits(amount);
 		halfBet->setHalf(half);
+		totalBet += amount;
 		return halfBet;
-	} else {
-		exit(1);
 	}
+	return NULL;
 }
 
 Player::~Player() {
@@ -89,12 +90,12 @@ int Player::getBalance() {
 	return balance;
 }
 
-int Player::getOldBet() const {
-	return oldBet;
+int Player::getTotalBet() const {
+	return totalBet;
 }
 
-void Player::setOldBet(int oldBet) {
-	this->oldBet = oldBet;
+void Player::resetBet() {
+	this->totalBet = 0;
 }
 
 bool Player::creditBalance(int amount) {
@@ -106,12 +107,10 @@ bool Player::creditBalance(int amount) {
 	return false;
 }
 
-} /* namespace GameObjects */
-
-bool GameObjects::Player::initPlayer(SDL_Renderer* gRenderer,
+bool Player::initPlayer(SDL_Renderer* gRenderer,
 		std::string betImgPath) {
 	bool success = true;
-	oldBet = 0;
+	totalBet = 0;
 	colorBet = new ColorBet(RedColor, 5);
 	typeBet = new TypeBet(EvenType, 5);
 	halfBet = new HalfBet(LowHalf, 5);
@@ -121,4 +120,14 @@ bool GameObjects::Player::initPlayer(SDL_Renderer* gRenderer,
 	success = success & halfBet->loadFromFile(gRenderer, betImgPath);
 	success = success & numberBet->loadFromFile(gRenderer, betImgPath);
 	return success;
+}
+
+int Player::getOldBet() const {
+	return oldBet;
+}
+
+void Player::setOldBet(int oldBet) {
+	this->oldBet = oldBet;
+}
+
 }

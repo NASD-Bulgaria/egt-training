@@ -9,7 +9,8 @@
 
 namespace GameObjects {
 
-ColorSector::ColorSector(Color color) {
+ColorSector::ColorSector(Color color)
+	:IRendable(){
 	this->color = color;
 	colorBet = 0;
 }

@@ -9,7 +9,8 @@
 
 namespace GameObjects {
 
-TypeSector::TypeSector(Type type) {
+TypeSector::TypeSector(Type type)
+	:IRendable() {
 	this->type = type;
 	this->typeBet = 0;
 }

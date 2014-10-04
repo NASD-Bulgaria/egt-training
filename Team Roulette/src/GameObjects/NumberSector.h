@@ -17,7 +17,8 @@
 
 namespace GameObjects {
 
-class NumberSector : public ColorSector,
+class NumberSector : virtual public IRendable,
+					 public ColorSector,
 					 public TypeSector,
 					 public HalfSector{
 
@@ -31,13 +32,11 @@ public:
 	void placeNumberBet(NumberBet * numberBet);
 	virtual void free();
 	virtual void draw(SDL_Renderer * gRenderer);
-	virtual bool loadFromFile(SDL_Renderer * gRenderer, string path);
 	NumberBet* getNumberBet();
 
 private:
 	short number;
 	NumberBet * numberBet;
-	SDL_Texture* textTexture;
 	SDL_Rect textRect;
 };
 

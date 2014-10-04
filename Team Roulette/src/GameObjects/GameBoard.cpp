@@ -16,7 +16,6 @@ GameBoard::GameBoard() {
 	halfSectors[1] = new HalfSector(HighHalf);
 	colorSectors[0] = new ColorSector(BlackColor);
 	colorSectors[1] = new ColorSector(RedColor);
-	allBetValue = 0;
 	this->setX(456);
 	this->setY(58);
 	initNumberSectors();
@@ -41,7 +40,7 @@ const std::vector<NumberSector*>& GameBoard::getNumberSectors() const {
 
 void GameBoard::placeHalfBet(HalfBet& halfBet) {
 	for (int i = 0; i < 2; ++i) {
-		if(halfSectors[i]->getHalf() == halfBet.getHalf()){
+		if (halfSectors[i]->getHalf() == halfBet.getHalf()) {
 			halfSectors[i]->placeHalfBet(&halfBet);
 		}
 	}
@@ -50,12 +49,11 @@ void GameBoard::placeHalfBet(HalfBet& halfBet) {
 			numberSectors[i]->placeHalfBet(&halfBet);
 		}
 	}
-	allBetValue += halfBet.getCredits();
 }
 
 void GameBoard::placeTypeBet(TypeBet& typeBet) {
 	for (int i = 0; i < 2; ++i) {
-		if(typeSectors[i]->getType() == typeBet.getType()){
+		if (typeSectors[i]->getType() == typeBet.getType()) {
 			typeSectors[i]->placeTypeBet(&typeBet);
 		}
 	}
@@ -64,17 +62,15 @@ void GameBoard::placeTypeBet(TypeBet& typeBet) {
 			numberSectors[i]->placeTypeBet(&typeBet);
 		}
 	}
-	allBetValue += typeBet.getCredits();
 }
 
 void GameBoard::placeNumberBet(NumberBet& numberBet) {
 	numberSectors[numberBet.getNumber()]->placeNumberBet(&numberBet);
-	allBetValue += numberBet.getCredits();
 }
 
 void GameBoard::placeColorBet(ColorBet& colorBet) {
 	for (int i = 0; i < 2; ++i) {
-		if(colorSectors[i]->getColor() == colorBet.getColor()){
+		if (colorSectors[i]->getColor() == colorBet.getColor()) {
 			colorSectors[i]->placeColorBet(&colorBet);
 		}
 	}
@@ -83,48 +79,43 @@ void GameBoard::placeColorBet(ColorBet& colorBet) {
 			numberSectors[i]->placeColorBet(&colorBet);
 		}
 	}
-	allBetValue += colorBet.getCredits();
 }
 
 void GameBoard::clearAllBets() {
-	halfSectors[0]->halfBet = NULL;
-	halfSectors[1]->halfBet = NULL;
-	colorSectors[0]->colorBet = NULL;
-	colorSectors[1]->colorBet = NULL;
-	typeSectors[0]->typeBet = NULL;
-	typeSectors[1]->typeBet = NULL;
+	for (int i = 0; i < 2; ++i) {
+		halfSectors[i]->halfBet = NULL;
+		colorSectors[i]->colorBet = NULL;
+		typeSectors[i]->typeBet = NULL;
+	}
 	for (unsigned int i = 0; i < numberSectors.size(); ++i) {
 		numberSectors[i]->numberBet = NULL;
 		numberSectors[i]->colorBet = NULL;
 		numberSectors[i]->typeBet = NULL;
 		numberSectors[i]->halfBet = NULL;
 	}
-	allBetValue = 0;
 }
 
 int GameBoard::collectWinings() {
 	int winings = 0;
-	if (winingNumberSector->colorBet) {
-		winings += winingNumberSector->colorBet->getCredits()
-				* winingNumberSector->colorBet->getCoef();
-	}
-	if (winingNumberSector->halfBet) {
-		winings += winingNumberSector->halfBet->getCredits()
-				* winingNumberSector->halfBet->getCoef();
-	}
-	if (winingNumberSector->typeBet) {
-		winings += winingNumberSector->typeBet->getCredits()
-				* winingNumberSector->typeBet->getCoef();
-	}
-	if (winingNumberSector->numberBet) {
-		winings += winingNumberSector->numberBet->getCredits()
-				* winingNumberSector->numberBet->getCoef();
+	if (winingNumberSector) {
+		if (winingNumberSector->colorBet) {
+			winings += winingNumberSector->colorBet->getCredits()
+					* winingNumberSector->colorBet->getCoef();
+		}
+		if (winingNumberSector->halfBet) {
+			winings += winingNumberSector->halfBet->getCredits()
+					* winingNumberSector->halfBet->getCoef();
+		}
+		if (winingNumberSector->typeBet) {
+			winings += winingNumberSector->typeBet->getCredits()
+					* winingNumberSector->typeBet->getCoef();
+		}
+		if (winingNumberSector->numberBet) {
+			winings += winingNumberSector->numberBet->getCredits()
+					* winingNumberSector->numberBet->getCoef();
+		}
 	}
 	return winings;
-}
-
-int GameBoard::getAllBetValue() const {
-	return allBetValue;
 }
 
 NumberSector* GameBoard::getWiningNumberSector() const {
@@ -132,7 +123,11 @@ NumberSector* GameBoard::getWiningNumberSector() const {
 }
 
 void GameBoard::setWiningNumberSector(short winingNumber) {
-	this->winingNumberSector = numberSectors[winingNumber];
+	if (winingNumber >= 0 && winingNumber <= 36) {
+		this->winingNumberSector = numberSectors[winingNumber];
+	} else {
+		this->winingNumberSector = NULL;
+	}
 }
 
 void GameBoard::draw(SDL_Renderer* gRenderer) {
@@ -140,16 +135,16 @@ void GameBoard::draw(SDL_Renderer* gRenderer) {
 	for (unsigned int i = 0; i < numberSectors.size(); ++i) {
 		numberSectors[i]->draw(gRenderer);
 	}
-	typeSectors[0]->draw(gRenderer);
-	typeSectors[1]->draw(gRenderer);
-	colorSectors[0]->draw(gRenderer);
-	colorSectors[1]->draw(gRenderer);
-	halfSectors[0]->draw(gRenderer);
-	halfSectors[1]->draw(gRenderer);
+	for (int i = 0; i < 2; ++i) {
+		typeSectors[i]->draw(gRenderer);
+		halfSectors[i]->draw(gRenderer);
+		colorSectors[i]->draw(gRenderer);
+	}
 }
 
 bool GameBoard::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
 	bool success = true;
+	stringstream ss;
 	for (unsigned int i = 0; i < numberSectors.size(); ++i) {
 		if (numberSectors[i]->getColor() == RedColor) {
 			if (numberSectors[i]->loadFromFile(gRenderer,
@@ -167,16 +162,24 @@ bool GameBoard::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
 				success = false;
 			}
 		}
+		ss << i;
+		numberSectors[i]->setRenderedText(gRenderer,ss.str());
+		ss.str("");
 	}
 	success = colorSectors[0]->loadFromFile(gRenderer,
 			"Roulette/BigBlackSector.png");
-	success = colorSectors[1]->loadFromFile(gRenderer, "Roulette/BigRedSector.png");
-	success = typeSectors[0]->loadFromFile(gRenderer, "Roulette/BigGreenSector.png");
-	success = typeSectors[1]->loadFromFile(gRenderer,
-			"Roulette/BigGreenSector.png");
-	success = halfSectors[0]->loadFromFile(gRenderer, "Roulette/BigGreenSector.png");
-	success = halfSectors[1]->loadFromFile(gRenderer,
-			"Roulette/BigGreenSector.png");
+	success = colorSectors[1]->loadFromFile(gRenderer,
+			"Roulette/BigRedSector.png");
+	for (int i = 0; i < 2; ++i) {
+		typeSectors[i]->loadFromFile(gRenderer,"Roulette/BigGreenSector.png");
+		typeSectors[i]->setRenderedText(gRenderer,
+				(typeSectors[i]->getType() == EvenType ? "EVEN" : "ODD"));
+		halfSectors[i]->loadFromFile(gRenderer,"Roulette/BigGreenSector.png");
+		halfSectors[i]->setRenderedText(gRenderer,
+				(halfSectors[i]->getHalf() == LowHalf ? "1 - 18" : "19 - 36"));
+		colorSectors[i]->setRenderedText(gRenderer,
+				(colorSectors[i]->getColor() == BlackColor ? "BLACK" : "RED"));
+	}
 	return (IRendable::loadFromFile(gRenderer, path) && success);
 }
 
@@ -259,8 +262,7 @@ void GameObjects::GameBoard::initSectorPositions() {
 	int counter = 0;
 	numberSectors[0]->setX(x);
 	numberSectors[0]->setY(y);
-	numberSectors[0]->textRect.y = y + 75;
-	numberSectors[0]->textRect.x = x + 15;
+	numberSectors[0]->setTextRectSize(x + 20, y + 75, 10, 24);
 	for (unsigned int i = 1; i < numberSectors.size(); ++i) {
 		if (counter % 3 == 0) {
 			x += numberSectors[i - 1]->getWidth();
@@ -270,20 +272,36 @@ void GameObjects::GameBoard::initSectorPositions() {
 				- ((counter + 1) * numberSectors[0]->getHeight() / 3);
 		numberSectors[i]->setX(x);
 		numberSectors[i]->setY(y);
-		numberSectors[i]->textRect.x = x + 15;
-		numberSectors[i]->textRect.y = y + 17;
+		if (i < 10) {
+			numberSectors[i]->setTextRectSize(x + 20, y + 17, 10, 24);
+		} else {
+			numberSectors[i]->setTextRectSize(x + 15, y + 17, 20, 24);
+		}
 		counter++;
 	}
 	halfSectors[0]->setX(this->getX() + numberSectors[0]->getWidth());
 	halfSectors[0]->setY(this->getY() + numberSectors[0]->getHeight());
+	halfSectors[0]->setTextRectSize(halfSectors[0]->getX() + 20,
+			halfSectors[0]->getY() + 17, 60, 24);
 	typeSectors[1]->setX(halfSectors[0]->getX() + halfSectors[0]->getWidth());
 	typeSectors[1]->setY(halfSectors[0]->getY());
+	typeSectors[1]->setTextRectSize(typeSectors[1]->getX() + 30,
+			typeSectors[1]->getY() + 17, 40, 24);
 	colorSectors[1]->setX(typeSectors[1]->getX() + typeSectors[1]->getWidth());
 	colorSectors[1]->setY(halfSectors[0]->getY());
-	colorSectors[0]->setX(colorSectors[1]->getX() + colorSectors[1]->getWidth());
+	colorSectors[1]->setTextRectSize(colorSectors[1]->getX() + 35,
+			colorSectors[1]->getY() + 17, 30, 24);
+	colorSectors[0]->setX(
+			colorSectors[1]->getX() + colorSectors[1]->getWidth());
 	colorSectors[0]->setY(halfSectors[0]->getY());
+	colorSectors[0]->setTextRectSize(colorSectors[0]->getX() + 20,
+			colorSectors[0]->getY() + 17, 60, 24);
 	typeSectors[0]->setX(colorSectors[0]->getX() + colorSectors[0]->getWidth());
 	typeSectors[0]->setY(halfSectors[0]->getY());
+	typeSectors[0]->setTextRectSize(typeSectors[0]->getX() + 35,
+			typeSectors[0]->getY() + 17, 30, 24);
 	halfSectors[1]->setX(typeSectors[0]->getX() + typeSectors[0]->getWidth());
 	halfSectors[1]->setY(halfSectors[0]->getY());
+	halfSectors[1]->setTextRectSize(halfSectors[1]->getX() + 15,
+			halfSectors[1]->getY() + 17, 70, 24);
 }

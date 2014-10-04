@@ -27,7 +27,6 @@ public:
 	int collectWinings();
 	void clearAllBets();
 	virtual void free();
-	int getAllBetValue() const;
 	NumberSector* getWiningNumberSector() const;
 	void setWiningNumberSector(short winingNumber);
 	virtual bool loadFromFile(SDL_Renderer* gRenderer, std::string path);
@@ -44,7 +43,6 @@ private:
 	HalfSector * halfSectors[2];
 	ColorSector * colorSectors[2];
 	NumberSector* winingNumberSector;
-	int allBetValue;
 	const static int ROULETTESIZE = 37;
 	const static Color rouletteSectorColors[ROULETTESIZE];
 

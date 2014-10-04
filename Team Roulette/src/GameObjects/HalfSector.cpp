@@ -9,7 +9,8 @@
 
 namespace GameObjects {
 
-HalfSector::HalfSector(Half half) {
+HalfSector::HalfSector(Half half)
+	:IRendable(){
 	this->half = half;
 	this->halfBet = 0;
 }

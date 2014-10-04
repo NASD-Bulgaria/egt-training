@@ -15,6 +15,7 @@ IRendable::IRendable(int x, int y, int width, int height) {
 	rect.w = width;
 	rect.h = height;
 	mTexture = NULL;
+	textTexture = NULL;
 }
 
 IRendable::~IRendable() {
@@ -51,13 +52,18 @@ int IRendable::getY() const {
 
 void IRendable::draw(SDL_Renderer* gRenderer, double angle, SDL_Point* center,
 		SDL_RendererFlip flip) {
-	SDL_RenderCopyEx(gRenderer, mTexture, NULL, &rect,angle,center, flip);
+	SDL_RenderCopyEx(gRenderer, mTexture, NULL, &rect,angle, center, flip);
+	SDL_RenderCopyEx(gRenderer, textTexture , NULL, &textRect, angle, center, flip);
 }
 
 void IRendable::free() {
 	if (mTexture) {
 		SDL_DestroyTexture(mTexture);
 		mTexture = NULL;
+	}
+	if (textTexture) {
+		SDL_DestroyTexture(textTexture);
+		textTexture = NULL;
 	}
 }
 
@@ -83,6 +89,7 @@ bool IRendable::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
 	this->setWidth(loadedSurface->w);
 	this->setHeight(loadedSurface->h);
 	SDL_FreeSurface(loadedSurface);
+	loadedSurface = NULL;
 	return mTexture != NULL;
 }
 
@@ -93,4 +100,28 @@ bool IRendable::isClicked(int x, int y) {
 	}
 	return false;
 }
+
+void IRendable::setTextRectSize(int x, int y, int w, int h) {
+	textRect.x = x;
+	textRect.y = y;
+	textRect.w = w;
+	textRect.h = h;
+}
+
+void IRendable::setRenderedText(SDL_Renderer* gRenderer, string text, Uint8 r, Uint8 g, Uint8 b) {
+	SDL_Surface * loadedSurface = NULL;
+	TTF_Font * font = TTF_OpenFont("Roulette/luximb.ttf", 24);
+	if (textTexture != NULL) {
+		SDL_DestroyTexture(textTexture);
+		textTexture = NULL;
+	}
+	SDL_Color color = {r,g,b};
+	loadedSurface = TTF_RenderText_Solid(font, text.c_str(),color);
+	textTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+	TTF_CloseFont(font);
+	font = NULL;
+	SDL_FreeSurface(loadedSurface);
+	loadedSurface = NULL;
+}
+
 } /* namespace GameObjects */

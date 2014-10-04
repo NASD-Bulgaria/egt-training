@@ -35,12 +35,16 @@ public:
 	int getWidth() const;
 	void setWidth(int width);
 	int getX() const;
-	void setX(int x);
+	virtual void setX(int x);
 	int getY() const;
-	void setY(int y);
+	virtual void setY(int y);
+	void setTextRectSize(int x, int y, int w, int h);
+	void setRenderedText(SDL_Renderer* gRenderer, string text, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
 protected:
 	SDL_Texture * mTexture;
+	SDL_Texture * textTexture;
+	SDL_Rect textRect;
 	SDL_Rect rect;
 
 };
