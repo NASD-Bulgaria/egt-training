@@ -13,6 +13,7 @@
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <stdio.h>
 
@@ -21,7 +22,7 @@ namespace GameObjects {
 
 class IRendable {
 public:
-	IRendable(int x = 0, int y = 0, int width = 0, int height = 0);
+	IRendable(int x = 0, int y = 0);
 	virtual bool loadFromFile(SDL_Renderer* gRenderer, std::string path);
 	virtual ~IRendable();
 	virtual void draw(SDL_Renderer*, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
@@ -35,11 +36,16 @@ public:
 	int getWidth() const;
 	void setWidth(int width);
 	int getX() const;
-	virtual void setX(int x);
 	int getY() const;
-	virtual void setY(int y);
-	void setTextRectSize(int x, int y, int w, int h);
-	void setRenderedText(SDL_Renderer* gRenderer, string text, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
+	virtual void setPosition(int x, int y);
+	void setTextRectX(int x);
+	void setTextRectY(int y);
+	void setTextRectW(int w);
+	void setTextRectH(int h);
+	int getTextRectX();
+	int getTextRectY();
+	void setRenderedText(SDL_Renderer* gRenderer, string text, int size = 24,
+			Uint8 r = 255, Uint8 g = 255, Uint8 b = 255,string fontPath = "Roulette/rio.ttf");
 
 protected:
 	SDL_Texture * mTexture;

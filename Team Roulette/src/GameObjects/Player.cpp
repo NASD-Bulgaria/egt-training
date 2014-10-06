@@ -9,93 +9,37 @@
 
 namespace GameObjects {
 
-Player::Player(int balance) {
+Player::Player(int balance)
+	:BET_AMOUNT(5){
 	this->balance = balance;
 	totalBet = 0;
-	oldBet = 0;
-	colorBet = NULL;
-	numberBet = NULL;
-	typeBet = NULL;
-	halfBet = NULL;
 }
 
 void Player::addToBalance(int amount) {
 	this->balance += amount;
 }
 
-NumberBet * Player::createNumberBet(short number,int amount) {
-	if (this->creditBalance(amount)) {
-		numberBet->setCredits(amount);
-		numberBet->setNumber(number);
-		totalBet += amount;
-		return numberBet;
+Bet * Player::createNumberBet() {
+	if (totalBet + BET_AMOUNT <= balance) {
+		increaseBet();
+		return new Bet(36, BET_AMOUNT);
 	}
 	return NULL;
 }
 
-ColorBet * Player::createColorBet(Color color,int amount) {
-	if (this->creditBalance(amount)) {
-		colorBet->setColor(color);
-		colorBet->setCredits(amount);
-		totalBet += amount;
-		return colorBet;
-	}
-	return NULL;
-}
-
-TypeBet * Player::createTypeBet(Type type, int amount) {
-	if (this->creditBalance(amount)) {
-		typeBet->setCredits(amount);
-		typeBet->setType(type);
-		totalBet += amount;
-		return typeBet;
-	}
-	return NULL;
-}
-
-HalfBet * Player::createHalfBet(Half half, int amount) {
-	if (this->creditBalance(amount)) {
-		halfBet->setCredits(amount);
-		halfBet->setHalf(half);
-		totalBet += amount;
-		return halfBet;
+Bet * Player::createNormalBet() {
+	if (totalBet + BET_AMOUNT <= balance) {
+		increaseBet();
+		return new Bet(2, BET_AMOUNT);
 	}
 	return NULL;
 }
 
 Player::~Player() {
-	if (numberBet) {
-		numberBet->free();
-		delete numberBet;
-		numberBet = NULL;
-	}
-	if (typeBet) {
-		typeBet->free();
-		delete typeBet;
-		typeBet = NULL;
-	}
-	if (halfBet) {
-		halfBet->free();
-		delete halfBet;
-		halfBet = NULL;
-	}
-	if (colorBet) {
-		colorBet->free();
-		delete colorBet;
-		colorBet = NULL;
-	}
 }
 
 int Player::getBalance() {
 	return balance;
-}
-
-int Player::getTotalBet() const {
-	return totalBet;
-}
-
-void Player::resetBet() {
-	this->totalBet = 0;
 }
 
 bool Player::creditBalance(int amount) {
@@ -107,27 +51,22 @@ bool Player::creditBalance(int amount) {
 	return false;
 }
 
-bool Player::initPlayer(SDL_Renderer* gRenderer,
-		std::string betImgPath) {
-	bool success = true;
+void Player::increaseBet() {
+	totalBet += BET_AMOUNT;
+}
+
+void Player::decreaseBet() {
+	if (totalBet - BET_AMOUNT >= 0) {
+		totalBet -= BET_AMOUNT;
+	}
+}
+
+int Player::getTotalBet() {
+	return totalBet;
+}
+
+void Player::clearBet() {
 	totalBet = 0;
-	colorBet = new ColorBet(RedColor, 5);
-	typeBet = new TypeBet(EvenType, 5);
-	halfBet = new HalfBet(LowHalf, 5);
-	numberBet = new NumberBet(0, 5);
-	success = success & colorBet->loadFromFile(gRenderer, betImgPath);
-	success = success & typeBet->loadFromFile(gRenderer, betImgPath);
-	success = success & halfBet->loadFromFile(gRenderer, betImgPath);
-	success = success & numberBet->loadFromFile(gRenderer, betImgPath);
-	return success;
-}
-
-int Player::getOldBet() const {
-	return oldBet;
-}
-
-void Player::setOldBet(int oldBet) {
-	this->oldBet = oldBet;
 }
 
 }

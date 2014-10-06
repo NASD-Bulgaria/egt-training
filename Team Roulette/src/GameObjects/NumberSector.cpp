@@ -9,10 +9,12 @@
 
 namespace GameObjects {
 
-NumberSector::NumberSector(short number, Color color, Type type, Half half) :
-		IRendable(), ColorSector(color), TypeSector(type), HalfSector(half){
+NumberSector::NumberSector(short number, Color color, Type type, Half half)
+	:Sector(){
 	this->number = number;
-	this->numberBet = 0;
+	this->color = color;
+	this->half = half;
+	this->type = type;
 }
 
 NumberSector::~NumberSector() {
@@ -23,36 +25,26 @@ short NumberSector::getNumber() const {
 	return number;
 }
 
-void NumberSector::placeNumberBet(NumberBet * numberBet) {
-	this->numberBet = numberBet;
+bool NumberSector::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
+	bool success = IRendable::loadFromFile(gRenderer, path);
+	stringstream ss;
+	ss<< getNumber();
+	setRenderedText(gRenderer, ss.str());
+	ss.str("");
+	ss.clear();
+	return success;
 }
 
-void NumberSector::free() {
-	ColorSector::free();
-	TypeSector::free();
-	HalfSector::free();
-	if (numberBet) {
-		numberBet->free();
-	}
-	IRendable::free();
+Color NumberSector::getColor() const {
+	return color;
 }
 
-void NumberSector::draw(SDL_Renderer* gRenderer) {
-	IRendable::draw(gRenderer);
-	if (this->numberBet) {
-		this->numberBet->setX(
-				this->getX()
-						+ (this->getWidth() - this->numberBet->getWidth()) / 2);
-		this->numberBet->setY(
-				this->getY()
-						+ (this->getHeight() - this->numberBet->getHeight())
-								/ 2);
-		this->numberBet->draw(gRenderer);
-	}
+Half NumberSector::getHalf() const {
+	return half;
 }
 
-NumberBet* NumberSector::getNumberBet(){
-	return numberBet;
+Type NumberSector::getType() const {
+	return type;
 }
 
 }

@@ -42,19 +42,11 @@ IRendable gSpinLocked;
 IRendable gClearButton;
 IRendable gClearDefault;
 IRendable gClearLocked;
-IRendable gNumber;
-IRendable gWin;
-IRendable gBet;
-IRendable gBalance;
 IRendable gArrow;
 IRendable gMusicPic;
 IRendable gNoMusicPic;
-IRendable gMusicDefault;
-IRendable gInfo;
-IRendable gStat;
 IRendable gInfoBackground;
 IRendable gBack;
-IRendable gAbout;
 IRendable gStartScreen;
 IRendable gPlayButton;
 IRendable gPlayerStat;
@@ -62,7 +54,6 @@ IRendable gGetChips;
 IRendable gHomeDefault;
 IRendable gHome;
 IRendable gHomeLocked;
-IRendable gFxDefault;
 IRendable gFxPic;
 IRendable gNoFxPic;
 IRendable gCursorDefault;
@@ -72,8 +63,8 @@ IRendable gLast10;
 GameBoard board;
 RouletteWheel wheel;
 Player player(1000);
-RouletteApplication app(&board, &player, &wheel, &gBet, & gWin, & gBalance);
-Statistics gameStatistics("stats.txt", 1000);
+RouletteApplication app(&wheel, &board, &player);
+Statistics gameStatistics("stats.txt",1000);
 
 int main(int argc, char* args[])
 {
@@ -95,21 +86,16 @@ int main(int argc, char* args[])
 
 	//x,y  mouse
 	int x, y;
-	int winningNum = -1;
-
-	app.board->initSectorPositions();
 	stringstream ss;
+	gameStatistics.read(gRenderer);
 	//While application is running
 	while (!quit)
 	{
 		//Handle mouse cursor
 		SDL_GetMouseState(&cX, &cY);
-		gCursorDefault.setX(cX);
-		gCursorDefault.setY(cY);
-		gCursor.setX(cX);
-		gCursor.setY(cY);
-		gCursorClicked.setX(cX);
-		gCursorClicked.setY(cY);
+		gCursorDefault.setPosition(cX, cY);
+		gCursor.setPosition(cX, cY);
+		gCursorClicked.setPosition(cX, cY);
 
 		//Handle events on queue
 		while (SDL_PollEvent(&e) != 0)
@@ -173,7 +159,7 @@ int main(int argc, char* args[])
 					//Info button
 					if (info)
 					{
-						if (gInfo.isClicked(x, y))
+						if (app.infoButtons[3].isClicked(x, y))
 						{
 							if (fx)
 							{
@@ -187,27 +173,25 @@ int main(int argc, char* args[])
 					//Statistics button
 					if (stat)
 					{
-						if (gStat.isClicked(x, y))
+						if (app.infoButtons[2].isClicked(x, y))
 						{
 							if (fx)
 							{
 								Mix_PlayChannel(0, gInfoFx, 0);
 							}
-
 							stat = false;
-							gameStatistics.read(gRenderer);
 						}
 					}
 
 					//Music button
 					if (info && stat)
 					{
-						if (gMusicDefault.isClicked(x, y))
+						if (app.infoButtons[0].isClicked(x, y))
 						{
 
 							if (music)
 							{
-								gMusicDefault = gNoMusicPic;
+								app.infoButtons[0] = gNoMusicPic;
 								Mix_PauseMusic();
 								music = false;
 
@@ -221,7 +205,7 @@ int main(int argc, char* args[])
 									Mix_PlayChannel(0, gPlay, 0);
 								}
 
-								gMusicDefault = gMusicPic;
+								app.infoButtons[0] = gMusicPic;
 								Mix_ResumeMusic();
 								music = true;
 							}
@@ -230,12 +214,12 @@ int main(int argc, char* args[])
 						//FX button
 						if (info && stat)
 						{
-							if (gFxDefault.isClicked(x, y))
+							if (app.infoButtons[1].isClicked(x, y))
 							{
 
 								if (fx)
 								{
-									gFxDefault = gNoFxPic;
+									app.infoButtons[1] = gNoFxPic;
 									fx = false;
 
 								}
@@ -244,13 +228,13 @@ int main(int argc, char* args[])
 								{
 									Mix_PlayChannel(0, gPlay, 0);
 
-									gFxDefault = gFxPic;
+									app.infoButtons[1] = gFxPic;
 									fx = true;
 								}
 							}
 
 							//About button
-							if (gAbout.isClicked(x, y))
+							if (app.infoButtons[4].isClicked(x, y))
 							{
 								if (fx)
 								{
@@ -266,21 +250,20 @@ int main(int argc, char* args[])
 							if (app.wheel->getSpinSpeed() == Stoped)
 							{
 								//Spin button
-								if (gSpinButton.isClicked(x, y) && (app.player->getTotalBet() || app.player->getOldBet()))
+								if (gSpinButton.isClicked(x, y) && app.player->getTotalBet())
 								{
 									if (fx)
 									{
 										Mix_PlayChannel(0, gSpinFx, 0);
 									}
-
+									app.player->creditBalance(player.getTotalBet());
 									//Lock Buttons
 									gHomeDefault = gHomeLocked;
 									gClearDefault = gClearLocked;
 									gSpinDefault = gSpinLocked;
 
-									app.player->creditBalance(app.player->getOldBet());
 									app.wheel->initiate();
-									winningNum = -1;
+									app.board->setWiningNumberSector(app.wheel->getWiningNumber());
 									break;
 								}
 
@@ -293,10 +276,9 @@ int main(int argc, char* args[])
 									}
 									if (app.player->getTotalBet()) {
 										app.player->addToBalance(app.player->getTotalBet());
-										app.player->setOldBet(0);
 									}
+									app.player->clearBet();
 									app.board->clearAllBets();
-									app.player->resetBet();
 								}
 
 								//Chip Sound
@@ -308,7 +290,7 @@ int main(int argc, char* args[])
 									}
 								}
 
-								app.handleBetCreation(x, y);
+								app.handleMouseEvent(e.button,gRenderer);
 							}
 
 						}
@@ -341,37 +323,27 @@ int main(int argc, char* args[])
 				Mix_PlayChannel(-1, gTick, 0);
 			}
 
-		}
-
-		else if (app.wheel->getWiningNumber() != -1)
-		{
-			if (winningNum != app.wheel->getWiningNumber())
-			{
-
+		} else if (app.wheel->getWiningNumber() != -1) {
 				//Unlock Buttons
 				gHomeDefault = gHome;
 				gClearDefault = gClearButton;
 				gSpinDefault = gSpinButton;
-
-				winningNum = app.wheel->getWiningNumber();
-				app.board->setWiningNumberSector(winningNum);
+				app.board->setWiningNumberSector(app.wheel->getWiningNumber());
 				app.player->addToBalance(app.board->collectWinings());
-				gameStatistics.write(winningNum,
+				gameStatistics.write(app.wheel->getWiningNumber(),
 						app.board->getWiningNumberSector()->getColor(),
 						app.player->getTotalBet(),
 						app.board->collectWinings(), app.player->getBalance());
-				ss << winningNum;
-				gNumber.setRenderedText(gRenderer, ss.str());
-				gNumber.setTextRectSize(
-						gNumber.getX() + (gNumber.getWidth() - (ss.str().length() * 20)) / 2,
-						gNumber.getY() + (gNumber.getHeight() - 34 ) / 2,
-						ss.str().length() * 20, 34);
+				gameStatistics.read(gRenderer);
+				if (app.player->getBalance() == 0) {
+					app.board->clearAllBets();
+					app.player->clearBet();
+				}
+				app.wheel->resetWiningNumber();
 				ss.str("");
-				app.player->setOldBet(app.player->getTotalBet());
-				app.player->resetBet();
-			}
 		}
 
+		app.changeInfoValues(gRenderer);
 		//Clear screen
 		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(gRenderer);
@@ -393,17 +365,16 @@ int main(int argc, char* args[])
 				gWheel.draw(gRenderer, wheel.getCurrentDegrees());
 				gSpinDefault.draw(gRenderer);
 				gClearDefault.draw(gRenderer);
-				app.changeInfoValues(gRenderer);
 				gArrow.draw(gRenderer);
 				app.board->draw(gRenderer);
-				gMusicDefault.draw(gRenderer);
-				gStat.draw(gRenderer);
-				gInfo.draw(gRenderer);
-				gAbout.draw(gRenderer);
+				for (unsigned int i = 0; i < app.infoButtons.size(); ++i) {
+					app.infoButtons[i].draw(gRenderer);
+				}
+				for (unsigned int i = 0; i < app.infoFields.size(); ++i) {
+					app.infoFields[i].draw(gRenderer);
+				}
 				gHomeDefault.draw(gRenderer);
-				gFxDefault.draw(gRenderer);
-				gLast10.draw(gRenderer);
-				gNumber.draw(gRenderer);
+				gameStatistics.drawLast10(gRenderer, &gLast10);
 			}
 
 			if (!info)
@@ -417,7 +388,6 @@ int main(int argc, char* args[])
 			{
 				gameStatistics.draw(gRenderer);
 				gBack.draw(gRenderer);
-
 			}
 		}
 
@@ -480,20 +450,11 @@ bool loadMedia()
 	gClearDefault.loadFromFile(gRenderer, "Roulette/clear_button.png");
 	gClearButton.loadFromFile(gRenderer, "Roulette/clear_button.png");
 	gClearLocked.loadFromFile(gRenderer, "Roulette/clear_button_pressed.png");
-	gNumber.loadFromFile(gRenderer, "Roulette/number_from_roulette.png");
-	gWin.loadFromFile(gRenderer, "Roulette/winning_amount.png");
-	gBet.loadFromFile(gRenderer, "Roulette/total_bet.png");
-	gBalance.loadFromFile(gRenderer, "Roulette/balance_amount.png");
 	gArrow.loadFromFile(gRenderer, "Roulette/arrow.png");
-	player.initPlayer(gRenderer, "Roulette/chip_on_table.png");
-	gMusicDefault.loadFromFile(gRenderer, "Roulette/music.png");
 	gMusicPic.loadFromFile(gRenderer, "Roulette/music.png");
 	gNoMusicPic.loadFromFile(gRenderer, "Roulette/nomusic.png");
-	gInfo.loadFromFile(gRenderer, "Roulette/info.png");
-	gStat.loadFromFile(gRenderer, "Roulette/stat.png");
 	gInfoBackground.loadFromFile(gRenderer, "Roulette/instruction.png");
 	gBack.loadFromFile(gRenderer, "Roulette/back.png");
-	gAbout.loadFromFile(gRenderer, "Roulette/about.png");
 	gStartScreen.loadFromFile(gRenderer, "Roulette/startscreen.png");
 	gPlayButton.loadFromFile(gRenderer, "Roulette/play.png");
 	gPlayerStat.loadFromFile(gRenderer, "Roulette/playerstat.png");
@@ -502,45 +463,34 @@ bool loadMedia()
 	gHome.loadFromFile(gRenderer, "Roulette/home.png");
 	gHomeLocked.loadFromFile(gRenderer, "Roulette/home_pressed.png");
 	gameStatistics.loadFromFile(gRenderer, "Roulette/statistics.png");
-	gFxDefault.loadFromFile(gRenderer, "Roulette/fx.png");
 	gFxPic.loadFromFile(gRenderer, "Roulette/fx.png");
 	gNoFxPic.loadFromFile(gRenderer, "Roulette/nofx.png");
 	gCursorDefault.loadFromFile(gRenderer, "Roulette/cursor.png");
 	gCursor.loadFromFile(gRenderer, "Roulette/cursor.png");
 	gCursorClicked.loadFromFile(gRenderer, "Roulette/cursorclicked.png");
 	gLast10.loadFromFile(gRenderer, "Roulette/last10.png");
+	app.init(gRenderer);
 
 	return success;
 }
 
 void close()
 {
-	board.clearAllBets();
-	app.board->free();
 	gTable.free();
 	gWheel.free();
 	gSpinButton.free();
 	gClearButton.free();
-	gNumber.free();
-	gWin.free();
-	gBet.free();
-	gBalance.free();
 	gArrow.free();
 	gMusicPic.free();
 	gNoMusicPic.free();
-	gMusicDefault.free();
-	gInfo.free();
-	gStat.free();
 	gInfoBackground.free();
 	gBack.free();
-	gAbout.free();
 	gameStatistics.free();
 	gStartScreen.free();
 	gPlayButton.free();
 	gPlayerStat.free();
 	gGetChips.free();
 	gHome.free();
-	gFxDefault.free();
 	gFxPic.free();
 	gNoFxPic.free();
 	gLast10.free();
@@ -560,66 +510,25 @@ void close()
 
 void initPositions()
 {
-	gWheel.setX(80);
-	gWheel.setY(101);
-	gSpinDefault.setX(1040);
-	gSpinDefault.setY(396);
-	gSpinButton.setX(1040);
-	gSpinButton.setY(396);
-	gSpinLocked.setX(1040);
-	gSpinLocked.setY(396);
-	gClearDefault.setX(440);
-	gClearDefault.setY(396);
-	gClearButton.setX(440);
-	gClearButton.setY(396);
-	gClearLocked.setX(440);
-	gClearLocked.setY(396);
-	gBet.setX(720);
-	gBet.setY(395);
-	gWin.setX(560);
-	gWin.setY(395);
-	gBalance.setX(877);
-	gBalance.setY(395);
-	gArrow.setX(185);
-	gArrow.setY(40);
-	gMusicDefault.setX(1112);
-	gMusicDefault.setY(30);
-	gMusicPic.setX(1112);
-	gMusicPic.setY(30);
-	gNoMusicPic.setX(1112);
-	gNoMusicPic.setY(30);
-	gStat.setX(1112);
-	gStat.setY(141);
-	gInfo.setX(1112);
-	gInfo.setY(197);
-	gAbout.setX(1112);
-	gAbout.setY(253);
-	gameStatistics.setX(0);
-	gameStatistics.setY(0);
-	gBack.setX(1135);
-	gBack.setY(5);
-	gStartScreen.setX(0);
-	gStartScreen.setY(0);
-	gPlayButton.setX(950);
-	gPlayButton.setY(395);
-	gPlayerStat.setX(450);
-	gPlayerStat.setY(280);
-	gGetChips.setX(40);
-	gGetChips.setY(395);
-	gHomeDefault.setX(298);
-	gHomeDefault.setY(395);
-	gHome.setX(298);
-	gHome.setY(395);
-	gHomeLocked.setX(298);
-	gHomeLocked.setY(395);
-	gFxDefault.setX(1112);
-	gFxDefault.setY(85);
-	gFxPic.setX(1112);
-	gFxPic.setY(85);
-	gNoFxPic.setX(1112);
-	gNoFxPic.setY(85);
-	gLast10.setX(395);
-	gLast10.setY(315);
-	gNumber.setX(gLast10.getX() + gLast10.getWidth());
-	gNumber.setY(gLast10.getY());
+	gWheel.setPosition(80,101);
+	gSpinDefault.setPosition(1040,396);
+	gSpinButton.setPosition(1040,396);
+	gSpinLocked.setPosition(1040,396);
+	gClearDefault.setPosition(440,396);
+	gClearButton.setPosition(440,396);
+	gClearLocked.setPosition(440,396);
+	gArrow.setPosition(185,40);
+	gMusicPic.setPosition(1112,30);
+	gNoMusicPic.setPosition(1112,30);
+	gBack.setPosition(1135, 5);
+	gPlayButton.setPosition(950, 395);
+	gPlayerStat.setPosition(450,280);
+	gGetChips.setPosition(40,395);
+	gHomeDefault.setPosition(298,395);
+	gHome.setPosition(298,395);
+	gHomeLocked.setPosition(298,395);
+	gFxPic.setPosition(1112,85);
+	gNoFxPic.setPosition(1112,85);
+	gLast10.setPosition(395,315);
+	app.board->setPosition(456,58);
 }

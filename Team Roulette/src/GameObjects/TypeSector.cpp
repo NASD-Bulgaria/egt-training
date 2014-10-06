@@ -10,9 +10,8 @@
 namespace GameObjects {
 
 TypeSector::TypeSector(Type type)
-	:IRendable() {
+	:Sector(){
 	this->type = type;
-	this->typeBet = 0;
 }
 
 TypeSector::~TypeSector() {
@@ -23,30 +22,12 @@ Type TypeSector::getType() const {
 	return type;
 }
 
+bool TypeSector::loadFromFile(SDL_Renderer* gRenderer,
+		std::string path) {
+	bool success = IRendable::loadFromFile(gRenderer, path);
+	string text = getType() == EvenType? "EVEN" : "ODD";
+	setRenderedText(gRenderer, text);
+	return success;
+}
+
 } /* namespace GameObjects */
-
-void GameObjects::TypeSector::placeTypeBet(TypeBet* typeBet) {
-		this->typeBet = typeBet;
-}
-
-void GameObjects::TypeSector::free() {
-	if (typeBet) {
-		typeBet->free();
-	}
-	IRendable::free();
-}
-
-void GameObjects::TypeSector::draw(SDL_Renderer* gRenderer) {
-	IRendable::draw(gRenderer);
-
-	if (this->typeBet) {
-		this->typeBet->setX(
-				this->getX()
-						+ (this->getWidth() - this->typeBet->getWidth()) / 2);
-		this->typeBet->setY(
-				this->getY()
-						+ (this->getHeight() - this->typeBet->getHeight())
-								/ 2);
-		this->typeBet->draw(gRenderer);
-	}
-}

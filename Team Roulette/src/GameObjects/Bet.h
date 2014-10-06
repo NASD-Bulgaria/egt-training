@@ -17,11 +17,14 @@ namespace GameObjects {
 
 class Bet : public IRendable{
 public:
-	Bet(int winCoef, int credits = 5);
+	Bet(int winCoef, int credits);
 	virtual ~Bet();
 	int getCoef();
 	int getCredits();
-	void setCredits(int credits);
+	void setCredits(int amount);
+	virtual bool loadFromFile(SDL_Renderer* gRenderer, std::string path);
+	void increaseCredits(int amount);
+	bool decreaseCredits(int amount);
 private:
 	int winCoef;
 	int credits;

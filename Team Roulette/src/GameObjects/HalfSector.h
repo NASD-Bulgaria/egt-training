@@ -8,13 +8,13 @@
 #ifndef HALFSECTOR_H_
 #define HALFSECTOR_H_
 
-#include "HalfBet.h"
+#include "Sector.h"
 
 namespace GameObjects {
 
 #include "EnumTypes.h"
 
-class HalfSector : public virtual IRendable{
+class HalfSector : public Sector{
 	friend class GameBoard;
 	friend class RouletteApplication;
 
@@ -22,12 +22,10 @@ public:
 	HalfSector(Half half);
 	virtual ~HalfSector();
 	Half getHalf() const;
-	void placeHalfBet(HalfBet * halfBet);
 	virtual void free();
-	virtual void draw(SDL_Renderer * gRenderer);
+	virtual bool loadFromFile(SDL_Renderer* gRenderer, std::string path);
 private:
 	Half half;
-	HalfBet * halfBet;
 };
 
 } /* namespace GameObjects */

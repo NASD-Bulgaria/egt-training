@@ -10,7 +10,9 @@
 
 #include <vector>
 #include "NumberSector.h"
-#include "IRendable.h"
+#include "TypeSector.h"
+#include "HalfSector.h"
+#include "ColorSector.h"
 
 namespace GameObjects {
 
@@ -20,33 +22,28 @@ public:
 	GameBoard();
 	virtual ~GameBoard();
 	const std::vector<NumberSector*>& getNumberSectors() const;
-	void placeHalfBet(HalfBet& halfBet);
-	void placeTypeBet(TypeBet& typeBet);
-	void placeNumberBet(NumberBet& numberBet);
-	void placeColorBet(ColorBet& colorBet);
 	int collectWinings();
 	void clearAllBets();
-	virtual void free();
 	NumberSector* getWiningNumberSector() const;
 	void setWiningNumberSector(short winingNumber);
+	virtual void free();
 	virtual bool loadFromFile(SDL_Renderer* gRenderer, std::string path);
 	virtual void draw(SDL_Renderer *);
-	NumberSector * getClickedSector(int x, int y);
-	TypeSector * getClickedTypeSector(int x, int y);
-	HalfSector * getClickedHalfSector(int x, int y);
-	ColorSector * getClickedColorSector(int x, int y);
-	void initSectorPositions();
+	virtual void setPosition(int x, int y);
+	bool anyBetPlaced();
 
 private:
-	std::vector<NumberSector*> numberSectors;
-	TypeSector * typeSectors[2];
-	HalfSector * halfSectors[2];
-	ColorSector * colorSectors[2];
+	vector<NumberSector*> numberSectors;
+	vector<Sector*> betSectors;
+	vector<Sector*> allSectors;
+	vector<TypeSector*> getTypeSectors();
+	vector<HalfSector*> getHalfSectors();
+	vector<ColorSector*> getColorSectors();
 	NumberSector* winingNumberSector;
 	const static int ROULETTESIZE = 37;
 	const static Color rouletteSectorColors[ROULETTESIZE];
-
 	void initNumberSectors();
+	void initBetSectors();
 };
 
 } /* namespace GameObjects */

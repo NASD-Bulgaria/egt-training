@@ -36,36 +36,22 @@ bool Statistics::write(short num, Color color, int totalBet, int winings,
 }
 
 void Statistics::read(SDL_Renderer* gRenderer) {
-	destroyTextures();
 	string line;
-	SDL_Surface * textSurface = NULL;
-	TTF_Font * font = TTF_OpenFont("Roulette/luximb.ttf", 16);
-	SDL_Color color = { 0xFF, 0xFF, 0xFF };
-	int index = 0;
-	int counter = 0;
+	unsigned int counter = 1;
 	stringstream ss;
 	if (initiateStream()) {
 		while (getline(stream, line)) {
 			ss <<setfill(' ') << setw(4) << counter;
-			textSurface = TTF_RenderText_Solid(font, (ss.str() + line).data(),color);
-			textTextures.push_back(
-					SDL_CreateTextureFromSurface(gRenderer, textSurface));
-			SDL_FreeSurface(textSurface);
-			line.erase(0, index + 1);
+			if (counter > lines.size()) {
+				lines.push_back(ss.str() + line);
+			}
 			ss.str("");
 			counter++;
 		}
-		ss<<setw(14)<<"Number"<<setw(10)<<"Color"<<setw(14)<<"Total Bet"<<setw(14)<<
-				"Win/Loss" << setw(15) <<"Bet Yield" << setw(15) << "Capital Yield";
-		textSurface = TTF_RenderText_Solid(font, ss.str().data(),color);
-		textTextures.push_back(
-				SDL_CreateTextureFromSurface(gRenderer, textSurface));
-		SDL_FreeSurface(textSurface);
 		stream.close();
+		initRenderedLines(gRenderer);
+		initLast10(gRenderer);
 	}
-	TTF_CloseFont(font);
-	font = NULL;
-	textSurface = NULL;
 }
 
 bool Statistics::initiateStream() {
@@ -84,22 +70,14 @@ double Statistics::calcDeviateBet(int totalBet, int winings) {
 
 void Statistics::draw(SDL_Renderer* gRenderer, double angle, SDL_Point* center,
 		SDL_RendererFlip flip) {
-	int x = 156;
-	int y = 136;
-	SDL_Rect rect = { x, y, 840, 24 };
-	int lowLimit = 0;
-	if (textTextures.size() > 11) {
-		lowLimit = textTextures.size() - 11;
-	}
 	IRendable::draw(gRenderer);
-	for (int i = textTextures.size() - 1; i >= lowLimit; i--) {
-		SDL_RenderCopy(gRenderer, textTextures[i], NULL, &rect);
-		rect.y += rect.h;
+	for (unsigned int i = 0; i < renderedLines.size() ; i++) {
+		renderedLines[i]->draw(gRenderer);
 	}
 }
 
 void Statistics::free() {
-	destroyTextures();
+	destroyRendererdLines();
 	IRendable::free();
 }
 
@@ -107,12 +85,85 @@ double Statistics::calcDeviateCapital(int currentBalance) {
 	return (currentBalance / double(initialAmount) * 100) - 100;
 }
 
-void Statistics::destroyTextures() {
-	for (unsigned int i = 0; i < textTextures.size(); ++i) {
-		if (textTextures[i]) {
-			SDL_DestroyTexture(textTextures[i]);
-			textTextures[i] = NULL;
+void Statistics::initRenderedLines(SDL_Renderer* gRenderer) {
+	int y = 136;
+	stringstream ss;
+	destroyRendererdLines();
+	IRendable* renderedLine = new IRendable();
+	ss<<setw(3)<<"Nr."<<setw(11)<<"Number"<<setw(10)<<"Color"<<setw(14)<<"Total Bet"<<setw(14)<<
+			"Win/Loss" << setw(15) <<"Bet-Yield" << setw(15) << "Total-Gain";
+	renderedLine->setRenderedText(gRenderer, ss.str(), 24, 253, 221, 175);
+	renderedLine->setTextRectX(getX() + (getWidth() - ss.str().length()* 11)/2);
+	renderedLine->setTextRectY(y);
+	y += 24;
+	renderedLines.push_back(renderedLine);
+	ss.str("");
+	ss.clear();
+
+	int lowLimit = lines.size() > 10 ? lines.size() - 10 : 0;
+	for (int i = lines.size() - 1; i >= lowLimit; i--) {
+		renderedLine = new IRendable();
+		renderedLine->setRenderedText(gRenderer, lines[i], 24, 253, 221, 175);
+		renderedLine->setTextRectX(getX() + (getWidth() - lines[i].length()* 11) / 2);
+		renderedLine->setTextRectY(y);
+		y += 24;
+		renderedLines.push_back(renderedLine);
+		renderedLine = NULL;
+	}
+}
+
+void Statistics::destroyRendererdLines() {
+	while(renderedLines.size() > 0){
+		renderedLines.back()->free();
+		delete renderedLines.back();
+		renderedLines.back() = NULL;
+		renderedLines.pop_back();
+	}
+}
+
+void Statistics::initLast10(SDL_Renderer * gRenderer) {
+	destroyLast10();
+	int lowLimit = lines.size() > 11 ? lines.size() - 11 : 0;
+	int g = 0;
+	IRendable* value;
+	string num;
+	for (int i = lines.size() - 1; i >= lowLimit; i--) {
+		value = new IRendable();
+		g = 5;
+		while(!isdigit(lines[i][g])){
+			g++;
 		}
-		textTextures.pop_back();
+		value->loadFromFile(gRenderer,"Roulette/transparent.png");
+		num = lines[i].substr(g, lines[i].find(' ', g) - g);
+		if (lines[i].find("Red") != string::npos) {
+			value->setRenderedText(gRenderer, num, 51, 255, 0, 0);
+		} else if (lines[i].find("Black") != string::npos){
+			value->setRenderedText(gRenderer, num, 51, 120, 120, 120);
+		} else {
+			value->setRenderedText(gRenderer, num, 51, 0, 255, 0);
+		}
+		last10.push_back(value);
+	}
+}
+
+void Statistics::drawLast10(SDL_Renderer* gRenderer,IRendable* container) {
+	container->draw(gRenderer);
+	if (last10.size() > 0) {
+		last10[0]->setPosition(container->getX() +
+				container->getWidth() - last10[0]->getWidth(), container->getY());
+		last10[0]->draw(gRenderer);
+	}
+	for (unsigned int i = 1; i < last10.size(); ++i) {
+		last10[i]->setPosition(last10[i-1]->getX() - last10[i]->getWidth(), container->getY());
+		last10[i]->draw(gRenderer);
+	}
+}
+
+void Statistics::destroyLast10() {
+	while(last10.size() > 0){
+		last10.back()->free();
+		delete last10.back();
+		last10.back() = NULL;
+		last10.pop_back();
 	}
 }

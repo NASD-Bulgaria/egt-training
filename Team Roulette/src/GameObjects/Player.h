@@ -8,10 +8,7 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include "NumberBet.h"
-#include "ColorBet.h"
-#include "TypeBet.h"
-#include "HalfBet.h"
+#include "Bet.h"
 #include <String>
 
 namespace GameObjects {
@@ -22,26 +19,18 @@ public:
 	Player(int balance);
 	void addToBalance(int amount);
 	bool creditBalance(int amount);
-	bool initPlayer(SDL_Renderer*, std::string betImgPath);
-	NumberBet * createNumberBet(short number, int amount);
-	ColorBet * createColorBet(Color color, int amount);
-	TypeBet* createTypeBet(Type type, int amount);
-	HalfBet* createHalfBet(Half half, int amount);
+	Bet * createNumberBet();
+	Bet * createNormalBet();
 	int getBalance();
 	virtual ~Player();
-	int getTotalBet() const;
-	void resetBet();
-	int getOldBet() const;
-	void setOldBet(int oldBet);
-
+	const int BET_AMOUNT;
+	void increaseBet();
+	void decreaseBet();
+	int getTotalBet();
+	void clearBet();
 private:
 	int balance;
 	int totalBet;
-	int oldBet;
-	ColorBet * colorBet;
-	NumberBet * numberBet;
-	TypeBet * typeBet;
-	HalfBet * halfBet;
 };
 
 } /* namespace GameObjects */

@@ -17,18 +17,26 @@ namespace GameObjects {
 
 class RouletteApplication {
 public:
-	RouletteApplication(GameBoard* board, Player* player, RouletteWheel* wheel,
-			IRendable* bet, IRendable* win, IRendable* balance);
+	RouletteApplication(RouletteWheel* wheel, GameBoard* board, Player* player);
 	virtual ~RouletteApplication();
-	void handleBetCreation(int mouseX, int mouseY);
+	void handleMouseEvent(SDL_MouseButtonEvent e, SDL_Renderer* gRenderer);
 	void loadMedia();
-	void init();
+	void init(SDL_Renderer * gRenderer);
 	void changeInfoValues(SDL_Renderer* gRenderer);
 //private:
 	RouletteWheel* wheel;
 	GameBoard* board;
 	Player* player;
-	IRendable* infoFields[3];
+	vector<IRendable> infoFields;
+	vector<IRendable> infoButtons;
+	vector<IRendable> rouletteButtons;
+	IRendable lastNumbers;
+	IRendable winnNumber;
+	void handleBetCreation(int x, int y, SDL_Renderer* gRenderer);
+	void handleBetDeletion(int x, int y, SDL_Renderer* gRenderer);
+	void initInfoButtons(SDL_Renderer* gRenderer);
+	void intiRouletteButtons(SDL_Renderer* gRenderer);
+	void initInfoFields(SDL_Renderer* gRenderer);
 };
 
 } /* namespace GameObjects */

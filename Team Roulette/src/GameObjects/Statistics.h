@@ -12,7 +12,6 @@
 #include <iomanip>
 using namespace GameObjects;
 using namespace std;
-
 class Statistics : public IRendable
 {
 public:
@@ -22,16 +21,23 @@ public:
 	virtual ~Statistics();
 	virtual void draw(SDL_Renderer*, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	virtual void free();
+	void drawLast10(SDL_Renderer * gRenderer, IRendable* container);
+
 private:
 	string path;
 	const int initialAmount;
 	fstream stream;
-	vector<SDL_Texture*> textTextures;
+	vector<string> lines;
+	vector<IRendable*> renderedLines;
 	bool initiateStream();
 	string colors[3];
 	double calcDeviateBet(int totalBet, int winings);
 	double calcDeviateCapital(int currentBalance);
-	void destroyTextures();
+	void initRenderedLines(SDL_Renderer* gRenderer);
+	void destroyRendererdLines();
+	vector<IRendable*> last10;
+	void initLast10(SDL_Renderer * gRenderer);
+	void destroyLast10();
 };
 
 #endif /* STATISTICS_H_ */

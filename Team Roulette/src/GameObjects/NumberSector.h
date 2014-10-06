@@ -8,19 +8,12 @@
 #ifndef NUMBERSECTOR_H_
 #define NUMBERSECTOR_H_
 
-#include "ColorSector.h"
-#include "TypeSector.h"
-#include "HalfSector.h"
-#include "NumberBet.h"
-#include "IRendable.h"
+#include "Sector.h"
 #include <sstream>
 
 namespace GameObjects {
 
-class NumberSector : virtual public IRendable,
-					 public ColorSector,
-					 public TypeSector,
-					 public HalfSector{
+class NumberSector : public Sector{
 
 	friend class GameBoard;
 	friend class RouletteApplication;
@@ -29,15 +22,16 @@ public:
 	NumberSector(short number, Color color, Type type, Half half);
 	~NumberSector();
 	short getNumber() const;
-	void placeNumberBet(NumberBet * numberBet);
-	virtual void free();
-	virtual void draw(SDL_Renderer * gRenderer);
-	NumberBet* getNumberBet();
+	virtual bool loadFromFile(SDL_Renderer* gRenderer, std::string path);
+	Color getColor() const;
+	Half getHalf() const;
+	Type getType() const;
 
 private:
 	short number;
-	NumberBet * numberBet;
-	SDL_Rect textRect;
+	Color color;
+	Type type;
+	Half half;
 };
 
 } /* namespace GameObjects */

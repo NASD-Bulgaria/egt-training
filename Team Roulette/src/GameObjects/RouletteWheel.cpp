@@ -35,7 +35,7 @@ void RouletteWheel::spin() {
 		if(currentDegrees >= 360 - (360 / 37.0 / 2.0)){
 			currentNumberIndex = 0;
 		} else {
-			for (int i = 0; i < 36; ++i) {
+			for (int i = 0; i < 37; ++i) {
 				if (currentDegrees <= numbersDegrees[i][1]) {
 					currentNumberIndex = i;
 					break;

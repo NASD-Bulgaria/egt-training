@@ -10,9 +10,8 @@
 namespace GameObjects {
 
 HalfSector::HalfSector(Half half)
-	:IRendable(){
+	:Sector(){
 	this->half = half;
-	this->halfBet = 0;
 }
 
 HalfSector::~HalfSector() {
@@ -23,30 +22,16 @@ Half HalfSector::getHalf() const {
 	return half;
 }
 
-void HalfSector::placeHalfBet(HalfBet * halfBet) {
-	this->halfBet = halfBet;
-}
-
-void GameObjects::HalfSector::free() {
-	if (halfBet) {
-		halfBet->free();
-	}
+void HalfSector::free() {
+	Sector::free();
 	IRendable::free();
 }
 
-void HalfSector::draw(SDL_Renderer* gRenderer) {
-	IRendable::draw(gRenderer);
-
-	if (this->halfBet) {
-		this->halfBet->setX(
-				this->getX()
-						+ (this->getWidth() - this->halfBet->getWidth()) / 2);
-		this->halfBet->setY(
-				this->getY()
-						+ (this->getHeight() - this->halfBet->getHeight())
-								/ 2);
-		this->halfBet->draw(gRenderer);
-	}
+bool HalfSector::loadFromFile(SDL_Renderer* gRenderer,
+		std::string path) {
+	bool success = IRendable::loadFromFile(gRenderer, path);
+	string text = getHalf() == LowHalf? "1 - 18" : "19 - 36";
+	setRenderedText(gRenderer, text);
+	return success;
 }
-
 } /* namespace GameObjects */
