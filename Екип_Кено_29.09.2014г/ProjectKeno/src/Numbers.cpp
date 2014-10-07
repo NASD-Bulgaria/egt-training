@@ -2,7 +2,7 @@
 #include <algorithm>
 
 //vector<int> randoms;
-
+static const int SIZE = 81;
 Numbers::Numbers(vector<int> userSelects)
 {
 	for(unsigned int i = 0; i < userSelects.size(); i++)
@@ -28,16 +28,22 @@ void Numbers::setRandomPicks()
 
 
 
-int Numbers::getHits() const
+int Numbers::getHits()
 {
 	int hits=0;
 	for (int i = 0; i < SIZE; i++) {
 		if (numbers.test(i) & randomPicks.test(i)) {
 			hits++;
+			numbOfHit.push_back(i);
 		}
 	}
 
 	return hits;
+}
+
+vector<int> Numbers::getNumbOfHit()
+{
+	return numbOfHit;
 }
 
 void Numbers::printRandom()
@@ -51,11 +57,6 @@ void Numbers::printRandom()
 	}
 
 	random_shuffle(randoms.begin(), randoms.end() );
-
-	for(unsigned int i = 0; i < randoms.size(); i++)
-	{
-		cout << randoms[i] << " ";
-	}
 }
 
 void Numbers::printSelects()
@@ -77,6 +78,14 @@ void Numbers::clearReset()
 		randomPicks.reset();
 		randoms.clear();
 
+}
+
+void Numbers::clearNumOfHit() {
+	numbOfHit.clear();
+}
+
+bitset<SIZE> Numbers::getRandomPicks(){
+	return randomPicks;
 }
 
 vector<int> Numbers::getRandoms()

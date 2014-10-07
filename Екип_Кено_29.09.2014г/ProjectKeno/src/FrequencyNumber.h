@@ -19,8 +19,10 @@ public:
 	void clear();
 
 private:
+
 	vector<int>numb;
 	vector<int>freq;
+
 	map<int, int> numberFrequency;
 	static bool pairComparer(pair<int,int> first, pair<int,int> second);
 

@@ -32,7 +32,7 @@ int Balance::getCredit() const
 void Balance::calculateWin(int spots , int catches, const int coefficient[][11])
 {
 
-	credit = credit + (coefficient[spots][catches] * 10);
+	this->credit = credit + (coefficient[spots][catches] * 10);
 }
 
 void Balance::setCredit() {

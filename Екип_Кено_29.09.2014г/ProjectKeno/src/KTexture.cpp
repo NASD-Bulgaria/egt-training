@@ -67,23 +67,7 @@ void KTexture::free()
 	}
 }
 
-void KTexture::setColor( Uint8 red, Uint8 green, Uint8 blue )
-{
-	//Modulate texture rgb
-	SDL_SetTextureColorMod( mTexture, red, green, blue );
-}
 
-void KTexture::setBlendMode( SDL_BlendMode blending )
-{
-	//Set blending function
-	SDL_SetTextureBlendMode( mTexture, blending );
-}
-
-void KTexture::setAlpha( Uint8 alpha )
-{
-	//Modulate texture alpha
-	SDL_SetTextureAlphaMod( mTexture, alpha );
-}
 
 void KTexture::render(SDL_Renderer* gRenderer, int x, int y, SDL_Rect* clip )
 {
@@ -106,6 +90,26 @@ void KTexture::button(SDL_Renderer* gRender, int destX, int destY, int srcW,
 {
 	SDL_Rect src =
 	{ 0, 0, 216, 216 };
+	SDL_Rect dest =
+	{ destX, destY, srcW, srcH };
+	SDL_RenderCopy(gRender, mTexture, &src, &dest);
+}
+
+void KTexture::buttonClear(SDL_Renderer* gRender, int destX, int destY, int srcW,
+		int srcH)
+{
+	SDL_Rect src =
+	{ 0, 0, 143, 117 };
+	SDL_Rect dest =
+	{ destX, destY, srcW, srcH };
+	SDL_RenderCopy(gRender, mTexture, &src, &dest);
+}
+
+void KTexture::buttonQuickPick(SDL_Renderer* gRender, int destX, int destY, int srcW,
+		int srcH)
+{
+	SDL_Rect src =
+	{ 0, 0, 95, 54 };
 	SDL_Rect dest =
 	{ destX, destY, srcW, srcH };
 	SDL_RenderCopy(gRender, mTexture, &src, &dest);
@@ -184,3 +188,23 @@ void KTexture::renderText(SDL_Renderer* gRenderer, int x, int y)
 	SDL_RenderCopy( gRenderer, mTexture, NULL, &renderQuad);
 
 }
+
+
+
+void KTexture::ballRender(SDL_Renderer* gRender, int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
+{
+	//Set rendering space and render to screen
+	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
+
+	//Set clip rendering dimensions
+	if( clip != NULL )
+	{
+		renderQuad.w = clip->w;
+		renderQuad.h = clip->h;
+	}
+
+	//Render to screen
+	SDL_RenderCopyEx( gRender, mTexture, clip, &renderQuad, angle, center, flip );
+}
+
+

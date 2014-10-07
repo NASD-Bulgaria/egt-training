@@ -19,7 +19,9 @@ public:
 	Numbers(vector<int>);
 	virtual ~Numbers();
 
-	int getHits() const;
+	int getHits();
+	void clearNumOfHit();
+	vector<int> getNumbOfHit();
 	void setRandomPicks();
 
 	void printRandom();
@@ -27,6 +29,7 @@ public:
 	void printSelects();
 	void clearReset();
 	vector<int> getRandoms();
+	bitset<SIZE> getRandomPicks();
 
 private:
 
@@ -34,6 +37,7 @@ private:
 	bitset<SIZE> randomPicks;
 	vector<int> randoms;
 	int hits;
+	vector<int> numbOfHit;
 
 };
 
