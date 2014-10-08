@@ -1,10 +1,3 @@
-/*
- * Recovery.cpp
- *
- *  Created on: 20.09.2014 ã.
- *      Author: Admin
- */
-
 #include "Recovery.h"
 
 Recovery::Recovery(int a)

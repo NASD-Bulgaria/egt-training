@@ -85,7 +85,7 @@ void KTexture::render(SDL_Renderer* gRenderer, int x, int y, SDL_Rect* clip )
 	SDL_RenderCopy(gRenderer, mTexture, clip, &renderQuad );
 }
 
-void KTexture::button(SDL_Renderer* gRender, int destX, int destY, int srcW,
+void KTexture::buttonPlay(SDL_Renderer* gRender, int destX, int destY, int srcW,
 		int srcH)
 {
 	SDL_Rect src =
@@ -110,16 +110,6 @@ void KTexture::buttonQuickPick(SDL_Renderer* gRender, int destX, int destY, int 
 {
 	SDL_Rect src =
 	{ 0, 0, 95, 54 };
-	SDL_Rect dest =
-	{ destX, destY, srcW, srcH };
-	SDL_RenderCopy(gRender, mTexture, &src, &dest);
-}
-
-void KTexture::buttonMusic(SDL_Renderer* gRender, int destX, int destY, int srcW,
-		int srcH)
-{
-	SDL_Rect src =
-	{ 849, 609, 29, 31 };
 	SDL_Rect dest =
 	{ destX, destY, srcW, srcH };
 	SDL_RenderCopy(gRender, mTexture, &src, &dest);

@@ -24,33 +24,7 @@
 
 using namespace std;
 
-const int SCREEN_WIDTH = 878;
-const int SCREEN_HEIGHT = 640;
 
-const int FPS = 30;
-const int DELAY_TIME = 1000.0f / FPS;
-
-
-//ball Order Positions
-int ballX = 170;
-int ballY = 640;
-int ballX2 = 170;
-int ballY2 = 540;
-
-//first ball line
-int range = 540;
-
-//ball TTF position
-int moveX = 11;
-int moveY = 13;
-
-//winning ball animation
-int color = 1;
-int counter = 0;
-
-//paytable
-int hits = 0;
-int balanceCount = 0;
 
 bool isWin(int, int);
 bool screen = false;
@@ -67,6 +41,7 @@ void loadTTF();
 void payTable(int,int,int);
 void displayBalance(int);
 void displayStatistics(FrequencyNumber &, Statistics &);
+void alienAnimation();
 
 
 bool init();
@@ -82,6 +57,10 @@ SDL_Texture* background = NULL;
 const int LIGHTS_ANIMATION = 3;
 SDL_Rect gLightsClips[LIGHTS_ANIMATION];
 KTexture gLightsSheetTexture;
+
+const int ALIEN_ANIMATION = 2;
+SDL_Rect gAlienClips[ALIEN_ANIMATION];
+KTexture gAlienSheetTexture;
 
 KTexture infoButton;
 KTexture infoButton2;
@@ -218,22 +197,10 @@ int main(int args, char* argc[]){
 						hits = numb.getHits();
 						numboffhit = numb.getNumbOfHit();
 
-
-//						stats.setNumberOfGames(stats.getNumberOfGames() + 1);
-//						if (isWin(userSelects.size(), numb.getHits())) {
-//							stats.setWinningGames(stats.getWinningGames() + 1);
-//							stats.setMaxPayout((10 * (coefficient[userSelects.size()][numb.getHits()])));
-//						} else {
-//							stats.setLostGames(stats.getLostGames() + 1);
-//						}
-
 //						recover.setRecoveryBalance(credits.getCredit());
 
-						saveDataInFile(Logs, stats);
+//						saveDataInFile(Logs, stats);
 //						saveDataInFile(fileRecovery, recover);
-
-//						freq.setMap(numb.getRandoms());
-
 
 						randoms = numb.getRandoms();
 						numb.clearReset();
@@ -256,7 +223,7 @@ int main(int args, char* argc[]){
 						{
 							hits = 0;
 							ball = false;
-
+							index = 0;
 							if (gButtons[(y - 38) / Button::HEIGHT][(x - 218) / Button::WIDTH].Clicked)
 							{
 								gButtons[(y - 38) / Button::HEIGHT][(x - 218) / Button::WIDTH].setInitialColor();
@@ -379,7 +346,7 @@ int main(int args, char* argc[]){
 						}
 
 						//Help screens
-						if (x > 663 && x < 748 && y > 380 && y < 449) {
+						if (x > 663 && x < 721 && y > 380 && y < 435) {
 							help = true;
 							screen = true;
 						}
@@ -421,7 +388,7 @@ int main(int args, char* argc[]){
 
 				if (userSelects.size() >= 2 && screen == false)
 				{
-					playButton.button(gRenderer, 460, 385, 130, 132);
+					playButton.buttonPlay(gRenderer, 460, 385, 130, 132);
 				}
 
 				SDL_Rect* currentClip = &gLightsClips[frame / 30];
@@ -446,7 +413,7 @@ int main(int args, char* argc[]){
 				}
 
 				if (music == true) {
-					musicButton.button(gRenderer, 849, 0, 29, 31);
+					musicButton.buttonPlay(gRenderer, 849, 0, 29, 31);
 				}
 
 				if (help == false) {
@@ -507,6 +474,7 @@ int main(int args, char* argc[]){
 						stats.setLostGames(stats.getLostGames() + 1);
 					}
 					freq.setMap(randoms);
+					saveDataInFile(Logs, stats);
 				}
 
 				if (help == false && coefficient[userSelects.size()][hits] > 0 && index == 20 && counter > 0)
@@ -528,6 +496,10 @@ int main(int args, char* argc[]){
 					quickPickInactive.buttonQuickPick(gRenderer,331,457,95,54);
 				}
 
+				if (coefficient[userSelects.size()][hits] == 0 && index == 20)
+				{
+					alienAnimation();
+				}
 				//Update screen
 				SDL_RenderPresent(gRenderer);
 
@@ -821,6 +793,23 @@ bool loadMedia() {
 
 	}
 
+	if (!gAlienSheetTexture.loadFromFile(gRenderer, "Images/AliensPNG.png")) {
+		printf("Failed to load Lights animation texture!\n");
+		success = false;
+	} else {
+		//Set sprite clips
+		gAlienClips[0].x = 24;
+		gAlienClips[0].y = 0;
+		gAlienClips[0].w = 73;
+		gAlienClips[0].h = 76;
+
+		gAlienClips[1].x =120;
+		gAlienClips[1].y = 65;
+		gAlienClips[1].w = 73;
+		gAlienClips[1].h = 76;
+
+	}
+
 	gMainMelody = Mix_LoadMUS("Sounds/Keno_melody.mp3");
 	Mix_VolumeMusic(50);
 	if (gMainMelody == NULL) {
@@ -977,7 +966,8 @@ void loadTTF() {
 	int y = 41;
 
 	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 10; j++) {
+		for (int j = 0; j < 10; j++)
+		{
 			if (i > 0 && j == 0) {
 				x += 6;
 			}
@@ -1016,7 +1006,6 @@ void setInitialColor() {
 		for (int j = 0; j < 10; j++) {
 			gButtons[i][j].setInitialColor();
 			gButtons[i][j].Clicked = false;
-
 		}
 	}
 }
@@ -1177,7 +1166,6 @@ void ballsOrder(vector<int> randoms,int col,vector<int> v)
 				index++;
 				ballY = 640;
 				ballX += 55;
-
 			}
 	}
 	else
@@ -1275,4 +1263,21 @@ void close()
 	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
+}
+
+void alienAnimation()
+{
+	if (alienCount < 10) {
+		SDL_Rect* currentClip2 = &gAlienClips[0];
+		gAlienSheetTexture.render(gRenderer, 612, 266, currentClip2);
+		alienCount++;
+	}
+	if (alienCount >= 10 && alienCount < 20) {
+		SDL_Rect* currentClip3 = &gAlienClips[1];
+		gAlienSheetTexture.render(gRenderer, 615, 267, currentClip3);
+		alienCount++;
+	}
+	if (alienCount == 20) {
+		alienCount = 0;
+	}
 }

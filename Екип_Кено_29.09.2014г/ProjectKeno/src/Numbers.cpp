@@ -1,7 +1,6 @@
 #include "Numbers.h"
 #include <algorithm>
 
-//vector<int> randoms;
 static const int SIZE = 81;
 Numbers::Numbers(vector<int> userSelects)
 {
@@ -11,21 +10,16 @@ Numbers::Numbers(vector<int> userSelects)
 	}
 
 	setRandomPicks();
-
 }
 
 
 void Numbers::setRandomPicks()
 {
-
-
 	while (randomPicks.count() < 20)
 	{
 		this->randomPicks.set(1 + rand() % 80);
 	}
 }
-
-
 
 
 int Numbers::getHits()
@@ -59,17 +53,6 @@ void Numbers::printRandom()
 	random_shuffle(randoms.begin(), randoms.end() );
 }
 
-void Numbers::printSelects()
-{
-	for (int i = 0; i<SIZE; i++)
-	{
-		if (numbers[i])
-		{
-			cout << i << " ";
-		}
-	}
-	cout << endl;
-}
 
 void Numbers::clearReset()
 {
@@ -77,7 +60,6 @@ void Numbers::clearReset()
 		numbers.reset();
 		randomPicks.reset();
 		randoms.clear();
-
 }
 
 void Numbers::clearNumOfHit() {
@@ -93,8 +75,6 @@ vector<int> Numbers::getRandoms()
 	return randoms;
 }
 
-Numbers::~Numbers()
-{
-	// TODO Auto-generated destructor stub
+Numbers::~Numbers(){
 }
 

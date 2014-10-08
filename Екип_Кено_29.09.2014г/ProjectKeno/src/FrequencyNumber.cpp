@@ -31,9 +31,7 @@ void FrequencyNumber::printMap()
 		counter++;
 		numb.push_back(it->first);
 		freq.push_back(it->second);
-
 	}
-
 }
 
 void FrequencyNumber::setMapFromFile(map <int,int> fileMap)

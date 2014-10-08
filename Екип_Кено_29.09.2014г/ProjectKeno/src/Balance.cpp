@@ -8,10 +8,6 @@ Balance::Balance(int balance)
 	setFirstCredit(balance);
 }
 
-//Balance::Balance(int balance)
-//{
-//	this->credit = balance;
-//}
 
 void Balance::setFirstCredit(int first)
 {
@@ -40,7 +36,6 @@ void Balance::setCredit() {
 }
 
 Balance::~Balance() {
-	// TODO Auto-generated destructor stub
 }
 
 

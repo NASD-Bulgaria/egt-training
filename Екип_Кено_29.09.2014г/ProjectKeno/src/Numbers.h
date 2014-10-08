@@ -26,7 +26,6 @@ public:
 
 	void printRandom();
 
-	void printSelects();
 	void clearReset();
 	vector<int> getRandoms();
 	bitset<SIZE> getRandomPicks();

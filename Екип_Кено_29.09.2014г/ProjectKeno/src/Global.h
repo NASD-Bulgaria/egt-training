@@ -21,5 +21,35 @@ static int const coefficient[11][11] = { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										 {0, 0, 0, 1, 2, 4, 8, 20, 80, 1200, 0},
 										 {0, 0, 0, 1, 2, 3, 5, 10, 30, 600, 1800}};
 
+const int SCREEN_WIDTH = 878;
+const int SCREEN_HEIGHT = 640;
+
+const int FPS = 30;
+const int DELAY_TIME = 1000.0f / FPS;
+
+
+//ball Order Positions
+int ballX = 170;
+int ballY = 640;
+int ballX2 = 170;
+int ballY2 = 540;
+
+//first ball line
+int range = 540;
+
+//ball TTF position
+int moveX = 11;
+int moveY = 13;
+
+//winning ball animation
+int color = 1;
+int counter = 0;
+
+//paytable
+int hits = 0;
+int balanceCount = 0;
+
+//alien counter
+int alienCount =0;
 
 #endif

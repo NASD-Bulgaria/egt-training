@@ -1,10 +1,3 @@
-/*
- * Recovery.h
- *
- *  Created on: 20.09.2014 ã.
- *      Author: Admin
- */
-
 #ifndef RECOVERY_H_
 #define RECOVERY_H_
 

@@ -14,13 +14,9 @@ class KTexture
 {
 public:
 
-	//Initializes variables
+
 	KTexture();
-
-	//Deallocates memory
 	~KTexture();
-
-	//Loads image at specified path
 	bool loadFromFile(SDL_Renderer* gRenderer, std::string path );
 
 	//Deallocates texture
@@ -29,8 +25,7 @@ public:
 
 	//Renders texture at given point
 	void render(SDL_Renderer* gRenderer, int x, int y, SDL_Rect* clip = NULL );
-	void button(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);
-	void buttonMusic(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);
+	void buttonPlay(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);
 	void buttonClear(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);
 	void buttonQuickPick(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);
 	void help(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);

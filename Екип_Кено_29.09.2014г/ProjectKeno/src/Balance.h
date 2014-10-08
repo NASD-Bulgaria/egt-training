@@ -16,8 +16,7 @@ public:
 	void setFirstCredit(int);
 
 private:
-//	int numbersOfSpot;
-//	int hits;
+
 	int credit;
 
 };
