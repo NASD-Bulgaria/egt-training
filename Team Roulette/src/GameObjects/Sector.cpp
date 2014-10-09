@@ -14,7 +14,7 @@ Sector::Sector() {
 }
 
 Sector::~Sector() {
-	free();
+	this->free();
 }
 
 void Sector::placeBet(Bet* bet) {
@@ -24,8 +24,8 @@ void Sector::placeBet(Bet* bet) {
 void Sector::free() {
 	if (this->bet) {
 		this->bet->free();
+		this->bet = NULL;
 	}
-	this->bet = NULL;
 	IRendable::free();
 }
 

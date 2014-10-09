@@ -28,13 +28,13 @@ enum Half {
 };
 
 enum RouletteWheelState{
+	Stoped = 0,
 	ExtremlySlowSpin = 1,
 	VerySlowSpin = 2,
 	SlowSpin = 3,
 	NormalSpin = 4,
 	FastSpin = 5,
 	VeryFastSpin = 6,
-	Stoped = 7
 };
 }
 

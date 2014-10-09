@@ -2,42 +2,65 @@
 #define STATISTICS_H_
 
 #include <fstream>
-#include <iostream>
 #include <string>
 #include <vector>
 #include <cmath>
 #include "EnumTypes.h"
 #include "IRendable.h"
-#include <sstream>
 #include <iomanip>
+
 using namespace GameObjects;
 using namespace std;
-class Statistics : public IRendable
+
+struct PlayerRecord{
+	PlayerRecord(int index = 0, short num = 0, Color color = NoneColor, int totalBet = 0,
+			int winnings = 0, double deviateBet = 0,double deviateCapital = 0){
+		this->num = num;
+		this->color = color;
+		this->totalBet = totalBet;
+		this->winnings = winnings;
+		this->deviateBet = deviateBet;
+		this->deviateCapital = deviateCapital;
+		this->index = index;
+	}
+
+	int index;
+	short num;
+	Color color;
+	int totalBet;
+	int winnings;
+	double deviateBet;
+	double deviateCapital;
+};
+
+struct StatisticRecord{
+	StatisticRecord(short num = 0, Color color = NoneColor){
+		this->num = num;
+		this->color = color;
+	}
+	short num;
+	Color color;
+};
+
+class Statistics
 {
 public:
-	Statistics(string path = "", int initialAmount = 0);
-	bool write(short num, Color color, int totalBet, int winings, int currentBalance);
-	void read(SDL_Renderer* gRenderer);
+	Statistics(string rootDir = "", int initialAmount = 0);
+	void write(short num, Color color, int totalBet, int winings, int currentBalance);
+	void read();
 	virtual ~Statistics();
-	virtual void draw(SDL_Renderer*, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
-	virtual void free();
-	void drawLast10(SDL_Renderer * gRenderer, IRendable* container);
 
-private:
-	string path;
-	const int initialAmount;
+//private:
+	string rootDir;
+	string subDirs[2];
 	fstream stream;
-	vector<string> lines;
-	vector<IRendable*> renderedLines;
-	bool initiateStream();
-	string colors[3];
+	vector<StatisticRecord> lastTenNumbers;
+	vector<PlayerRecord> lastTenPlayerRecords;
 	double calcDeviateBet(int totalBet, int winings);
 	double calcDeviateCapital(int currentBalance);
-	void initRenderedLines(SDL_Renderer* gRenderer);
-	void destroyRendererdLines();
-	vector<IRendable*> last10;
-	void initLast10(SDL_Renderer * gRenderer);
-	void destroyLast10();
+	bool initiateStream(string subDir);
+	const int initialAmount;
+	static int numberCount [37];
 };
 
 #endif /* STATISTICS_H_ */

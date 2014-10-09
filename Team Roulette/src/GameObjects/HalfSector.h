@@ -22,7 +22,6 @@ public:
 	HalfSector(Half half);
 	virtual ~HalfSector();
 	Half getHalf() const;
-	virtual void free();
 	virtual bool loadFromFile(SDL_Renderer* gRenderer, std::string path);
 private:
 	Half half;

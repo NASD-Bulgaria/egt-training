@@ -25,7 +25,7 @@ public:
 	IRendable(int x = 0, int y = 0);
 	virtual bool loadFromFile(SDL_Renderer* gRenderer, std::string path);
 	virtual ~IRendable();
-	virtual void draw(SDL_Renderer*, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
+	virtual void draw(SDL_Renderer*, double = 0, SDL_RendererFlip = SDL_FLIP_NONE);
 	void setColor(Uint8 red, Uint8 green, Uint8 blue);
 	void setBlendMode(SDL_BlendMode blending);
 	void setAlpha(Uint8 alpha);

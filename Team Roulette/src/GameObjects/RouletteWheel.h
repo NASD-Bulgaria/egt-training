@@ -9,6 +9,7 @@
 #define ROULETTEWHEEL_H_
 
 #include "EnumTypes.h"
+#include "IRendable.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -16,25 +17,24 @@
 using namespace std;
 namespace GameObjects {
 
-class RouletteWheel {
+class RouletteWheel : public IRendable{
 	friend class RouletteApplication;
 public:
 	RouletteWheel();
 	void spin();
 	virtual ~RouletteWheel();
 	RouletteWheelState getSpinSpeed() const;
-	short getWiningNumber();
-	double getCurrentDegrees();
-	void resetWiningNumber();
+	virtual void draw(SDL_Renderer* gRenderer);
+	int getRadius();
+	int getXCenter();
+	int getYCenter();
+	double getSpinAngle();
 	void initiate();
 private:
 	RouletteWheelState spinSpeed;
-	double spinTime;
-	double speedInterval;
-	double currentDegrees;
-	short currentNumberIndex;
-
-	static double numbersDegrees[37][2];
+	double spinAngle;
+	double maxSpinAngle;
+	double spinInterval;
 };
 
 } /* namespace GameObjects */
