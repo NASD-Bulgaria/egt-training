@@ -1,0 +1,2767 @@
+# depslib dependency file v1.0
+1411912760 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<sstream>
+	<iostream>
+	<iomanip>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+
+1411812240 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1411622831 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\include\global.h
+	<SDL_ttf.h>
+
+1411812240 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\src\ltexture.cpp
+	"LTexture.h"
+
+1411735732 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1411592625 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\src\lwindow.cpp
+	"LWindow.h"
+
+1411311095 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\src\ltimer.cpp
+	"LTimer.h"
+
+1411311135 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\include\ltimer.h
+	<SDL.h>
+
+1411813995 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\src\lbutton.cpp
+	"LButton.h"
+
+1411818330 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\include\lbutton.h
+	"LTexture.h"
+
+1411537388 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\src\ltile.cpp
+	"LTile.h"
+
+1411537388 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1\include\ltile.h
+	<LTexture.h>
+
+1411813995 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\src\lbutton.cpp
+	"LButton.h"
+
+1411818330 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\include\lbutton.h
+	"LTexture.h"
+
+1411812240 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1411992171 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\include\global.h
+	<SDL_ttf.h>
+
+1411812240 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\src\ltexture.cpp
+	"LTexture.h"
+
+1411311095 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\src\ltimer.cpp
+	"LTimer.h"
+
+1411311135 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\include\ltimer.h
+	<SDL.h>
+
+1411592625 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\src\lwindow.cpp
+	"LWindow.h"
+
+1411735732 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412010246 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<sstream>
+	<iostream>
+	<iomanip>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+
+1412024047 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\src\lbutton.cpp
+	"LButton.h"
+
+1412023921 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\include\lbutton.h
+	"LTexture.h"
+
+1411812240 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1411992171 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\include\global.h
+	<SDL_ttf.h>
+
+1411812240 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\src\ltexture.cpp
+	"LTexture.h"
+
+1411311095 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\src\ltimer.cpp
+	"LTimer.h"
+
+1411311135 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\include\ltimer.h
+	<SDL.h>
+
+1411592625 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\src\lwindow.cpp
+	"LWindow.h"
+
+1411735732 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412026461 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<sstream>
+	<iostream>
+	<iomanip>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+
+1412000041 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<sstream>
+	<iostream>
+	<iomanip>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+
+1411735732 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1411992171 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\include\global.h
+	<SDL_ttf.h>
+
+1411311135 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\include\ltimer.h
+	<SDL.h>
+
+1411818330 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\include\lbutton.h
+	"LTexture.h"
+
+1411812240 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1411813995 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\src\lbutton.cpp
+	"LButton.h"
+
+1411812240 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\src\ltexture.cpp
+	"LTexture.h"
+
+1411311095 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\src\ltimer.cpp
+	"LTimer.h"
+
+1411592625 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\src\lwindow.cpp
+	"LWindow.h"
+
+1411991133 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\src\ltile.cpp
+	"LTile.h"
+
+1411991133 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.0\include\ltile.h
+	<LButton.h>
+
+1411991133 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\include\ltile.h
+	<LButton.h>
+
+1411991133 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.1\src\ltile.cpp
+	"LTile.h"
+
+1412023443 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\include\ltile.h
+	<LButton.h>
+
+1412026587 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.2\src\ltile.cpp
+	"LTile.h"
+
+1412024047 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\src\lbutton.cpp
+	"LButton.h"
+
+1412023921 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\include\lbutton.h
+	"LTexture.h"
+
+1411812240 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1411992171 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\include\global.h
+	<SDL_ttf.h>
+
+1411812240 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\src\ltexture.cpp
+	"LTexture.h"
+
+1412063704 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\src\ltile.cpp
+	"LTile.h"
+
+1412023443 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\include\ltile.h
+	<LButton.h>
+
+1411311095 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\src\ltimer.cpp
+	"LTimer.h"
+
+1411311135 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\include\ltimer.h
+	<SDL.h>
+
+1411592625 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\src\lwindow.cpp
+	"LWindow.h"
+
+1411735732 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412067110 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.4\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<sstream>
+	<iostream>
+	<iomanip>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+
+1412067110 source:c:\users\g.nyagolov\desktop\mahjong v.1.5\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<sstream>
+	<iostream>
+	<iomanip>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+
+1411735732 c:\users\g.nyagolov\desktop\mahjong v.1.5\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1411992171 c:\users\g.nyagolov\desktop\mahjong v.1.5\include\global.h
+	<SDL_ttf.h>
+
+1411311135 c:\users\g.nyagolov\desktop\mahjong v.1.5\include\ltimer.h
+	<SDL.h>
+
+1412023921 c:\users\g.nyagolov\desktop\mahjong v.1.5\include\lbutton.h
+	"LTexture.h"
+
+1411812240 c:\users\g.nyagolov\desktop\mahjong v.1.5\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412023443 c:\users\g.nyagolov\desktop\mahjong v.1.5\include\ltile.h
+	<LButton.h>
+
+1412024047 source:c:\users\g.nyagolov\desktop\mahjong v.1.5\src\lbutton.cpp
+	"LButton.h"
+
+1411812240 source:c:\users\g.nyagolov\desktop\mahjong v.1.5\src\ltexture.cpp
+	"LTexture.h"
+
+1412063704 source:c:\users\g.nyagolov\desktop\mahjong v.1.5\src\ltile.cpp
+	"LTile.h"
+
+1411311095 source:c:\users\g.nyagolov\desktop\mahjong v.1.5\src\ltimer.cpp
+	"LTimer.h"
+
+1411592625 source:c:\users\g.nyagolov\desktop\mahjong v.1.5\src\lwindow.cpp
+	"LWindow.h"
+
+1412143090 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<sstream>
+	<iostream>
+	<iomanip>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1411735732 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412096040 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\include\global.h
+	<SDL_ttf.h>
+
+1411311135 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\include\ltimer.h
+	<SDL.h>
+
+1412023921 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\include\lbutton.h
+	"LTexture.h"
+
+1411812240 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412023443 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\include\ltile.h
+	<LButton.h>
+
+1412024047 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\src\lbutton.cpp
+	"LButton.h"
+
+1411812240 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\src\ltexture.cpp
+	"LTexture.h"
+
+1412063704 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\src\ltile.cpp
+	"LTile.h"
+
+1411311095 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\src\ltimer.cpp
+	"LTimer.h"
+
+1411592625 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\src\lwindow.cpp
+	"LWindow.h"
+
+1412142909 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\src\board.cpp
+	"Board.h"
+	<ctime>
+	<cstdlib>
+	<algorithm>
+
+1412141044 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.5\include\board.h
+	<vector>
+	"LTile.h"
+	"Global.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\include\board.h
+	<stack>
+	<deque>
+	<vector>
+	"LTile.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\include\lbutton.h
+	"LTexture.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\include\global.h
+	<SDL_ttf.h>
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\src\lbutton.cpp
+	"LButton.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\src\ltexture.cpp
+	"LTexture.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\src\ltimer.cpp
+	"LTimer.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\include\ltimer.h
+	<SDL.h>
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\src\lwindow.cpp
+	"LWindow.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.1.8\main.cpp
+	<iomanip>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412237146 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\main.cpp
+	<iomanip>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\include\global.h
+	<SDL_ttf.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\include\ltimer.h
+	<SDL.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\include\lbutton.h
+	"LTexture.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412236575 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\include\board.h
+	<stack>
+	<deque>
+	<vector>
+	"LTile.h"
+
+1412237362 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\src\lbutton.cpp
+	"LButton.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\src\ltexture.cpp
+	"LTexture.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\src\ltimer.cpp
+	"LTimer.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.0\src\lwindow.cpp
+	"LWindow.h"
+
+1412266078 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\include\global.h
+	<SDL_ttf.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\include\ltimer.h
+	<SDL.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\include\lbutton.h
+	"LTexture.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412266282 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412266318 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412240816 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\src\lbutton.cpp
+	"LButton.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\src\ltexture.cpp
+	"LTexture.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\src\ltimer.cpp
+	"LTimer.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.1\src\lwindow.cpp
+	"LWindow.h"
+
+1412267350 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\include\global.h
+	<SDL_ttf.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\include\ltimer.h
+	<SDL.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\include\lbutton.h
+	"LTexture.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412268407 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412266318 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412240816 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\src\lbutton.cpp
+	"LButton.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\src\ltexture.cpp
+	"LTexture.h"
+
+1412268429 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\src\ltimer.cpp
+	"LTimer.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.2\src\lwindow.cpp
+	"LWindow.h"
+
+1412270117 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\include\global.h
+	<SDL_ttf.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\include\ltimer.h
+	<SDL.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\include\lbutton.h
+	"LTexture.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412268813 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412266318 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412240816 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\src\lbutton.cpp
+	"LButton.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\src\ltexture.cpp
+	"LTexture.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\src\ltimer.cpp
+	"LTimer.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\src\lwindow.cpp
+	"LWindow.h"
+
+1412268751 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.3\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412276108 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\include\global.h
+	<SDL_ttf.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\include\ltimer.h
+	<SDL.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\include\lbutton.h
+	"LTexture.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412272773 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412266318 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412240816 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\src\lbutton.cpp
+	"LButton.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\src\ltexture.cpp
+	"LTexture.h"
+
+1412276212 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\src\ltimer.cpp
+	"LTimer.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.4\src\lwindow.cpp
+	"LWindow.h"
+
+1412287533 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412285344 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\include\global.h
+	<SDL_ttf.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\include\ltimer.h
+	<SDL.h>
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\include\lbutton.h
+	"LTexture.h"
+
+1412235497 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412287533 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412266318 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412287485 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412278441 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\src\lbutton.cpp
+	"LButton.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\src\ltexture.cpp
+	"LTexture.h"
+
+1412287076 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\src\ltimer.cpp
+	"LTimer.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.5\src\lwindow.cpp
+	"LWindow.h"
+
+1412333609 source:c:\users\g.nyagolov\desktop\mahjong v.2.6\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412235497 c:\users\g.nyagolov\desktop\mahjong v.2.6\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412285344 c:\users\g.nyagolov\desktop\mahjong v.2.6\include\global.h
+	<SDL_ttf.h>
+
+1412235497 c:\users\g.nyagolov\desktop\mahjong v.2.6\include\ltimer.h
+	<SDL.h>
+
+1412235497 c:\users\g.nyagolov\desktop\mahjong v.2.6\include\lbutton.h
+	"LTexture.h"
+
+1412235497 c:\users\g.nyagolov\desktop\mahjong v.2.6\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412333597 c:\users\g.nyagolov\desktop\mahjong v.2.6\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412266318 c:\users\g.nyagolov\desktop\mahjong v.2.6\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412287485 source:c:\users\g.nyagolov\desktop\mahjong v.2.6\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412278441 source:c:\users\g.nyagolov\desktop\mahjong v.2.6\src\lbutton.cpp
+	"LButton.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\mahjong v.2.6\src\ltexture.cpp
+	"LTexture.h"
+
+1412333796 source:c:\users\g.nyagolov\desktop\mahjong v.2.6\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412235497 source:c:\users\g.nyagolov\desktop\mahjong v.2.6\src\ltimer.cpp
+	"LTimer.h"
+
+1412235497 source:c:\users\g.nyagolov\desktop\mahjong v.2.6\src\lwindow.cpp
+	"LWindow.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\last\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412328252 c:\users\g.nyagolov\desktop\last\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412335490 c:\users\g.nyagolov\desktop\last\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412322840 c:\users\g.nyagolov\desktop\last\include\lbutton.h
+	"LTexture.h"
+
+1412338418 c:\users\g.nyagolov\desktop\last\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412338399 c:\users\g.nyagolov\desktop\last\include\global.h
+	<SDL_ttf.h>
+
+1412338793 source:c:\users\g.nyagolov\desktop\last\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412338394 c:\users\g.nyagolov\desktop\last\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412338406 c:\users\g.nyagolov\desktop\last\include\ltimer.h
+	<SDL.h>
+
+1412333588 source:c:\users\g.nyagolov\desktop\last\src\lbutton.cpp
+	"LButton.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\last\src\ltexture.cpp
+	"LTexture.h"
+
+1412335458 source:c:\users\g.nyagolov\desktop\last\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412322856 source:c:\users\g.nyagolov\desktop\last\src\ltimer.cpp
+	"LTimer.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\last\src\lwindow.cpp
+	"LWindow.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412328252 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412335490 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412322840 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\include\lbutton.h
+	"LTexture.h"
+
+1412338418 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412338399 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\include\global.h
+	<SDL_ttf.h>
+
+1412333588 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\src\lbutton.cpp
+	"LButton.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\src\ltexture.cpp
+	"LTexture.h"
+
+1412335458 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\src\ltimer.cpp
+	"LTimer.h"
+
+1412338406 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\include\ltimer.h
+	<SDL.h>
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\src\lwindow.cpp
+	"LWindow.h"
+
+1412338394 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412346066 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.8\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412347448 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412338394 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412338399 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\include\global.h
+	<SDL_ttf.h>
+
+1412338406 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\include\ltimer.h
+	<SDL.h>
+
+1412322840 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\include\lbutton.h
+	"LTexture.h"
+
+1412338418 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	"Global.h"
+
+1412347026 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\include\ltile.h
+	"LButton.h"
+	"Global.h"
+	"LTexture.h"
+	<sstream>
+	<vector>
+	<stack>
+
+1412328252 c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\src\board.cpp
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<iostream>
+	"Board.h"
+
+1412333588 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\src\lbutton.cpp
+	"LButton.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\src\ltexture.cpp
+	"LTexture.h"
+
+1412347512 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\src\ltimer.cpp
+	"LTimer.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v.2.9\src\lwindow.cpp
+	"LWindow.h"
+
+1412366633 source:c:\users\g.nyagolov\desktop\mahjong v3.0\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<sstream>
+	<stdio.h>
+	<SDL_image.h>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412338394 c:\users\g.nyagolov\desktop\mahjong v3.0\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412363538 c:\users\g.nyagolov\desktop\mahjong v3.0\include\global.h
+	<SDL_ttf.h>
+
+1412338406 c:\users\g.nyagolov\desktop\mahjong v3.0\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\mahjong v3.0\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\mahjong v3.0\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412364774 c:\users\g.nyagolov\desktop\mahjong v3.0\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412363403 c:\users\g.nyagolov\desktop\mahjong v3.0\include\board.h
+	<stack>
+	<vector>
+	"LTile.h"
+
+1412366066 source:c:\users\g.nyagolov\desktop\mahjong v3.0\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412364010 source:c:\users\g.nyagolov\desktop\mahjong v3.0\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\mahjong v3.0\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364833 source:c:\users\g.nyagolov\desktop\mahjong v3.0\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412322856 source:c:\users\g.nyagolov\desktop\mahjong v3.0\src\ltimer.cpp
+	"LTimer.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\mahjong v3.0\src\lwindow.cpp
+	"LWindow.h"
+
+1412415889 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412363538 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\include\global.h
+	<SDL_ttf.h>
+
+1412364010 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\src\ltimer.cpp
+	"LTimer.h"
+
+1412338406 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\include\ltimer.h
+	<SDL.h>
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\src\lwindow.cpp
+	"LWindow.h"
+
+1412338394 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412431622 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<sstream>
+	<stdio.h>
+	<SDL_image.h>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\include\tile.h
+	"Global.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.1\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412447836 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<SDL_image.h>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412338394 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412363538 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\include\global.h
+	<SDL_ttf.h>
+
+1412338406 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\include\tile.h
+	"Global.h"
+
+1412446340 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412364010 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412443424 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\src\ltimer.cpp
+	"LTimer.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\src\lwindow.cpp
+	"LWindow.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.2\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412515902 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<SDL_image.h>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	<fstream>
+
+1412338394 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412363538 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\include\global.h
+	<SDL_ttf.h>
+
+1412338406 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\include\tile.h
+	"Global.h"
+
+1412446340 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412364010 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412443424 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\src\ltimer.cpp
+	"LTimer.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\src\lwindow.cpp
+	"LWindow.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.3\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412532734 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412338394 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412363538 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\include\global.h
+	<SDL_ttf.h>
+
+1412338406 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\include\tile.h
+	"Global.h"
+
+1412446340 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412364010 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412443424 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\src\ltimer.cpp
+	"LTimer.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\src\lwindow.cpp
+	"LWindow.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.4\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412600055 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LWindow.h"
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412338394 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412363538 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\include\global.h
+	<SDL_ttf.h>
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\include\tile.h
+	"Global.h"
+
+1412446340 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412364010 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\src\ltimer.cpp
+	"LTimer.h"
+
+1412322856 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\src\lwindow.cpp
+	"LWindow.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412589566 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412589318 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.5\include\animation.h
+	<LTexture.h>
+
+1412607429 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412338394 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\include\lwindow.h
+	<SDL.h>
+	"Global.h"
+
+1412363538 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\include\global.h
+	<SDL_ttf.h>
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\include\tile.h
+	"Global.h"
+
+1412589566 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412589318 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\include\animation.h
+	<LTexture.h>
+
+1412446340 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412364010 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.6+ap\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412621685 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412363538 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\include\global.h
+	<SDL_ttf.h>
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\include\tile.h
+	"Global.h"
+
+1412589566 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412589318 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\include\animation.h
+	<LTexture.h>
+
+1412446340 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412364010 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.7+ap\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412589566 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412589318 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\include\animation.h
+	<LTexture.h>
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412630724 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412627017 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\include\tile.h
+	"Global.h"
+
+1412628755 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\include\lbutton.h
+	"LTexture.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\src\ltimer.cpp
+	"LTimer.h"
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\include\ltimer.h
+	<SDL.h>
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412630642 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.8+ap\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+
+1412664413 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412630724 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\include\tile.h
+	"Global.h"
+
+1412627017 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412664381 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412661211 c:\users\g.nyagolov\desktop\sdlex\mahjong v3.9+ap\include\animation.h
+	<LTexture.h>
+
+1412682440 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412630724 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\include\tile.h
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\include\animation.h
+	<LTexture.h>
+
+1412683833 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412627017 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.0+ap\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412684130 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412630724 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\include\tile.h
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\include\animation.h
+	<LTexture.h>
+
+1412627017 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412684334 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.1\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412688807 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412700412 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\include\tile.h
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\include\animation.h
+	<LTexture.h>
+
+1412684334 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412627017 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.2\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412684334 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\include\animation.h
+	<LTexture.h>
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412700412 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412627017 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\include\tile.h
+	"Global.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\include\lbutton.h
+	"LTexture.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\src\ltimer.cpp
+	"LTimer.h"
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\include\ltimer.h
+	<SDL.h>
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412703603 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.3\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412706314 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412603722 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412700412 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412415568 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\include\tile.h
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\include\animation.h
+	<LTexture.h>
+
+1412684334 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412627017 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412603722 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.4\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412771467 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412770458 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412700412 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412771467 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\include\tile.h
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\include\animation.h
+	<LTexture.h>
+
+1412684334 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412771467 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412770458 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.5\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412806591 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412793492 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412700412 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412771467 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\include\tile.h
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\include\animation.h
+	<LTexture.h>
+
+1412684334 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412771467 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412793620 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.6\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412806591 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412793492 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\include\ltimer.h
+	<SDL.h>
+
+1412363570 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412700412 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412771467 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\include\tile.h
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\include\animation.h
+	<LTexture.h>
+
+1412771467 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412793620 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412840328 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.7\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412845515 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412793492 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\include\ltimer.h
+	<SDL.h>
+
+1412845550 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\include\lbutton.h
+	"LTexture.h"
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412700412 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412849560 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\include\tile.h
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\include\animation.h
+	<LTexture.h>
+
+1412848581 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412849560 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412793620 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.8\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412876686 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\include\animation.h
+	<LTexture.h>
+
+1412364189 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412700412 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412849560 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412849560 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\include\tile.h
+	"Global.h"
+
+1412630710 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412845550 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\include\lbutton.h
+	"LTexture.h"
+
+1412364171 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412793620 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\src\ltimer.cpp
+	"LTimer.h"
+
+1412793492 c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\include\ltimer.h
+	<SDL.h>
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
+1412876632 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v4.9\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412929888 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\main.cpp
+	<iostream>
+	<iomanip>
+	<map>
+	<set>
+	<sstream>
+	<stdio.h>
+	<fstream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"LTimer.h"
+	"LButton.h"
+	"LTile.h"
+	"Board.h"
+	"Animation.h"
+
+1412793492 c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\include\ltimer.h
+	<SDL.h>
+
+1412845550 c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\include\lbutton.h
+	"LTexture.h"
+
+1412928733 c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\include\ltexture.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1412424232 c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\include\ltile.h
+	"LButton.h"
+	"Global.h"
+
+1412700412 c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\include\global.h
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1412849560 c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\include\board.h
+	<stack>
+	<vector>
+	"Tile.h"
+
+1412415790 c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\include\tile.h
+	"Global.h"
+
+1412683186 c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\include\animation.h
+	<LTexture.h>
+
+1412876686 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\src\animation.cpp
+	"Animation.h"
+	<sstream>
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412849560 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\src\board.cpp
+	<ctime>
+	"Board.h"
+
+1412929132 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\src\lbutton.cpp
+	"LButton.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412928733 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\src\ltexture.cpp
+	"LTexture.h"
+	<SDL_image.h>
+	<stdio.h>
+	"Global.h"
+
+1412424243 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\src\ltile.cpp
+	"LTile.h"
+	<iostream>
+
+1412793620 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\src\ltimer.cpp
+	"LTimer.h"
+
+1412415731 source:c:\users\g.nyagolov\desktop\sdlex\mahjong v5.0\src\tile.cpp
+	"Tile.h"
+	<iostream>
+
