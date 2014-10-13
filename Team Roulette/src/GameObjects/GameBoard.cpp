@@ -9,7 +9,8 @@
 
 namespace GameObjects {
 
-GameBoard::GameBoard() {
+GameBoard::GameBoard(int x, int y)
+	:IRendable(x,y){
 	initNumberSectors();
 	initBetSectors();
 	winingNumberSector = NULL;

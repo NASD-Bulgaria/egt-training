@@ -9,7 +9,8 @@
 
 namespace GameObjects {
 
-RouletteWheel::RouletteWheel() {
+RouletteWheel::RouletteWheel(int x, int y)
+	:IRendable(x, y){
 	spinSpeed = Stoped;
 	spinAngle = 0;
 	maxSpinAngle = 0;

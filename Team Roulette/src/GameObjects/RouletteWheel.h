@@ -20,7 +20,7 @@ namespace GameObjects {
 class RouletteWheel : public IRendable{
 	friend class RouletteApplication;
 public:
-	RouletteWheel();
+	RouletteWheel(int x = 0, int y = 0);
 	void spin();
 	virtual ~RouletteWheel();
 	RouletteWheelState getSpinSpeed() const;

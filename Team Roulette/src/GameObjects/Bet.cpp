@@ -39,7 +39,7 @@ bool Bet::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
 	bool success = IRendable::loadFromFile(gRenderer,path);
 	stringstream ss;
 	ss<< getCredits();
-	setRenderedText(gRenderer, ss.str(), 22, 0, 0, 0);
+	setRenderedText(gRenderer, ss.str(), 22, 0, 0, 0,"Roulette/luximb.ttf");
 	ss.str("");
 	ss.clear();
 	return success;

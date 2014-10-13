@@ -19,7 +19,7 @@ namespace GameObjects {
 class Ball: public IRendable {
 	friend class RouletteBoard;
 public:
-	Ball();
+	Ball(int x = 0, int y = 0);
 	virtual ~Ball();
 	int getXCenter() const;
 	void setXCenter(int center);

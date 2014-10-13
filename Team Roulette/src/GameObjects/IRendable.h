@@ -29,7 +29,6 @@ public:
 	void setColor(Uint8 red, Uint8 green, Uint8 blue);
 	void setBlendMode(SDL_BlendMode blending);
 	void setAlpha(Uint8 alpha);
-	virtual bool isClicked(int x, int y);
 	virtual void free();
 	int getHeight() const;
 	void setHeight(int height);

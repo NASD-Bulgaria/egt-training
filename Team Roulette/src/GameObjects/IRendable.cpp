@@ -82,21 +82,15 @@ void IRendable::setAlpha(Uint8 alpha) {
 }
 
 bool IRendable::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
-	SDL_Surface * loadedSurface = IMG_Load(path.data());
-	mTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
-	this->setWidth(loadedSurface->w);
-	this->setHeight(loadedSurface->h);
-	SDL_FreeSurface(loadedSurface);
-	loadedSurface = NULL;
-	return mTexture != NULL;
-}
-
-bool IRendable::isClicked(int x, int y) {
-	if (x >= getX() && x <= getWidth() + getX() && y >= getY()
-			&& y <= getY() + getHeight()) {
-		return true;
+	if (path != "") {
+		SDL_Surface * loadedSurface = IMG_Load(path.data());
+		mTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+		this->setWidth(loadedSurface->w);
+		this->setHeight(loadedSurface->h);
+		SDL_FreeSurface(loadedSurface);
+		loadedSurface = NULL;
 	}
-	return false;
+	return mTexture != NULL;
 }
 
 void IRendable::setPosition(int x, int y) {

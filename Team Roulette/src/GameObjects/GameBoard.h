@@ -19,7 +19,7 @@ namespace GameObjects {
 class GameBoard: public IRendable{
 	friend class RouletteApplication;
 public:
-	GameBoard();
+	GameBoard(int x = 0, int y = 0);
 	virtual ~GameBoard();
 	const std::vector<NumberSector*>& getNumberSectors() const;
 	int collectWinings();

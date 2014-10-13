@@ -9,12 +9,12 @@
 
 namespace GameObjects {
 
-RouletteBoard::RouletteBoard() {
-	wheel = new RouletteWheel();
+RouletteBoard::RouletteBoard(int x, int y)
+	:IRendable(x,y){
+	wheel = new RouletteWheel(x, y);
 	ball = new Ball();
 	initNumberDegrees();
 	currentNumberIndex = -1;
-	stoped = true;
 }
 
 bool RouletteBoard::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
@@ -23,6 +23,7 @@ bool RouletteBoard::loadFromFile(SDL_Renderer* gRenderer, std::string path) {
 	success &= ball->loadFromFile(gRenderer,"Roulette/ball.png");
 	ball->initBall(wheel->getXCenter(), wheel->getYCenter(),
 			this->getRadius(), wheel->getRadius() - 40);
+	setPosition(getX(), getY());
 	return success;
 }
 
@@ -45,15 +46,6 @@ void RouletteBoard::initRouletteBoard() {
 	ball->initBall(wheel->getXCenter(), wheel->getYCenter(),
 			this->getRadius(), wheel->getRadius() - 40);
 	currentNumberIndex = -1;
-	stoped = false;
-}
-
-void RouletteBoard::handleSpin() {
-	wheel->spin();
-	ball->moove(wheel->getSpinSpeed());
-	if (ball->isInSector() && !stoped) {
-		handleBallInSector();
-	}
 }
 
 int RouletteBoard::getRadius() {
@@ -92,14 +84,15 @@ void RouletteBoard::handleBallInSector() {
 	if (ballAngle > numbersDegrees[0][1] ||
 			ballAngle <= numbersDegrees[0][2]) {
 		currentNumberIndex = 0;
-		stoped = true;
+		ball->angle = (-180 - wheel->getSpinAngle()) / (180.0 / M_PI);
 		return;
 	}
 	for (int i = 1; i < 37; ++i) {
 		if(ballAngle > numbersDegrees[i][1] &&
 				ballAngle <= numbersDegrees[i][2]) {
 			currentNumberIndex = i;
-			stoped = true;
+			ball->angle = ((numbersDegrees[i][2] + numbersDegrees[i][1]) / 2.0
+					+ 180 - wheel->getSpinAngle()) / (180.0 / M_PI);
 			break;
 		}
 	}

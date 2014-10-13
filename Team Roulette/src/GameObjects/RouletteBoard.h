@@ -16,14 +16,13 @@ namespace GameObjects {
 class RouletteBoard: public IRendable {
 	friend class RouletteApplication;
 public:
-	RouletteBoard();
+	RouletteBoard(int x = 0, int y = 0);
 	virtual bool loadFromFile(SDL_Renderer* gRenderer, std::string path);
 	virtual void draw(SDL_Renderer*);
 	virtual void setPosition(int x, int y);
 	virtual void free();
 	short getWininngNumber();
 	void initRouletteBoard();
-	void handleSpin();
 	int getRadius();
 	void resetWiningNumber();
 	virtual ~RouletteBoard();
@@ -31,7 +30,6 @@ public:
 	RouletteWheel* wheel;
 	short currentNumberIndex;
 	Ball* ball;
-	bool stoped;
 	void handleBallInSector();
 	void initNumberDegrees();
 	static double numbersDegrees[37][3];

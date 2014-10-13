@@ -13,24 +13,26 @@
 #include "Player.h"
 #include "Statistics.h"
 #include "Recovery.h"
+#include <map>
 #include <algorithm>
 
 namespace GameObjects {
 
 class RouletteApplication {
 public:
-	RouletteApplication();
+	RouletteApplication(SDL_Renderer* gRenderer);
 	virtual ~RouletteApplication();
 	void handleMouseEvent(SDL_MouseButtonEvent e, SDL_Renderer* gRenderer);
-	void loadMedia(SDL_Renderer * gRenderer);
 	void init(SDL_Renderer * gRenderer);
-	void changeInfoValues(SDL_Renderer* gRenderer);
-	void setStatisticLines(SDL_Renderer* gRenderer,
-			vector<PlayerRecord>& records);
+	void initElements(SDL_Renderer * gRenderer);
+	void changeBetInfo(SDL_Renderer* gRenderer, int totalBet);
+	void changeBalanceInfo(SDL_Renderer* gRenderer, int balanceAmount);
+	void changeWinInfo(SDL_Renderer* gRenderer, int winAmount);
+	void setStatisticLines(SDL_Renderer* gRenderer, vector<PlayerRecord> *);
 	void drawStatisticLines(SDL_Renderer* gRenderer);
-	void setLast10(SDL_Renderer* gRenderer,
-			vector<StatisticRecord>& records);
-	void drawLast10(SDL_Renderer* gRenderer);
+	void setLast12(SDL_Renderer* gRenderer, vector<StatisticRecord>*);
+	void handleSpinState(SDL_Renderer* gRenderer);
+	void drawLast12(SDL_Renderer* gRenderer);
 	void drawMaxOccurrences(SDL_Renderer* gRenderer);
 	void draw(SDL_Renderer* grenderer);
 //private:
@@ -39,37 +41,35 @@ public:
 	Player* player;
 	Recovery* recovery;
 	Statistics* stats;
-	vector<IRendable> infoFields;
-	vector<IRendable> infoButtons;
-	vector<IRendable> rouletteButtons;
-	vector<IRendable*> last10;
-	vector<IRendable*> statisticLines;
-	vector<IRendable*> maxOccurrences;
-	vector<Mix_Chunk*> musicChunks;
-	vector<Mix_Music*> numSounds;
+	map<string, Button *> allButtons;
+	map<string, IRendable *> simpleElements;
+	map<string, Mix_Chunk*> musicChunks;
 	Mix_Music* music;
-	IRendable * lastNumbers;
-	IRendable * statBackground;
-	IRendable * startBackground;
-	IRendable * infoBackground;
-	IRendable * mainBackground;
-	bool buttonLocks[9];
 	void handleBetCreation(int x, int y, SDL_Renderer* gRenderer);
 	void handleBetDeletion(int x, int y, SDL_Renderer* gRenderer);
-	bool handleButtonLocks(int x, int y);
-	void handleRouletteButtonClick(int x, int y);
 	void handleNumberHit(SDL_Renderer * gRenderer);
-	void drawHomeScreen(SDL_Renderer* gRenderer);
-	void drawMainScreen(SDL_Renderer* gRenderer);
-	void drawInfoScreen(SDL_Renderer* gRenderer);
 	void drawStatScreen(SDL_Renderer* gRenderer);
-	void initInfoButtons(SDL_Renderer* gRenderer);
+	void drawGameScreen(SDL_Renderer* gRenderer);
+	void drawInitialScreen(SDL_Renderer* gRenderer);
+	void drawInfoScreen(SDL_Renderer* gRenderer);
+	void drawAboutUsScreen(SDL_Renderer* gRenderer);
 	void setMaxOccurrences(SDL_Renderer* gRenderer, int*);
-	void initRouletteButtons(SDL_Renderer* gRenderer);
+	void handleButtonClick(SDL_Renderer* gRenderer, int x, int y);
+	void drawBonusMsg(SDL_Renderer* gRenderer);
+	bool statChange;
 	void initMusic();
-	void initInfoFields(SDL_Renderer* gRenderer);
 	static bool compareRecords(pair<int,int> first,pair<int,int> second);
+	GameState currentGameState;
+	bool musicOn, soundfxOn;
+	unsigned int bonusShowTicks;
 	static string colors[3];
+	static int elementCoords[31][2];
+	static string elementloadPats[31];
+	static string elementNames[31];
+	static string statElementNames[15];
+	static string lastTenNumbersNames[12];
+	static int lastTenNumbersCoords[12][2];
+	static GameState allowedGameStates[16];
 };
 
 } /* namespace GameObjects */

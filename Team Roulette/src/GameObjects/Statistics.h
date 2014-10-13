@@ -54,8 +54,8 @@ public:
 	string rootDir;
 	string subDirs[2];
 	fstream stream;
-	vector<StatisticRecord> lastTenNumbers;
-	vector<PlayerRecord> lastTenPlayerRecords;
+	vector<StatisticRecord>* lastTenNumbers;
+	vector<PlayerRecord>* lastTenPlayerRecords;
 	double calcDeviateBet(int totalBet, int winings);
 	double calcDeviateCapital(int currentBalance);
 	bool initiateStream(string subDir);

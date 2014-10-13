@@ -10,6 +10,12 @@
 using namespace GameObjects;
 
 Statistics::~Statistics() {
+	lastTenNumbers->clear();
+	delete lastTenNumbers;
+	lastTenNumbers = NULL;
+	lastTenPlayerRecords->clear();
+	delete lastTenPlayerRecords;
+	lastTenPlayerRecords = NULL;
 }
 
 Statistics::Statistics(string rootDir, int initialAmount) :
@@ -17,16 +23,19 @@ Statistics::Statistics(string rootDir, int initialAmount) :
 	this->rootDir = rootDir;
 	subDirs[0] = rootDir + "/allNumbers.dat";
 	subDirs[1] = rootDir + "/numberDistribution.dat";
+	lastTenNumbers = new vector<StatisticRecord>();
+	lastTenPlayerRecords = new vector<PlayerRecord>();
+	read();
 }
 
 void Statistics::write(short num, Color color, int totalBet, int winings,
 		int currentBalance) {
-	PlayerRecord record(lastTenPlayerRecords.size(), num,
+	PlayerRecord record(lastTenPlayerRecords->size(), num,
 			color, totalBet, winings, calcDeviateBet(totalBet,winings),
 			calcDeviateCapital(currentBalance));
-	lastTenPlayerRecords.push_back(record);
-	if (lastTenPlayerRecords.size() > 10) {
-		lastTenPlayerRecords.erase(lastTenPlayerRecords.begin());
+	lastTenPlayerRecords->push_back(record);
+	if (lastTenPlayerRecords->size() > 10) {
+		lastTenPlayerRecords->erase(lastTenPlayerRecords->begin());
 	}
 	if (initiateStream(subDirs[0])) {
 		stream.seekp(0, stream.end);
@@ -49,12 +58,12 @@ void Statistics::read() {
 	if (initiateStream(subDirs[0])) {
 		StatisticRecord record;
 		stream.seekg(0 , stream.end);
-		lastTenNumbers.clear();
-		while(lastTenNumbers.size() < 10 && stream.tellg() > 0){
+		lastTenNumbers->clear();
+		while(lastTenNumbers->size() < 12 && stream.tellg() > 0){
 			stream.seekg((int)stream.tellg() - sizeof(StatisticRecord));
 			stream.read(reinterpret_cast<char *>(&record), sizeof(StatisticRecord));
 			stream.seekg((int)stream.tellg() - sizeof(StatisticRecord));
-			lastTenNumbers.push_back(record);
+			lastTenNumbers->push_back(record);
 		}
 		stream.close();
 	}

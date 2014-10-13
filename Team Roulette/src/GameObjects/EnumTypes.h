@@ -36,6 +36,15 @@ enum RouletteWheelState{
 	FastSpin = 5,
 	VeryFastSpin = 6,
 };
+
+enum GameState{
+	HomeState,
+	PlayState,
+	SpinState,
+	InfoState,
+	StatisticState,
+	AboutState,
+};
 }
 
 #endif /* ENUMTYPES_H_ */

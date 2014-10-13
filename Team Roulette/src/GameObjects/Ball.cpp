@@ -9,7 +9,8 @@
 
 namespace GameObjects {
 
-Ball::Ball() {
+Ball::Ball(int x, int y)
+	:IRendable(x, y){
 	setXCenter(xCenter);
 	setYCenter(yCenter);
 	initBall(0, 0, 0, 0);
