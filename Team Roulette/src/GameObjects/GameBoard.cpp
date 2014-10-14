@@ -9,14 +9,15 @@
 
 namespace GameObjects {
 
-GameBoard::GameBoard() {
+GameBoard::GameBoard(int x, int y)
+	:IRendable(x,y){
 	initNumberSectors();
 	initBetSectors();
 	winingNumberSector = NULL;
 }
 
 GameBoard::~GameBoard() {
-	free();
+	this->free();
 	for (unsigned int i = 0; i < allSectors.size(); ++i) {
 		if (allSectors[i]) {
 			delete allSectors[i];
@@ -24,6 +25,7 @@ GameBoard::~GameBoard() {
 		}
 	}
 	if (winingNumberSector) {
+		winingNumberSector->free();
 		delete winingNumberSector;
 		winingNumberSector = NULL;
 	}
@@ -37,7 +39,6 @@ void GameBoard::clearAllBets() {
 	for (unsigned int i = 0; i < allSectors.size(); ++i) {
 		if (allSectors[i]->bet) {
 			allSectors[i]->bet->free();
-			delete allSectors[i]->bet;
 			allSectors[i]->bet = NULL;
 		}
 	}

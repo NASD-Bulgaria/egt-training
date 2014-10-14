@@ -22,11 +22,6 @@ Half HalfSector::getHalf() const {
 	return half;
 }
 
-void HalfSector::free() {
-	Sector::free();
-	IRendable::free();
-}
-
 bool HalfSector::loadFromFile(SDL_Renderer* gRenderer,
 		std::string path) {
 	bool success = IRendable::loadFromFile(gRenderer, path);

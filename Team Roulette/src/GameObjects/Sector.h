@@ -9,9 +9,11 @@
 #define SECTOR_H_
 
 #include "Bet.h"
+#include "Button.h"
+
 namespace GameObjects {
 
-class Sector: public IRendable {
+class Sector: public Button {
 	friend class GameBoard;
 	friend class RouletteApplication;
 public:
