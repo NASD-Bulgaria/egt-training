@@ -43,7 +43,6 @@ public:
 	int getTotalCreditsIn();
 	int getTotalCreditsWon();
 
-	string printStats();
 	void readFromFile() ;
 	void writeToFile ();
 };

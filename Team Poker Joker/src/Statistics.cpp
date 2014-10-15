@@ -61,40 +61,6 @@ int Statistics::getTotalCreditsWon()
 	return creditsWon;
 }
 
-string Statistics::printStats()
-{
-	string result;
-	stringstream tp;
-	stringstream wg;
-	stringstream lg;
-	stringstream tc;
-	stringstream tcw;
-	stringstream n;
-	tp << getTotalPlayed();
-	n << endl ;
-	result.append(tp.str());
-	tp << "";
-	result += n.str();
-	wg << getWinGames();
-	wg << "\n";
-	result.append(wg.str() + "\n");
-
-
-	lg << getLostGames();
-	result.append(lg.str() + "\n");
-	lg << "";
-
-	tc << getTotalCreditsIn();
-	result.append(tc.str() + "\n");
-	tc << "";
-
-	tcw << getTotalCreditsWon();
-	result.append(tcw.str() + "\n");
-	tcw << "";
-
-	return result;
-}
-
 void Statistics::readFromFile()
 {
 	ifstream inFile("Statistics.dat", ios::in);

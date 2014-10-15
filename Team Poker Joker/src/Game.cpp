@@ -78,59 +78,64 @@ void Game::shuffle()
 
 void Game::dealCards()
 {
+	deleteRevocery();
+	Card card;
 	winType = 0;
 	hand.clear();
 	srand(time(0));
 	int row;
 	int column;
-//	bool checkJoker = false;
-//	bool checkOldCard = true;
-//	do
-//	{
-//		row = rand() % 4;
-//		column = rand() % 14;
+	bool checkJoker = false;
+	bool checkOldCard = true;
+
+	do
+	{
+		row = rand() % 4;
+		column = rand() % 14;
+
+		if (checkJoker == true)
+			column = rand() % 13;
+
+		if (column == 13)
+			checkJoker = true;
+
+		for (unsigned i = 0; i < hand.size(); i++)
+		{
+			if (row == hand[i].getSuit() && column == hand[i].getFace())
+				checkOldCard = false;
+		}
+
+		if (checkOldCard == true)
+		{
+			Card newCard(row, column);
+			hand.push_back(newCard);
+
+		}
+		checkOldCard = true;
+	} while (hand.size() != 5);
+
+//	readRecoveryHand(card);
 //
-//		if (checkJoker == true)
-//			column = rand() % 13;
-//
-//		if (column == 13)
-//			checkJoker = true;
-//
-//		for (unsigned i = 0; i < hand.size(); i++)
-//		{
-//			if (row == hand[i].getSuit() && column == hand[i].getFace())
-//				checkOldCard = false;
-//		}
-//
-//		if (checkOldCard == true)
-//		{
-//
-//			Card newCard(row, column);
-//			hand.push_back(newCard);
-//
-//		}
-//		checkOldCard = true;
-//	} while (hand.size() != 5);
 	credit.readCreaditsFromFile(credit);
 	credit.deductCredits(BET);
 	credit.writeCreditsToFile(credit);
 
-	Card card1(2,11);
-	hand.push_back(card1);
-
-	Card card2(1, 11);
-	hand.push_back(card2);
-
-	Card card3(3, 11);
-	hand.push_back(card3);
-
-	Card card4(0, 11);
-	hand.push_back(card4);
-
-	Card card5(1, 12);
-	hand.push_back(card5);
-
+//	Card card1(1, 0);
+//	hand.push_back(card1);
+//
+//	Card card2(1, 1);
+//	hand.push_back(card2);
+//
+//	Card card3(3, 3);
+//	hand.push_back(card3);
+//
+//	Card card4(2, 3);
+//	hand.push_back(card4);
+//
+//	Card card5(1, 13);
+//	hand.push_back(card5);
 	sort(hand.begin(), hand.end(), cardCompare);
+	writeRecoveryHand(1);
 }
 void getRecovery(fstream &file, Credits &credit)
 {
@@ -140,6 +145,7 @@ void getRecovery(fstream &file, Credits &credit)
 }
 void Game::secondDealCards()
 {
+	deleteRevocery();
 	winType = 0;
 	srand(time(0));
 	bool checkJoker = false;
@@ -192,35 +198,17 @@ void Game::secondDealCards()
 	checkHand();
 // statistic
 	stats.readFromFile();
-	stats.addHandsPlayed();
-	credit.readCreaditsFromFile(credit);
-	if (winType > 0)
-	{
-		stats.addWinGames();
-		stats.addCreditsWon(bet.wins(winType));
-		credit.addCredits(bet.wins(winType));
-	}
-	else
+
+	if (winType == 0)
 	{
 		stats.addLostGames();
-
+		stats.addHandsPlayed();
 	}
+
 	stats.writeToFile();
-	stats.printStats();
-	credit.writeCreditsToFile(credit);
 
-}
+	writeRecoveryHand(2);
 
-void Game::showHand()
-{
-//	Bets bet;
-//	cout << "\nYour hand is : ";
-//	bet.handName(winType);
-//
-//	cout << endl << endl;
-//	for (unsigned int i = 0; i < hand.size(); i++)
-////		hand[i].ShowCard();
-//	cout << endl;
 }
 
 bool Game::cardCompare(Card first, Card second)
@@ -314,37 +302,6 @@ void Game::autoHold()
 
 }
 
-void Game::holdCards()
-{
-//	int unHoldIndex;
-//	cout << "Enter number of cards to unhold";
-//	cin >> unHoldIndex;
-//	for (int i = 0; i < unHoldIndex; i++)
-//	{
-//
-//		int card;
-//
-//		cout << "Enter card number: ";
-//		cin >> card;
-//
-//		hand[card - 1].Unhold();
-//	}
-//	int num;
-//	cout << "Enter number of cards to hold";
-//	cin >> num;
-//
-//	for (int i = 0; i < num; i++)
-//	{
-//
-//		int card;
-//
-//		cout << "Enter card number: ";
-//		cin >> card;
-//
-//		hand[card - 1].Hold();
-//	}
-}
-
 void Game::checkHand()
 {
 
@@ -431,36 +388,48 @@ bool Game::isThreeOfAKind()
 bool Game::isStraightJoker()
 {
 	int countNotstraight = 0;
+	bool pair = false;
+
 	for (unsigned i = 0; i < hand.size(); i++)
 	{
 		if (hand[i].getFace() + 2 == hand[i + 1].getFace())
 		{
 			countNotstraight++;
 		}
+		if (hand[i].getFace() == hand[i + 1].getFace())
+		{
+			pair = true;
+		}
 	}
 
 	if (hand[0].getFace() != 0)
 	{
 
-		return (countNotstraight != 2
-				&& ((hand[0].getFace() + 1 == hand[1].getFace())
+		return ((countNotstraight != 2 && pair == false)
+				&& (((hand[0].getFace() + 1 == hand[1].getFace())
 						|| (hand[0].getFace() + 2 == hand[1].getFace()))
-				&& ((hand[1].getFace() + 1 == hand[2].getFace())
-						|| (hand[1].getFace() + 2 == hand[1].getFace()))
-				&& ((hand[2].getFace() + 1 == hand[3].getFace())
-						|| (hand[2].getFace() + 2 == hand[3].getFace()))
-				&& hand[4].getFace() == 13);
+						&& ((hand[1].getFace() + 1 == hand[2].getFace())
+								|| (hand[1].getFace() + 2 == hand[1].getFace()))
+						&& ((hand[2].getFace() + 1 == hand[3].getFace())
+								|| (hand[2].getFace() + 2 == hand[3].getFace()))
+						&& hand[4].getFace() == 13));
 	}
 	else
 	{
-		return (((hand[1].getFace() == 9) || (hand[1].getFace() == 10))
-				&& ((hand[2].getFace() == 10) || (hand[2].getFace() == 11))
-				&& ((hand[3].getFace() == 11) || (hand[3].getFace() == 12))
-				&& hand[4].getFace() == 13)
-				|| (((hand[1].getFace() == 1) || (hand[1].getFace() == 2))
-						&& ((hand[2].getFace() == 2) || (hand[2].getFace() == 3))
-						&& ((hand[3].getFace() == 3) || (hand[3].getFace() == 4))
-						&& hand[4].getFace() == 13);
+		return ((countNotstraight != 2 && pair == false)
+				&& ((((hand[1].getFace() == 9) || (hand[1].getFace() == 10))
+						&& ((hand[2].getFace() == 10)
+								|| (hand[2].getFace() == 11))
+						&& ((hand[3].getFace() == 11)
+								|| (hand[3].getFace() == 12))
+						&& hand[4].getFace() == 13)
+						|| (((hand[1].getFace() == 1)
+								|| (hand[1].getFace() == 2))
+								&& ((hand[2].getFace() == 2)
+										|| (hand[2].getFace() == 3))
+								&& ((hand[3].getFace() == 3)
+										|| (hand[3].getFace() == 4))
+								&& hand[4].getFace() == 13)));
 	}
 }
 
@@ -548,7 +517,7 @@ bool Game::isFourOfAKindJoker()
 	return (isThreeOfAKind() && hand[4].getFace() == 13);
 }
 
-bool Game::isFourOfAKind() // to repair
+bool Game::isFourOfAKind()
 {
 	int count = 0;
 	for (int i = 0; i < 4; i++)
@@ -558,7 +527,9 @@ bool Game::isFourOfAKind() // to repair
 			count++;
 		}
 	}
-	return count == 3 ;
+	return count == 3
+			&& (hand[0].getFace() != hand[1].getFace()
+					|| hand[3].getFace() != hand[4].getFace());
 }
 
 bool Game::isStraightFlush()
@@ -590,6 +561,81 @@ bool Game::isNaturalRoyalFlush()
 	return (isFlush() && (hand[0].getFace() == 0) && (hand[1].getFace() == 9)
 			&& (hand[2].getFace() == 10) && (hand[3].getFace() == 11)
 			&& (hand[4].getFace() == 12));
+}
+
+void Game::writeRecoveryHand(int button)
+{
+	ofstream outFile("hand.dat", ios::out);
+	outFile.clear();
+	outFile.seekp(0);
+	if (!outFile)
+	{
+		cout << "File can not be opened writing";
+	}
+	outFile << button << ' ';
+	for (unsigned int i = 0; i < hand.size(); i++)
+	{
+		outFile << hand[i].getSuit() << " " << hand[i].getFace() << " ";
+	}
+
+}
+
+void Game::readRecoveryHand()
+{
+	ifstream inFile("hand.dat", ios::in);
+	Card card;
+	if (!inFile)
+	{
+		cout << "File can not be opened writing";
+	}
+	inFile.clear();
+	inFile.seekg(0);
+	int num;
+	inFile >> num;
+	pressButtons = num;
+	for (unsigned int i = 0; i < 5; i++)
+	{
+		inFile >> num;
+		card.setSuit(num);
+		inFile >> num;
+		card.setFace(num);
+		hand.push_back(card);
+	}
+
+}
+
+void Game::recovery(int &pressed)
+{
+	readRecoveryHand();
+	checkHand();
+	pressed = pressButtons;
+//	if (hand[4].getFace() == 0 && hand[4].getSuit() == 0)
+//	{
+//		pressed = 0;
+//	}
+//	else
+//	{
+//		pressedButton = 1;
+//
+//	}
+
+}
+
+void Game::deleteRevocery()
+{
+	ofstream outFile("hand.dat", ios::out);
+	outFile.clear();
+	outFile.seekp(0);
+
+	if (!outFile)
+	{
+		cout << "File can not be opened writing";
+	}
+	outFile << 0 << " ";
+	for (unsigned int i = 0; i < hand.size(); i++)
+	{
+		outFile << 0 << " " << 0 << " ";
+	}
 }
 
 int Game::getWinType()

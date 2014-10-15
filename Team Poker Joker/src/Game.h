@@ -13,6 +13,7 @@
 #include "Statistics.h"
 #include "Credits.h"
 #include <vector>
+#include <fstream>
 #include <algorithm>
 #include <iostream>
 
@@ -25,13 +26,13 @@ class Game
 	friend class Card;
 	friend class Texture;
 
-
 private:
 	int counts[countFace];
 	int deck[4][14];
 	int winType;
 
-//	vector<int> wins;
+	int pressButtons;
+
 	static bool cardCompare(Card first, Card second);
 	Statistics stats;
 	Credits credit;
@@ -58,16 +59,16 @@ public:
 	bool isFiveOfAKind();
 	bool isNaturalRoyalFlush();
 
-
-
 	void autoHold();
 	void shuffle();
 	void dealCards();
 	void secondDealCards();
 	void checkHand();
 
-	void showHand();// not need
-	void holdCards(); // not need
+	void writeRecoveryHand(int button);
+	void readRecoveryHand();
+	void deleteRevocery();
+	void recovery(int &);
 	int getWinType();
 };
 

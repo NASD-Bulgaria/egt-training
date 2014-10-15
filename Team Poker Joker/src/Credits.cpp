@@ -43,6 +43,7 @@ void Credits::writeCreditsToFile(Credits &credit)
 	outFile.clear();
 	outFile.seekp(0);
 	outFile.write(reinterpret_cast<char *>(&credit), sizeof(Credits));
+
 }
 
 void Credits::readCreaditsFromFile(Credits &credit)

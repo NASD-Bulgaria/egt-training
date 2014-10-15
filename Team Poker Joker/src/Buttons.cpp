@@ -1,75 +1,160 @@
-/*
- * Buttons.cpp
- *
- *  Created on: Sep 30, 2014
- *      Author: vasko
- */
-
 #include "Buttons.h"
 
 Buttons::Buttons()
 {
-	x = 0;
-	y = 0;
-	w = 0;
-	h = 0;
-}
-
-Buttons::Buttons(int x, int y, int w, int h)
-{
-	setX(x);
-	setY(y);
-	setW(w);
-	setH(h);
+	buttonX = 0;
+	buttonY = 0;
+	buttonW = 0;
+	buttonH = 0;
+	mTexture = NULL;
+	mWidth = 0;
+	mHeight = 0;
 }
 
 Buttons::~Buttons()
 {
-
+	free();
 }
 
-int Buttons::getH()
+int Buttons::getButtonH()
 {
-	return h;
+	return buttonH;
 }
 
-void Buttons::setH(int h)
+void Buttons::setButtonH(int h)
 {
-	this->h = h;
+	this->buttonH = h;
 }
 
-int Buttons::getW()
+int Buttons::getButtonW()
 {
-	return w;
+	return buttonW;
 }
 
-void Buttons::setW(int w)
+void Buttons::setButtonW(int w)
 {
-	this->w = w;
+	this->buttonW = w;
 }
 
-int Buttons::getX()
+int Buttons::getButtonX()
 {
-	return x;
+	return buttonX;
 }
 
-void Buttons::setX(int x)
+void Buttons::setButtonX(int x)
 {
-	this->x = x;
+	this->buttonX = x;
 }
 
-int Buttons::getY()
+int Buttons::getButtonY()
 {
-	return y;
+	return buttonY;
 }
 
-void Buttons::setY(int y)
+void Buttons::setButtonY(int y)
 {
-	this->y = y;
+	this->buttonY = y;
 }
 
 bool Buttons::checkButton(int mouseX, int mouseY)
 {
-	return (mouseX > getX() && mouseX < getX() + getW() && mouseY > getY()
-			&& mouseY < getY() + getH());
+	return (mouseX > getButtonX() && mouseX < getButtonX() + getButtonW()
+			&& mouseY > getButtonY() && mouseY < getButtonY() + getButtonH());
+}
+
+bool Buttons::loadFromFile(SDL_Renderer* gRender, string path)
+{
+	free();
+
+	SDL_Texture* newTexture = NULL;
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	SDL_Surface* optimizedSuraface = NULL;
+	if (loadedSurface == NULL)
+	{
+		cout << "Could not load the Texture	" << SDL_GetError();
+	}
+	else
+	{
+		optimizedSuraface = SDL_ConvertSurface(loadedSurface,
+				loadedSurface->format, 0);
+		newTexture = SDL_CreateTextureFromSurface(gRender, optimizedSuraface);
+		if (newTexture == NULL)
+		{
+			cout << "Texture could not be created !!! " << SDL_GetError();
+		}
+		else
+		{
+			mWidth = loadedSurface->w;
+			mHeight = loadedSurface->h;
+		}
+		SDL_FreeSurface(loadedSurface);
+	}
+	mTexture = newTexture;
+	return mTexture != NULL;
+}
+void Buttons::drawCard(SDL_Renderer* gRender, int X, int Y, int destX,
+		int destY, int width)
+{
+
+	SDL_Rect src =
+	{ X, Y, 79, 123 };
+	SDL_Rect dest =
+	{ destX, destY, width, 190 };
+	SDL_RenderCopy(gRender, mTexture, &src, &dest);
+
+	setButtonX(137);
+	setButtonY(400);
+	setButtonW(750);
+	setButtonH(190);
+}
+void Buttons::drawButton(SDL_Renderer* gRender, int destX, int destY, int destW,
+		int destH)
+{
+	SDL_Rect src =
+	{ 0, 0, 109, 65 };
+	SDL_Rect dest =
+	{ destX, destY, destW, destH };
+	SDL_RenderCopy(gRender, mTexture, &src, &dest);
+
+	setButtonX(destX);
+	setButtonY(destY);
+	setButtonW(destW);
+	setButtonH(destH);
+}
+void Buttons::free()
+{
+	if (mTexture != NULL)
+	{
+		SDL_DestroyTexture(mTexture);
+		mTexture = NULL;
+		mWidth = 0;
+		mHeight = 0;
+	}
+}
+int Buttons::getWidth()
+{
+	return mWidth;
+}
+
+int Buttons::getHeight()
+{
+	return mHeight;
+}
+
+//void Buttons::updateCardWidth(SDL_Renderer* gRender, Buttons &gCard, int cardX,
+//		int width)
+//{
+//
+//	SDL_Rect src =
+//	{ 158, 492, 79, 123 };
+//	SDL_Rect dest =
+//	{ cardX, 400, width, 190 };
+//	SDL_RenderCopy(gRender, mTexture, &src, &dest);
+//	cardX += 150;
+//
+//}
+
+SDL_Texture* Buttons::getTexture()
+{
+	return mTexture;
 }
