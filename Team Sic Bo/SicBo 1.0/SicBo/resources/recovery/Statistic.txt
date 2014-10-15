@@ -1,0 +1,16 @@
+Total Bet: 9635 | Total Win: 126330 | Average Bet: 642 | Average Win: 8422 
+Bet: 1220 | Win: 17500 |  Dices: 5 - 5 - 5 
+Bet: 1000 | Win: 13000 |  Dices: 5 - 5 - 5 
+Bet: 1000 | Win: 13000 |  Dices: 5 - 5 - 5 
+Bet: 1110 | Win: 15690 |  Dices: 5 - 5 - 5 
+Bet: 1210 | Win: 15690 |  Dices: 5 - 5 - 5 
+Bet: 1220 | Win: 17500 |  Dices: 5 - 5 - 5 
+Bet: 1050 | Win: 14550 |  Dices: 5 - 5 - 5 
+Bet: 1220 | Win: 17500 |  Dices: 5 - 5 - 5 
+Bet: 400 | Win: 1400 |  Dices: 2 - 3 - 5 
+Bet: 5 | Win: 0 |  Dices: 1 - 4 - 5 
+Bet: 5 | Win: 10 |  Dices: 2 - 5 - 6 
+Bet: 30 | Win: 0 |  Dices: 1 - 1 - 4 
+Bet: 5 | Win: 0 |  Dices: 2 - 3 - 5 
+Bet: 25 | Win: 0 |  Dices: 1 - 1 - 2 
+Bet: 135 | Win: 490 |  Dices: 1 - 3 - 6 
