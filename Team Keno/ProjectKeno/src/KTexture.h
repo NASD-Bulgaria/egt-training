@@ -24,10 +24,6 @@ public:
 
 	//Renders texture at given point
 	void render(SDL_Renderer* gRenderer, int x, int y, SDL_Rect* clip = NULL );
-	void buttonPlay(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);
-	void buttonClear(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);
-	void buttonQuickPick(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);
-	void help(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH);
 	void ballRender(SDL_Renderer* gRender, int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
 
 	bool loadFromRenderedText(SDL_Renderer*, TTF_Font*, string, SDL_Color);

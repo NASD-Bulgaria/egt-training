@@ -67,8 +67,6 @@ void KTexture::free()
 	}
 }
 
-
-
 void KTexture::render(SDL_Renderer* gRenderer, int x, int y, SDL_Rect* clip )
 {
 	//Set rendering space and render to screen
@@ -83,38 +81,6 @@ void KTexture::render(SDL_Renderer* gRenderer, int x, int y, SDL_Rect* clip )
 
 	//Render to screen
 	SDL_RenderCopy(gRenderer, mTexture, clip, &renderQuad );
-}
-
-void KTexture::buttonPlay(SDL_Renderer* gRender, int destX, int destY, int srcW,
-		int srcH)
-{
-	SDL_Rect src =
-	{ 0, 0, 216, 216 };
-	SDL_Rect dest =
-	{ destX, destY, srcW, srcH };
-	SDL_RenderCopy(gRender, mTexture, &src, &dest);
-}
-
-void KTexture::buttonClear(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH)
-{
-	SDL_Rect src = { 0, 0, 143, 117 };
-	SDL_Rect dest = { destX, destY, srcW, srcH };
-	SDL_RenderCopy(gRender, mTexture, &src, &dest);
-}
-
-void KTexture::buttonQuickPick(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH)
-{
-	SDL_Rect src = { 0, 0, 95, 54 };
-	SDL_Rect dest = { destX, destY, srcW, srcH };
-	SDL_RenderCopy(gRender, mTexture, &src, &dest);
-}
-
-
-void KTexture::help(SDL_Renderer* gRender, int destX, int destY, int srcW, int srcH)
-{
-	SDL_Rect src = { 0, 0, 878, 640 };
-	SDL_Rect dest = { destX, destY, srcW, srcH };
-	SDL_RenderCopy(gRender, mTexture, &src, &dest);
 }
 
 int KTexture::getWidth()
@@ -165,8 +131,6 @@ void KTexture::renderText(SDL_Renderer* gRenderer, int x, int y)
 	SDL_RenderCopy( gRenderer, mTexture, NULL, &renderQuad);
 }
 
-
-
 void KTexture::ballRender(SDL_Renderer* gRender, int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {
 
@@ -180,5 +144,3 @@ void KTexture::ballRender(SDL_Renderer* gRender, int x, int y, SDL_Rect* clip, d
 
 	SDL_RenderCopyEx( gRender, mTexture, clip, &renderQuad, angle, center, flip );
 }
-
-

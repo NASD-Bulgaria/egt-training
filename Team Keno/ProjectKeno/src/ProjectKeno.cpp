@@ -26,8 +26,6 @@
 
 using namespace std;
 
-
-
 bool isWin(int, int);
 bool screen = false;
 
@@ -385,7 +383,7 @@ int main(int args, char* argc[]){
 						}
 
 						//playMusic
-						if (x > 853 && x < 878 && y > 0 && y < 30)
+						if (x > 853 && x < 878 && y > 0 && y < 30 && help == false)
 						{
 							if (music == false) {
 								Mix_PauseMusic();
@@ -452,7 +450,7 @@ int main(int args, char* argc[]){
 
 				if (userSelects.size() >= 2 && screen == false)
 				{
-					playButton.buttonPlay(gRenderer, 460, 385, 130, 132);
+					playButton.render(gRenderer, 458, 384, &pButton);
 				}
 
 				SDL_Rect* currentClip = &gLightsClips[frame / 30];
@@ -477,24 +475,24 @@ int main(int args, char* argc[]){
 					loadTTFGameboard();
 				}
 				if (help == true) {
-					infoButton.help(gRenderer, 0, 0, 878, 640);
+					infoButton.render(gRenderer, 0, 0, &iButton );
 
 					if (help2)
 					{
-						infoButton2.help(gRenderer, 0, 0, 878, 640);
+						infoButton2.render(gRenderer, 0, 0, &iButton2);
 					}
 				}
 
 				if (music == true && help == false) {
-					musicButton.buttonPlay(gRenderer, 849, 0, 29, 31);
+					musicButton.render(gRenderer, 849, 0, &mButton);
 				}
 				if(chunk && help == false)
 				{
-					chunkButton.buttonPlay(gRenderer, 849, 32, 29, 31);
+					chunkButton.render(gRenderer, 849, 32, &chunkButtonRect);
 				}
 				else if(!chunk && help == false)
 				{
-					chunkButtonMute.buttonPlay(gRenderer, 849, 32, 29, 31);
+					chunkButtonMute.render(gRenderer, 849, 32, &chunkButtonRectMute);
 				}
 
 				if (help == false) {
@@ -521,7 +519,7 @@ int main(int args, char* argc[]){
 
 
 				if((userSelects.size() == 0 || screen == true) && help == false){
-				clearInactive.buttonClear(gRenderer,142,368,84,69);
+				clearInactive.render(gRenderer,142,368,&clearButton);
 				}
 
 				if (x > 565 && x < 591 && y > 237 && y < 264 && screen == false && help == false && credits.getBet() < credits.getCredit() )
@@ -577,7 +575,7 @@ int main(int args, char* argc[]){
 				}
 
 				if (help == false && screen == true){
-					quickPickInactive.buttonQuickPick(gRenderer,331,457,95,54);
+					quickPickInactive.render(gRenderer,331,457,&quickPickButton);
 				}
 
 				if (coefficient[userSelects.size()][hits] == 0 && index == 20 && help == false)
@@ -792,30 +790,30 @@ bool loadMedia() {
 		printf("Failed to load MusicMute texture image!\n");
 		success = false;
 	} else {
-		mButton.x = 849;
-		mButton.y = 609;
-		mButton.w = 29;
-		mButton.h = 31;
+		mButton.x = 0;
+		mButton.y = 0;
+		mButton.w = musicButton.getWidth();
+		mButton.h = musicButton.getHeight();
 	}
 
 	if (!chunkButton.loadFromFile(gRenderer, "Images/sound2.png")) {
 			printf("Failed to load MusicMute texture image!\n");
 			success = false;
 		} else {
-			chunkButtonRect.x = 849;
-			chunkButtonRect.y = 609;
-			chunkButtonRect.w = 29;
-			chunkButtonRect.h = 31;
+			chunkButtonRect.x = 0;
+			chunkButtonRect.y = 0;
+			chunkButtonRect.w = chunkButton.getWidth();
+			chunkButtonRect.h = chunkButton.getHeight();
 		}
 
 	if (!chunkButtonMute.loadFromFile(gRenderer, "Images/soundmute2.png")) {
 			printf("Failed to load MusicMute texture image!\n");
 			success = false;
 		} else {
-			chunkButtonRectMute.x = 849;
-			chunkButtonRectMute.y = 609;
-			chunkButtonRectMute.w = 29;
-			chunkButtonRectMute.h = 31;
+			chunkButtonRectMute.x = 0;
+			chunkButtonRectMute.y = 0;
+			chunkButtonRectMute.w = chunkButtonMute.getWidth();
+			chunkButtonRectMute.h = chunkButtonMute.getHeight();
 		}
 
 	if (!playButton.loadFromFile(gRenderer, "Images/playGlow.png")) {
@@ -824,8 +822,8 @@ bool loadMedia() {
 	} else {
 		pButton.x = 0;
 		pButton.y = 0;
-		pButton.w = 116;
-		pButton.h = 108;
+		pButton.w = playButton.getWidth()+1;
+		pButton.h = playButton.getHeight()+1;
 	}
 
 	if (!clearInactive.loadFromFile(gRenderer, "Images/ClearInactive.png")) {
@@ -834,8 +832,8 @@ bool loadMedia() {
 	} else {
 		clearButton.x = 0;
 		clearButton.y = 0;
-		clearButton.w = 143;
-		clearButton.h = 117;
+		clearButton.w = clearInactive.getWidth();
+		clearButton.h = clearInactive.getHeight();
 	}
 
 	if (!quickPickInactive.loadFromFile(gRenderer, "Images/quickPickInactive.png")) {
@@ -844,8 +842,8 @@ bool loadMedia() {
 	} else {
 		quickPickButton.x = 0;
 		quickPickButton.y = 0;
-		quickPickButton.w = 95;
-		quickPickButton.h = 54;
+		quickPickButton.w = quickPickInactive.getWidth();
+		quickPickButton.h = quickPickInactive.getHeight();
 	}
 
 	for(int i = 0; i < 20; i++)
@@ -884,8 +882,8 @@ bool loadMedia() {
 	} else {
 		iButton.x = 0;
 		iButton.y = 0;
-		iButton.w = 878;
-		iButton.h = 640;
+		iButton.w = infoButton.getWidth();
+		iButton.h = infoButton.getHeight();
 	}
 	if (!infoButton2.loadFromFile(gRenderer, "Images/HelpScreen2.png")) {
 		printf("Failed to load HelpScreen2 texture image!\n");
@@ -893,8 +891,8 @@ bool loadMedia() {
 	} else {
 		iButton2.x = 0;
 		iButton2.y = 0;
-		iButton2.w = 878;
-		iButton2.h = 640;
+		iButton2.w = infoButton2.getWidth();
+		iButton2.h = infoButton2.getHeight();
 	}
 
 	if (!gLightsSheetTexture.loadFromFile(gRenderer, "Images/Lights.png")) {
