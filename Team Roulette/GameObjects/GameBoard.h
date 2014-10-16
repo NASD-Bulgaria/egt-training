@@ -32,7 +32,7 @@ public:
 	virtual void setPosition(int x, int y);
 	bool anyBetPlaced();
 
-//private:
+private:
 	vector<NumberSector*> numberSectors;
 	vector<Sector*> betSectors;
 	vector<Sector*> allSectors;

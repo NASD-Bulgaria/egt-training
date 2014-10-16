@@ -23,5 +23,6 @@ private:
 	int money;
 	int t;
 };
-#endif 
 }
+
+#endif 

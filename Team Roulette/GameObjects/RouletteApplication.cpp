@@ -9,9 +9,9 @@
 
 namespace GameObjects {
 
-RouletteApplication::RouletteApplication(SDL_Renderer* gRenderer) {
+RouletteApplication::RouletteApplication() {
 	music = NULL;
-	init(gRenderer);
+	init();
 	statChange = true;
 	currentGameState = HomeState;
 	Mix_PlayMusic(music, -1);
@@ -42,39 +42,69 @@ RouletteApplication::~RouletteApplication() {
 		Mix_FreeChunk(i->second);
 		i->second = NULL;
 	}
+	for (map<string, Button*>::iterator i = allButtons.begin();
+			i != allButtons.end(); i++) {
+		i->second->free();
+		i->second = NULL;
+	}
+	for (map<string, IRendable*>::iterator i = simpleElements.begin();
+			i != simpleElements.end(); i++) {
+		i->second->free();
+		i->second = NULL;
+	}
+	gCursor = NULL;
+	gCursorClicked->free();
+	gCursorDefault->free();
+	gCursorClicked = NULL;
+	gCursorDefault = NULL;
 	Mix_FreeMusic(music);
 	music = NULL;
 	if (recovery) {
 		delete recovery;
 		recovery = NULL;
 	}
+	SDL_DestroyRenderer(gRenderer);
+	SDL_DestroyWindow(gWindow);
+	gWindow = NULL;
+	gRenderer = NULL;
+
+	IMG_Quit();
+	Mix_Quit();
+	TTF_Quit();
+	SDL_Quit();
 }
 
-void RouletteApplication::init(SDL_Renderer * gRenderer) {
-	initElements(gRenderer);
+void RouletteApplication::init() {
+	initSDL();
+	initElements();
 	initMusic();
-	changeWinInfo(gRenderer, 0);
-	changeBetInfo(gRenderer, 0);
-	changeBalanceInfo(gRenderer, player->getBalance());
+	changeWinInfo(0);
+	changeBetInfo(0);
+	changeBalanceInfo(player->getBalance());
 	musicOn = true;
 	soundfxOn = true;
 	bonusShowTicks = 0;
 }
 
-void RouletteApplication::handleMouseEvent(SDL_MouseButtonEvent e,
-		SDL_Renderer* gRenderer) {
-	if (e.state == SDL_PRESSED) {
-		if (e.button == SDL_BUTTON_LEFT) {
-			handleButtonClick(gRenderer, e.x, e.y);
-			handleBetCreation(e.x, e.y, gRenderer);
-		} else if (e.button == SDL_BUTTON_RIGHT) {
-			handleBetDeletion(e.x, e.y, gRenderer);
+void RouletteApplication::handleMouseEvent(SDL_MouseButtonEvent e) {
+	if (e.type == SDL_MOUSEBUTTONUP) {
+		gCursorDefault->setPosition(gCursor->getX(),gCursor->getY());
+		gCursor = gCursorDefault;
+	} else if (e.type == SDL_MOUSEBUTTONDOWN) {
+		gCursorClicked->setPosition(gCursor->getX(),gCursor->getY());
+		gCursor = gCursorClicked;
+		if (e.state == SDL_PRESSED) {
+			if (e.button == SDL_BUTTON_LEFT) {
+				handleButtonClick(e.x, e.y);
+				handleBetCreation(e.x, e.y);
+			} else if (e.button == SDL_BUTTON_RIGHT) {
+				handleBetDeletion(e.x, e.y);
+			}
 		}
 	}
 }
 
-void RouletteApplication::handleBetCreation(int x, int y,
-		SDL_Renderer* gRenderer) {
+void RouletteApplication::handleBetCreation(int x, int y) {
 	stringstream ss;
 	for (unsigned int i = 0; i < board->allSectors.size(); ++i) {
 		if (board->allSectors[i]->isClicked(x, y, currentGameState)) {
@@ -100,8 +130,8 @@ void RouletteApplication::handleBetCreation(int x, int y,
 							"Roulette/chip_on_table.png");
 				}
 			}
-			changeBetInfo(gRenderer, player->getTotalBet());
-			if (soundfxOn && player->getTotalBet() <= player->getBalance()) {
+			changeBetInfo(player->getTotalBet());
+			if (soundfxOn && player->getTotalBet() < player->getBalance()) {
 				Mix_PlayChannel(-1, musicChunks["chipChunk"], 0);
 			}
 			break;
@@ -110,8 +140,7 @@ void RouletteApplication::handleBetCreation(int x, int y,
 	ss.clear();
 }
 
-void RouletteApplication::handleBetDeletion(int x, int y,
-		SDL_Renderer* gRenderer) {
+void RouletteApplication::handleBetDeletion(int x, int y) {
 	stringstream ss;
 	for (unsigned int i = 0; i < board->allSectors.size(); ++i) {
 		if (board->allSectors[i]->isClicked(x, y, currentGameState)) {
@@ -131,15 +160,14 @@ void RouletteApplication::handleBetDeletion(int x, int y,
 					}
 				}
 			}
+			changeBetInfo(player->getTotalBet());
 			break;
-			changeBetInfo(gRenderer, player->getTotalBet());
 		}
 	}
 	ss.clear();
 }
 
-void RouletteApplication::setStatisticLines(SDL_Renderer* gRenderer,
-		vector<PlayerRecord>* records) {
+void RouletteApplication::setStatisticLines(vector<PlayerRecord>* records) {
 	stringstream ss;
 	int y = 136;
 	ss << setfill(' ') << setw(3) << "#" << setw(11) << "Number" << setw(10)
@@ -175,8 +203,7 @@ void RouletteApplication::setStatisticLines(SDL_Renderer* gRenderer,
 	ss.clear();
 }
 
-void RouletteApplication::setLast12(SDL_Renderer* gRenderer,
-		vector<StatisticRecord> * records) {
+void RouletteApplication::setLast12(vector<StatisticRecord> * records) {
 	stringstream ss;
 	for (unsigned int i = 0; i < records->size(); i++) {
 		ss << records->at(i).num;
@@ -195,25 +222,26 @@ void RouletteApplication::setLast12(SDL_Renderer* gRenderer,
 	ss.clear();
 }
 
-void RouletteApplication::drawStatisticLines(SDL_Renderer* gRenderer) {
+void RouletteApplication::drawStatisticLines() {
 	for (unsigned int i = 0; i <= 10; ++i) {
 		simpleElements[statElementNames[i]]->draw(gRenderer);
 	}
 }
 
-void RouletteApplication::drawLast12(SDL_Renderer* gRenderer) {
+void RouletteApplication::drawLast12() {
 	simpleElements["last12"]->draw(gRenderer);
 	for (unsigned int i = 0; i < 12; ++i) {
 		simpleElements[lastTenNumbersNames[i]]->draw(gRenderer);
 	}
 }
 
-void RouletteApplication::draw(SDL_Renderer* gRenderer) {
-	drawGameScreen(gRenderer);
-	drawInitialScreen(gRenderer);
-	drawStatScreen(gRenderer);
-	drawInfoScreen(gRenderer);
-	drawAboutUsScreen(gRenderer);
+void RouletteApplication::draw() {
+	drawGameScreen();
+	drawInitialScreen();
+	drawStatScreen();
+	drawInfoScreen();
+	drawAboutUsScreen();
+	gCursor->draw(gRenderer);
 }
 
 void RouletteApplication::initMusic() {
@@ -241,7 +269,7 @@ void RouletteApplication::initMusic() {
 	music = Mix_LoadMUS("Roulette/roulette.mp3");
 }
 
-void RouletteApplication::handleNumberHit(SDL_Renderer * gRenderer) {
+void RouletteApplication::handleNumberHit() {
 	board->setWiningNumberSector(rouletteBoard->getWininngNumber());
 	player->addToBalance(board->collectWinings());
 	stats->write(rouletteBoard->getWininngNumber(),
@@ -249,9 +277,11 @@ void RouletteApplication::handleNumberHit(SDL_Renderer * gRenderer) {
 			player->getTotalBet(), board->collectWinings(),
 			player->getBalance());
 	stats->read();
-	setLast12(gRenderer, stats->lastTenNumbers);
-	setStatisticLines(gRenderer, stats->lastTenPlayerRecords);
-	setMaxOccurrences(gRenderer, stats->numberCount);
+	recovery->setMoney(player->getBalance());
+	recovery->save();
+	setLast12(stats->lastTenNumbers);
+	setStatisticLines(stats->lastTenPlayerRecords);
+	setMaxOccurrences(stats->numberCount);
 	if (player->getBalance() == 0) {
 		board->clearAllBets();
 		player->clearBet();
@@ -259,18 +289,16 @@ void RouletteApplication::handleNumberHit(SDL_Renderer * gRenderer) {
 	if (player->getTotalBet() > player->getBalance()) {
 		board->clearAllBets();
 		player->clearBet();
-		changeBetInfo(gRenderer, player->getTotalBet());
+		changeBetInfo(player->getTotalBet());
 	}
 	if(soundfxOn && player->getTotalBet() < board->collectWinings()){
 		Mix_PlayChannel(-1, musicChunks["youwinChunk"], 0);
 	}
-	changeBalanceInfo(gRenderer, player->getBalance());
-	changeWinInfo(gRenderer, board->collectWinings());
-	rouletteBoard->resetWiningNumber();
+	changeBalanceInfo(player->getBalance());
+	changeWinInfo(board->collectWinings());
 }
 
-void RouletteApplication::setMaxOccurrences(SDL_Renderer* gRenderer,
-		int* records) {
+void RouletteApplication::setMaxOccurrences(int* records) {
 	vector<pair<int, int> > sortedRecords;
 	int colorsCount[3] = { 0 };
 	double totalCount = 0;
@@ -363,7 +391,7 @@ void RouletteApplication::setMaxOccurrences(SDL_Renderer* gRenderer,
 
 string RouletteApplication::colors[3] = { "RED", "BLACK", "GREEN" };
 
-void RouletteApplication::drawMaxOccurrences(SDL_Renderer* gRenderer) {
+void RouletteApplication::drawMaxOccurrences() {
 	simpleElements["redPercentage"]->draw(gRenderer);
 	simpleElements["blackPercentage"]->draw(gRenderer);
 	simpleElements["zeroPercentage"]->draw(gRenderer);
@@ -373,7 +401,7 @@ void RouletteApplication::drawMaxOccurrences(SDL_Renderer* gRenderer) {
 	simpleElements["gamesInfo"]->draw(gRenderer);
 }
 
-void RouletteApplication::initElements(SDL_Renderer* gRenderer) {
+void RouletteApplication::initElements() {
 	int state = 0;
 	for (int i = 0; i < 31; ++i) {
 		if (elementNames[i] == "gameBoard") {
@@ -408,28 +436,34 @@ void RouletteApplication::initElements(SDL_Renderer* gRenderer) {
 	this->recovery = new Recovery();
 	this->player = new Player(recovery->getMoney());
 	this->stats = new Statistics("Statistics", player->getBalance());
+	gCursor = NULL;
+	gCursorDefault = new IRendable();
+	gCursorClicked = new IRendable();
+	gCursorDefault->loadFromFile(gRenderer, "Roulette/cursor.png");
+	gCursorClicked->loadFromFile(gRenderer, "Roulette/cursorclicked.png");
+	gCursor = gCursorDefault;
 }
 
-void RouletteApplication::drawStatScreen(SDL_Renderer* gRenderer) {
+void RouletteApplication::drawStatScreen() {
 	if (currentGameState == StatisticState) {
 		simpleElements["statBackground"]->draw(gRenderer);
 		allButtons["statBackButton"]->draw(gRenderer);
 		if (statChange) {
 			allButtons["statChangeButton"]->draw(gRenderer);
-			drawStatisticLines(gRenderer);
+			drawStatisticLines();
 		} else {
 			allButtons["statChangeButton"]->draw(gRenderer, 0, SDL_FLIP_HORIZONTAL);
-			drawMaxOccurrences(gRenderer);
+			drawMaxOccurrences();
 		}
 	}
 }
 
-void RouletteApplication::drawGameScreen(SDL_Renderer* gRenderer) {
+void RouletteApplication::drawGameScreen() {
 	if (currentGameState == PlayState || currentGameState == SpinState) {
 		simpleElements["mainBackground"]->draw(gRenderer);
 		rouletteBoard->draw(gRenderer);
 		board->draw(gRenderer);
-		drawLast12(gRenderer);
+		drawLast12();
 		simpleElements["winInfo"]->draw(gRenderer);
 		simpleElements["betInfo"]->draw(gRenderer);
 		simpleElements["balanceInfo"]->draw(gRenderer);
@@ -452,23 +486,23 @@ void RouletteApplication::drawGameScreen(SDL_Renderer* gRenderer) {
 	}
 }
 
-void RouletteApplication::drawInitialScreen(SDL_Renderer* gRenderer) {
+void RouletteApplication::drawInitialScreen() {
 	if (currentGameState == HomeState) {
 		simpleElements["homeBackground"]->draw(gRenderer);
 		allButtons["getChipsButton"]->draw(gRenderer);
 		allButtons["playButton"]->draw(gRenderer);
-		drawBonusMsg(gRenderer);
+		drawBonusMsg();
 	}
 }
 
-void RouletteApplication::drawInfoScreen(SDL_Renderer* gRenderer) {
+void RouletteApplication::drawInfoScreen() {
 	if (currentGameState == InfoState) {
 		simpleElements["instructionBackground"]->draw(gRenderer);
 		allButtons["infoBackButton"]->draw(gRenderer);
 	}
 }
 
-void RouletteApplication::handleButtonClick(SDL_Renderer* gRenderer, int x, int y) {
+void RouletteApplication::handleButtonClick(int x, int y) {
 	if (allButtons["playButton"]->isClicked(x, y, currentGameState)) {
 		currentGameState = PlayState;
 		if (musicOn) {
@@ -513,8 +547,8 @@ void RouletteApplication::handleButtonClick(SDL_Renderer* gRenderer, int x, int 
 			Mix_PlayChannel(-1, musicChunks["tickChunk"], 0);
 		}
 		player->creditBalance(player->getTotalBet());
-		changeBalanceInfo(gRenderer, player->getBalance());
-		changeWinInfo(gRenderer, 0);
+		changeBalanceInfo(player->getBalance());
+		changeWinInfo(0);
 		for (map<string, Button*>::iterator it = allButtons.begin();
 				it != allButtons.end(); ++it) {
 			it->second->setAlpha(128);
@@ -531,7 +565,7 @@ void RouletteApplication::handleButtonClick(SDL_Renderer* gRenderer, int x, int 
 			}
 			player->clearBet();
 			board->clearAllBets();
-			changeBetInfo(gRenderer, player->getTotalBet());
+			changeBetInfo(player->getTotalBet());
 		}
 	} else if(allButtons["musicButton"]->isClicked(x, y, currentGameState) && musicOn){
 		musicOn = false;
@@ -552,6 +586,7 @@ void RouletteApplication::handleButtonClick(SDL_Renderer* gRenderer, int x, int 
 			recovery->save();
 			simpleElements["bonus"]->setRenderedText(gRenderer, "Bonus!! You get 100 chips!!",
 					28, 0 ,0 ,0 ,"Roulette/luximb.ttf");
+			changeBalanceInfo(player->getBalance());
 		} else {
 			stringstream ss ;
 			ss << "Try again after " << (60 - (time(0) - recovery->getTime()) / 60)
@@ -564,13 +599,14 @@ void RouletteApplication::handleButtonClick(SDL_Renderer* gRenderer, int x, int 
 	}
 }
 
-void RouletteApplication::handleSpinState(SDL_Renderer* gRenderer) {
+void RouletteApplication::handleSpinState() {
 	if (currentGameState == SpinState) {
 		if (rouletteBoard->wheel->getSpinSpeed() != Stoped) {
 			rouletteBoard->wheel->spin();
 			rouletteBoard->ball->moove(rouletteBoard->wheel->getSpinSpeed());
 			if (rouletteBoard->ball->isInSector() && rouletteBoard->getWininngNumber() == -1) {
 				rouletteBoard->handleBallInSector();
+				handleNumberHit();
 				if (soundfxOn) {
 					stringstream ss;
 					ss<<rouletteBoard->getWininngNumber() << "Chunk";
@@ -580,16 +616,16 @@ void RouletteApplication::handleSpinState(SDL_Renderer* gRenderer) {
 			}
 		} else {
 			currentGameState = PlayState;
+			rouletteBoard->resetWiningNumber();
 			for (map<string, Button*>::iterator it = allButtons.begin();
 					it != allButtons.end(); ++it) {
 				it->second->setAlpha(255);
 			}
-			handleNumberHit(gRenderer);
 		}
 	}
 }
 
-void RouletteApplication::changeBetInfo(SDL_Renderer* gRenderer, int totalBet) {
+void RouletteApplication::changeBetInfo(int totalBet) {
 	stringstream ss;
 	ss << totalBet;
 	simpleElements["betInfo"]->setRenderedText(gRenderer, ss.str());
@@ -599,8 +635,7 @@ void RouletteApplication::changeBetInfo(SDL_Renderer* gRenderer, int totalBet) {
 	ss.clear();
 }
 
-void RouletteApplication::changeBalanceInfo(SDL_Renderer* gRenderer,
-		int balanceAmount) {
+void RouletteApplication::changeBalanceInfo(int balanceAmount) {
 	stringstream ss;
 	ss << balanceAmount;
 	simpleElements["balanceInfo"]->setRenderedText(gRenderer, ss.str());
@@ -610,8 +645,7 @@ void RouletteApplication::changeBalanceInfo(SDL_Renderer* gRenderer,
 	ss.clear();
 }
 
-void RouletteApplication::changeWinInfo(SDL_Renderer* gRenderer,
-		int winAmount) {
+void RouletteApplication::changeWinInfo(int winAmount) {
 	stringstream ss;
 	ss << winAmount;
 	simpleElements["winInfo"]->setRenderedText(gRenderer, ss.str());
@@ -621,16 +655,70 @@ void RouletteApplication::changeWinInfo(SDL_Renderer* gRenderer,
 	ss.clear();
 }
 
-void RouletteApplication::drawBonusMsg(SDL_Renderer* gRenderer) {
+void RouletteApplication::drawBonusMsg() {
 	if (SDL_GetTicks() < bonusShowTicks) {
 		simpleElements["bonus"]->draw(gRenderer);
 	}
 }
 
-void RouletteApplication::drawAboutUsScreen(SDL_Renderer* gRenderer) {
+void RouletteApplication::drawAboutUsScreen() {
 	if (currentGameState == AboutState) {
 		simpleElements["aboutUs"]->draw(gRenderer);
 		allButtons["aboutUsBackButton"]->draw(gRenderer);
+	}
+}
+
+void RouletteApplication::initSDL() {
+
+	int SCREEN_WIDTH = 1192;
+	int SCREEN_HEIGHT = 460;
+
+	SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+
+	SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1");
+
+	gWindow = SDL_CreateWindow("European Roulette", SDL_WINDOWPOS_UNDEFINED,
+	SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+	gRenderer = SDL_CreateRenderer(gWindow, -1,
+			SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+	int imgFlags = IMG_INIT_PNG;
+
+	IMG_Init(imgFlags);
+	TTF_Init();
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
+}
+
+void RouletteApplication::start() {
+	srand(time(NULL));
+	bool quit = false;
+
+	SDL_Event e;
+	int x, y;
+	SDL_ShowCursor(0);
+
+	stringstream ss;
+	setLast12(stats->lastTenNumbers);
+	setStatisticLines(stats->lastTenPlayerRecords);
+	setMaxOccurrences(stats->numberCount);
+
+	while (!quit) {
+		SDL_GetMouseState(&x, &y);
+		gCursor->setPosition(x, y);
+		while (SDL_PollEvent(&e) != 0) {
+			if (e.type == SDL_QUIT) {
+				quit = true;
+			}
+			handleMouseEvent(e.button);
+		}
+		handleSpinState();
+		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_RenderClear(gRenderer);
+		draw();
+		SDL_RenderPresent(gRenderer);
 	}
 }
 

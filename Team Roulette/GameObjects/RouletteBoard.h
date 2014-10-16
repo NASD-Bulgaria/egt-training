@@ -26,7 +26,7 @@ public:
 	int getRadius();
 	void resetWiningNumber();
 	virtual ~RouletteBoard();
-//private:
+private:
 	RouletteWheel* wheel;
 	short currentNumberIndex;
 	Ball* ball;

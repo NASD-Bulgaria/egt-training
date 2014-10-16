@@ -39,6 +39,7 @@ void GameBoard::clearAllBets() {
 	for (unsigned int i = 0; i < allSectors.size(); ++i) {
 		if (allSectors[i]->bet) {
 			allSectors[i]->bet->free();
+			delete allSectors[i]->bet;
 			allSectors[i]->bet = NULL;
 		}
 	}

@@ -44,6 +44,8 @@ struct StatisticRecord{
 
 class Statistics
 {
+	friend class RouletteApplication;
+
 public:
 	Statistics(string rootDir = "", int initialAmount = 0);
 	void write(short num, Color color, int totalBet, int winings, int currentBalance);
