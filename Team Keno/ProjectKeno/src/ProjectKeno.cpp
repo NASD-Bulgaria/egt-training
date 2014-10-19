@@ -842,7 +842,7 @@ bool loadMedia() {
 		mButton.h = musicButton.getHeight();
 	}
 
-	if (!bonusRoundTexture.loadFromFile(gRenderer, "Images/BonusRound12.png")) {
+	if (!bonusRoundTexture.loadFromFile(gRenderer, "Images/BonusRound.png")) {
 		printf("Failed to load MusicMute texture image!\n");
 		success = false;
 	} else {
