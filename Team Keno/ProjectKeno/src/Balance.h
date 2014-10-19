@@ -5,7 +5,6 @@ class Balance
 {
 public:
 
-
 	Balance(int);
 
 	int getCredit() const;
@@ -16,11 +15,11 @@ public:
 	void setFirstCredit(int);
 	void setBet(int);
 	int getBet();
+
 private:
 
 	int credit;
 	int bet;
-
 };
 
 #endif

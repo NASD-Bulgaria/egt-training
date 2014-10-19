@@ -29,15 +29,12 @@ public:
 	bool loadFromRenderedText(SDL_Renderer*, TTF_Font*, string, SDL_Color);
 	void renderText(SDL_Renderer*, int x, int y);
 
-	//Gets image dimensions
 	int getWidth();
 	int getHeight();
 
 private:
-	//The actual hardware texture
 	SDL_Texture* mTexture;
 
-	//Image dimensions
 	int mWidth;
 	int mHeight;
 };

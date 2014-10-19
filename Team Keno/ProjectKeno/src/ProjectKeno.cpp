@@ -24,6 +24,8 @@
 #include <stdexcept>
 #include <sstream>
 
+
+
 using namespace std;
 
 bool isWin(int, int);
@@ -44,6 +46,7 @@ void displayStatistics(FrequencyNumber &, Statistics &);
 void alienAnimation();
 void ballAnimationColor(int &,int &);
 void calculationAndSaveData(int &, vector<int> &,vector<int> &, Balance &, Statistics &, FrequencyNumber &, Recovery &,fstream& , fstream&);
+void bonusRound(int &);
 
 bool init();
 bool loadMedia();
@@ -79,6 +82,10 @@ const int LOGO_ANIMATION = 20;
 SDL_Rect gLogoClips[LOGO_ANIMATION];
 KTexture gLogoSheetTexture;
 
+const int BONUS_ROUND = 15;
+SDL_Rect gBonusRoud[BONUS_ROUND];
+KTexture gBonusRoundTexture;
+
 
 KTexture infoButton;
 KTexture infoButton2;
@@ -88,6 +95,7 @@ KTexture clearInactive;
 KTexture quickPickInactive;
 KTexture chunkButton;
 KTexture chunkButtonMute;
+KTexture bonusRoundTexture;
 
 
 SDL_Rect pButton;
@@ -108,6 +116,7 @@ const int SELECTED_NUMBERS_COLS = 10;
 Button gButtons[SELECTED_NUMBERS_ROWS][SELECTED_NUMBERS_COLS];
 
 Mix_Music *gMainMelody = NULL;
+Mix_Chunk *gBonusMelody = NULL;
 Mix_Chunk *gPlay = NULL;
 Mix_Chunk *gQuickPick = NULL;
 Mix_Chunk *gSelect = NULL;
@@ -126,9 +135,6 @@ SDL_Color payTableColor = { 165, 225, 169 };
 SDL_Color winningsPayTableColor = { 255, 255, 0 };
 SDL_Color balanceColor = { 255, 242, 59 };
 
-
-
-unsigned int index = 0;
 int main(int args, char* argc[]){
 
 	vector<int> userSelects;
@@ -171,7 +177,6 @@ int main(int args, char* argc[]){
 	freq.printMap();
 
 	saveFrequencyInFile(fileFrequency, freq);
-//	saveDataInFile(Logs,stats);
 
 	getDataFromFile(Logs, stats);
 
@@ -192,6 +197,7 @@ int main(int args, char* argc[]){
 		} else {
 
 			loadSelectedNumbers();
+			Mix_PlayChannel(-1,gBonusMelody,-1);
 
 			//Main loop flag
 			bool quit = false;
@@ -199,6 +205,7 @@ int main(int args, char* argc[]){
 			//Event handler
 			SDL_Event e;
 			int x, y;
+
 			//Current animation frame
 			int frame = 0;
 
@@ -208,29 +215,23 @@ int main(int args, char* argc[]){
 			while (!quit) {
 				frameStart = SDL_GetTicks();
 
+				if (play) {
+					Numbers numb(userSelects);
+					numb.printRandom();
+
+					hits = numb.getHits();
+					numboffhit = numb.getNumbOfHit();
+
+					randoms = numb.getRandoms();
+					numb.clearReset();
+					play = false;
+					clear = true;
+					index = 0;
+					range = 540;
+				}
 				//Handle events on queue
 				while (SDL_PollEvent(&e) != 0) {
 					//User requests quit
-
-					if (play) {
-						Numbers numb(userSelects);
-						numb.printRandom();
-
-						hits = numb.getHits();
-						numboffhit = numb.getNumbOfHit();
-
-//						recover.setRecoveryBalance(credits.getCredit());
-
-//						saveDataInFile(Logs, stats);
-//						saveDataInFile(fileRecovery, recover);
-
-						randoms = numb.getRandoms();
-						numb.clearReset();
-						play = false;
-						clear = true;
-						index = 0;
-						range = 540;
-					}
 
 					switch (e.type) {
 					case SDL_QUIT:
@@ -261,15 +262,12 @@ int main(int args, char* argc[]){
 
 								pick = userSelects.size();
 							}
-							else
-							{
+							else{
 								ball = false;
-								if(ball)
-								{
+								if(ball){
 									setInitialColor();
 								}
-								if (userSelects.size() < 10)
-								{
+								if (userSelects.size() < 10){
 									Mix_PlayChannel(-1, gSelect, 0);
 									gButtons[(y - 38) / Button::HEIGHT][(x - 218) / Button::WIDTH].setColor(255, 255, 0, 128);
 
@@ -309,10 +307,8 @@ int main(int args, char* argc[]){
 						}
 //
 						//Play button
-						if (x >= 483 && x <= 569 && y >= 413 && y <= 502 && userSelects.size() >= 2 && screen == false && credits.getCredit() > 0)
-						{
-							for(unsigned i = 0; i < userSelects.size();i++)
-							{
+						if (x >= 483 && x <= 569 && y >= 413 && y <= 502 && userSelects.size() >= 2 && screen == false && credits.getCredit() > 0){
+							for(unsigned i = 0; i < userSelects.size();i++){
 								gButtons[userSelects[i]/10][(userSelects[i]%10)-1].setColor(255, 255, 0, 128);
 							}
 
@@ -327,6 +323,13 @@ int main(int args, char* argc[]){
 							hits = 0;
 							balanceCount = 0;
 							credits.setCredit();
+							bonusRound(bonus);
+							if(bonus > 0 && playRound == 0){
+								playRound = bonus-1;
+								credits.setFirstCredit(credits.getCredit() + credits.getBet());
+								Mix_VolumeChunk(gBonusMelody,40);
+								Mix_VolumeMusic(0);
+							}
 						}
 
 						if (pick <= 1) {
@@ -386,9 +389,11 @@ int main(int args, char* argc[]){
 						if (x > 853 && x < 878 && y > 0 && y < 30 && help == false)
 						{
 							if (music == false) {
+								Mix_VolumeChunk(gBonusMelody,0);
 								Mix_PauseMusic();
 							} else {
 								Mix_ResumeMusic();
+								Mix_VolumeChunk(gBonusMelody,40);
 							}
 							music = !music;
 						}
@@ -448,22 +453,37 @@ int main(int args, char* argc[]){
 
 				SDL_RenderCopy(gRenderer, background, NULL, NULL);
 
-				if (userSelects.size() >= 2 && screen == false)
+				if (playRound > 0 && index == 20 && sleepCount < 41)
 				{
+					sleepCount++;
+				}
+				if(playRound != 0 && index == 20 && sleepCount ==40)
+				{
+					playRound--;
+					play = true;
+					ballY = 640;
+					index = 0;
+					randoms.clear();
+					ballX = 170;
+					ball = true;
+					hits = 0;
+					balanceCount = 0;
+					setInitialColor();
+					for (unsigned i = 0; i < userSelects.size(); i++){
+						gButtons[userSelects[i] / 10][(userSelects[i] % 10) - 1].setColor(255, 255, 0, 128);
+						gButtons[userSelects[i] / 10][(userSelects[i] % 10) - 1].Clicked = true;
+					}
+					sleepCount = 0;
+				}
+
+				if (userSelects.size() >= 2 && screen == false){
 					playButton.render(gRenderer, 458, 384, &pButton);
 				}
 
-				SDL_Rect* currentClip = &gLightsClips[frame / 30];
-				gLightsSheetTexture.render(gRenderer, 0, 496, currentClip);
-
-				SDL_Rect* RadarClip = &gRadarClips[radarFrame / 2];
-				gRadarSheetTexture.render(gRenderer, 733, 337, RadarClip);
-
-				SDL_Rect* RadioClip = &gRadioClips[radioFrame / 1];
-				gRadioSheetTexture.render(gRenderer, 691, 470, RadioClip);
-
-				SDL_Rect* LogoClip = &gLogoClips[logoFrame / 8];
-				gLogoSheetTexture.render(gRenderer, 59, 443, LogoClip);
+				gLightsSheetTexture.render(gRenderer, 0, 496, &gLightsClips[frame / 30]);
+				gRadarSheetTexture.render(gRenderer, 733, 337, &gRadarClips[radarFrame / 2]);
+				gRadioSheetTexture.render(gRenderer, 691, 470, &gRadioClips[radioFrame / 1]);
+				gLogoSheetTexture.render(gRenderer, 59, 443, &gLogoClips[logoFrame / 8]);
 
 				for (int rows = 0; rows < 8; rows++) {
 					for (int cols = 0; cols < 10; cols++) {
@@ -477,8 +497,7 @@ int main(int args, char* argc[]){
 				if (help == true) {
 					infoButton.render(gRenderer, 0, 0, &iButton );
 
-					if (help2)
-					{
+					if (help2){
 						infoButton2.render(gRenderer, 0, 0, &iButton2);
 					}
 				}
@@ -486,19 +505,16 @@ int main(int args, char* argc[]){
 				if (music == true && help == false) {
 					musicButton.render(gRenderer, 849, 0, &mButton);
 				}
-				if(chunk && help == false)
-				{
+				if(chunk && help == false){
 					chunkButton.render(gRenderer, 849, 32, &chunkButtonRect);
 				}
-				else if(!chunk && help == false)
-				{
+				else if(!chunk && help == false){
 					chunkButtonMute.render(gRenderer, 849, 32, &chunkButtonRectMute);
 				}
 
 				if (help == false) {
 
-					if (userSelects.size() > 1)
-					{
+					if (userSelects.size() > 1){
 						payTable(userSelects.size(),hits,index);
 					}
 
@@ -513,11 +529,10 @@ int main(int args, char* argc[]){
 				moveX = 11;
 				moveY = 13;
 				ballAnimationColor(counter, color);
+
 				if(ball && randoms.size() > 0 && help == false){
 					ballsOrder(randoms,color,numboffhit);
 				}
-
-
 				if((userSelects.size() == 0 || screen == true) && help == false){
 				clearInactive.render(gRenderer,142,368,&clearButton);
 				}
@@ -527,13 +542,11 @@ int main(int args, char* argc[]){
 					SDL_Rect* incDecClip = &gIncDecClips[0];
 					gIncDecSheetTexture.render(gRenderer, 563, 233, incDecClip);
 
-					if (incDecCount == 10)
-					{
+					if (incDecCount == 10){
 						x=0;
 						y=0;
 					}
-					if(incDecCount < 11)
-					{
+					if(incDecCount < 11){
 						incDecCount++;
 					}
 				}
@@ -542,25 +555,21 @@ int main(int args, char* argc[]){
 				{
 					SDL_Rect* incDecClip = &gIncDecClips[1];
 					gIncDecSheetTexture.render(gRenderer, 589, 233, incDecClip);
-					if (incDecCount == 10)
-					{
+					if (incDecCount == 10){
 						x=0;
 						y=0;
 					}
-					if(incDecCount < 11)
-					{
+					if(incDecCount < 11){
 						incDecCount++;
 					}
 				}
 
-				if (index == 20 && balanceCount == 0)
-				{
+				if (index == 20 && balanceCount == 0){
 					calculationAndSaveData(balanceCount,userSelects,randoms,credits,stats,freq,recover,Logs,fileRecovery);
 				}
 
 
-				if (help == false && coefficient[userSelects.size()][hits] > 0 && index == 20 && counter > 0)
-				{
+				if (help == false && coefficient[userSelects.size()][hits] > 0 && index == 20 && counter > 0){
 					gText.loadFromRenderedText(gRenderer, balanceFont, "W I N:", balanceColor);
 					gText.renderText(gRenderer, 385, 355);
 
@@ -574,14 +583,55 @@ int main(int args, char* argc[]){
 					ss.clear();
 				}
 
+				if(credits.getCredit() == 0 && index == 20 && help == false && counter > 0){
+					gText.loadFromRenderedText(gRenderer, balanceFont, "INSERT CREDIT", balanceColor);
+					gText.renderText(gRenderer, 385, 355);
+				}
+
 				if (help == false && screen == true){
 					quickPickInactive.render(gRenderer,331,457,&quickPickButton);
 				}
 
-				if (coefficient[userSelects.size()][hits] == 0 && index == 20 && help == false)
-				{
+				if (coefficient[userSelects.size()][hits] == 0 && index == 20 && help == false){
 					alienAnimation();
 				}
+
+
+				if((playRound != 0 || index < 20)  && ball == true){
+					switch (bonus)
+					{
+					case 1:bonusRoundTexture.render(gRenderer,165,285,&gBonusRoud[roundCounter/2]);
+					break;
+					case 3: bonusRoundTexture.render(gRenderer,125,285,&gBonusRoud[(roundCounter/2)+5]);
+					break;
+					case 5: bonusRoundTexture.render(gRenderer,125,285,&gBonusRoud[(roundCounter/2)+10]);
+					break;
+					}
+
+					if (roundCounter < 9 && roundCounter >=0 ){
+						if(bonusColors){
+							roundCounter++;
+						}else{
+							roundCounter--;
+						}
+					}else{
+						if(bonusColors){
+							roundCounter = 8;
+						}
+						else{
+							roundCounter = 0;
+						}
+						bonusColors = !bonusColors;
+					}
+				}
+				else{
+					bonus = 0;
+					Mix_VolumeChunk(gBonusMelody,0);
+					Mix_VolumeMusic(50);
+				}
+
+
+
 				//Update screen
 				SDL_RenderPresent(gRenderer);
 
@@ -626,7 +676,6 @@ int main(int args, char* argc[]){
 	}
 
 	close();
-
 	return 0;
 }
 
@@ -639,8 +688,7 @@ void saveFrequencyInFile(fstream &write, FrequencyNumber &freq) {
 	int key, value;
 	char ch;
 
-	while (write >> key >> ch >> value)
-	{
+	while (write >> key >> ch >> value){
 		temp2[key] = value;
 	}
 
@@ -657,8 +705,7 @@ void saveFrequencyInFile(fstream &write, FrequencyNumber &freq) {
 			write << it->first << "-" << it->second << endl;
 			it++;
 		}
-		else
-		{
+		else{
 			write << i + 1 << "-" << 0 << endl;
 		}
 
@@ -674,8 +721,7 @@ void loadFrequencyFromFile(fstream &read, FrequencyNumber &freq) {
 
 	read.seekg(0);
 
-	while (read >> key >> ch >> value)
-	{
+	while (read >> key >> ch >> value){
 		temp[key] = value;
 	}
 	freq.setMapFromFile(temp);
@@ -796,6 +842,34 @@ bool loadMedia() {
 		mButton.h = musicButton.getHeight();
 	}
 
+	if (!bonusRoundTexture.loadFromFile(gRenderer, "Images/BonusRound12.png")) {
+		printf("Failed to load MusicMute texture image!\n");
+		success = false;
+	} else {
+	 int x = 0;
+	 int y = 0;
+		for(int i = 0; i < 15; i++){
+			if(i == 5){
+				x = 0;
+				y = 0;
+			}
+			if(i < 5){
+				gBonusRoud[i].x = x;
+				gBonusRoud[i].y = y;
+				gBonusRoud[i].w = bonusRoundTexture.getWidth() - 230;
+				gBonusRoud[i].h = 40;
+				y += 40;
+			}
+			else{
+				gBonusRoud[i].x = x;
+				gBonusRoud[i].y = y;
+				gBonusRoud[i].w = bonusRoundTexture.getWidth();
+				gBonusRoud[i].h = 40;
+				y += 40;
+			}
+		}
+	}
+
 	if (!chunkButton.loadFromFile(gRenderer, "Images/sound2.png")) {
 			printf("Failed to load MusicMute texture image!\n");
 			success = false;
@@ -846,33 +920,32 @@ bool loadMedia() {
 		quickPickButton.h = quickPickInactive.getHeight();
 	}
 
-	for(int i = 0; i < 20; i++)
-	{
+	for(int i = 0; i < 20; i++){
 		if (!balls[i].loadFromFile(gRenderer, "Images/Balls.png")) {
 		printf("Failed to load Balls texture image!\n");
 		success = false;
 	} else {
 
-		ballsClips[0].x = 0;
-		ballsClips[0].y = 0;
-		ballsClips[0].w = 45;
-		ballsClips[0].h = 45;
+			ballsClips[0].x = 0;
+			ballsClips[0].y = 0;
+			ballsClips[0].w = 45;
+			ballsClips[0].h = 45;
 
-		ballsClips[1].x = 45;
-		ballsClips[1].y = 0;
-		ballsClips[1].w = 45;
-		ballsClips[1].h = 45;
+			ballsClips[1].x = 45;
+			ballsClips[1].y = 0;
+			ballsClips[1].w = 45;
+			ballsClips[1].h = 45;
 
-		ballsClips[2].x = 90;
-		ballsClips[2].y = 0;
-		ballsClips[2].w = 45;
-		ballsClips[2].h = 45;
+			ballsClips[2].x = 90;
+			ballsClips[2].y = 0;
+			ballsClips[2].w = 45;
+			ballsClips[2].h = 45;
 
-		ballsClips[3].x = 135;
-		ballsClips[3].y = 0;
-		ballsClips[3].w = 45;
-		ballsClips[3].h = 45;
-	}
+			ballsClips[3].x = 135;
+			ballsClips[3].y = 0;
+			ballsClips[3].w = 45;
+			ballsClips[3].h = 45;
+		}
 	}
 
 
@@ -930,8 +1003,7 @@ bool loadMedia() {
 			gRadarClips[i-1].w = 136;
 			gRadarClips[i-1].h = 107;
 			radarX += 136;
-			if (i % 5 == 0 )
-			{
+			if (i % 5 == 0 ){
 				radarX = 0;
 				radarY += 107;
 			}
@@ -944,8 +1016,7 @@ bool loadMedia() {
 	} else {
 		int radioX = 0;
 		int radioY = 0;
-		for (int i = 1; i < 51; i++)
-			{
+		for (int i = 1; i < 51; i++){
 				gRadioClips[i-1].x = radioX;
 				gRadioClips[i-1].y = radioY;
 				gRadioClips[i-1].w = 107;
@@ -965,19 +1036,17 @@ bool loadMedia() {
 	} else {
 		int logoX = 0;
 		int logoY = 0;
-		for (int i = 1; i < 21; i++)
-			{
-				gLogoClips[i-1].x = logoX;
-				gLogoClips[i-1].y = logoY;
-				gLogoClips[i-1].w = 135;
-				gLogoClips[i-1].h = 108;
-				logoX += 135;
-				if (i % 5 == 0 )
-				{
-					logoX = 0;
-					logoY += 108;
-				}
+		for (int i = 1; i < 21; i++){
+			gLogoClips[i-1].x = logoX;
+			gLogoClips[i-1].y = logoY;
+			gLogoClips[i-1].w = 135;
+			gLogoClips[i-1].h = 108;
+			logoX += 135;
+			if (i % 5 == 0 ){
+				logoX = 0;
+				logoY += 108;
 			}
+		}
 	}
 
 	if (!gAlienSheetTexture.loadFromFile(gRenderer, "Images/AliensPNG.png")) {
@@ -1015,6 +1084,14 @@ bool loadMedia() {
 	gMainMelody = Mix_LoadMUS("Sounds/Keno_melody.mp3");
 	Mix_VolumeMusic(50);
 	if (gMainMelody == NULL) {
+		printf("Failed to load Keno_melody! SDL_mixer Error: %s\n",
+		Mix_GetError());
+		success = false;
+	}
+
+	gBonusMelody = Mix_LoadWAV("Sounds/bonus_melody.wav");
+	Mix_VolumeChunk(gBonusMelody,50);
+	if (gBonusMelody == NULL) {
 		printf("Failed to load Keno_melody! SDL_mixer Error: %s\n",
 		Mix_GetError());
 		success = false;
@@ -1129,7 +1206,6 @@ bool loadMedia() {
 	return success;
 }
 
-
 SDL_Texture* loadTexture(std::string path) {
 	//The final texture
 	SDL_Texture* newTexture = NULL;
@@ -1147,13 +1223,13 @@ SDL_Texture* loadTexture(std::string path) {
 					path.c_str(), SDL_GetError());
 		}
 
-		//Get rid of old loaded surface
 		SDL_FreeSurface(loadedSurface);
 	}
 	return newTexture;
 }
 
-void loadSelectedNumbers() {
+void loadSelectedNumbers()
+{
 	int x = 218;
 	int y = 38;
 
@@ -1176,8 +1252,7 @@ void loadTTFGameboard() {
 	int y = 41;
 
 	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 10; j++)
-		{
+		for (int j = 0; j < 10; j++){
 			if (i > 0 && j == 0) {
 				x += 6;
 			}
@@ -1207,7 +1282,6 @@ void loadTTFGameboard() {
 		}
 		x = 224;
 		y += Button::HEIGHT;
-
 	}
 }
 
@@ -1220,7 +1294,8 @@ void setInitialColor() {
 	}
 }
 
-void payTable(int numbers,int hits, int index) {
+void payTable(int numbers,int hits, int index)
+{
 	int y = 80;
 	gText.loadFromRenderedText(gRenderer, infoFont, "Hits", payTableColor);
 	gText.renderText(gRenderer, 40, 60);
@@ -1231,8 +1306,7 @@ void payTable(int numbers,int hits, int index) {
 		int x = 41;
 		stringstream ss;
 		stringstream ss2;
-		if (hits > 0 && hits == j && index == 20)
-		{
+		if (hits > 0 && hits == j && index == 20){
 			ss << j;
 			ss<<"*";
 			gText.loadFromRenderedText(gRenderer, infoFont, ss.str(), winningsPayTableColor);
@@ -1347,28 +1421,24 @@ void displayStatistics(FrequencyNumber &freq, Statistics &stat) {
 void ballsOrder(vector<int> &randoms,int col,vector<int> &v)
 {
 	ballY-=2;
-	if (randoms[index] < 10)
-	{
+	if (randoms[index] < 10){
 		moveX = 16;
 	}
 
-	if(ballY > range)
-	{
+	if(ballY > range){
 		screen = true;
 		if(index < randoms.size())
 		{
-		balls[index].ballRender(gRenderer, ballX, ballY, &ballsClips[0]);
-		stringstream ss;
-		ss<<randoms[index];
-		gText.loadFromRenderedText(gRenderer,ballsFont,ss.str(),payTableColor);
-		gText.renderText(gRenderer,ballX+moveX,ballY+moveY);
-		ss<<"";
-		ss.clear();
+			balls[index].ballRender(gRenderer, ballX, ballY, &ballsClips[0]);
+			stringstream ss;
+			ss<<randoms[index];
+			gText.loadFromRenderedText(gRenderer,ballsFont,ss.str(),payTableColor);
+			gText.renderText(gRenderer,ballX+moveX,ballY+moveY);
+			ss<<"";
+			ss.clear();
 		}
-		if (ballY == range + 2 && index < randoms.size())
-		{
-			if(index == 9)
-			{
+		if (ballY == range + 2 && index < randoms.size()){
+			if(index == 9){
 				range = 590;
 				ballX = 170 - 55;
 			}
@@ -1378,31 +1448,26 @@ void ballsOrder(vector<int> &randoms,int col,vector<int> &v)
 			ballX += 55;
 		}
 	}
-	else
-	{
+	else{
 		screen = false;
 	}
 
-	for ( unsigned i = 0; i < index; i++)
-		{
+	for ( unsigned i = 0; i < index; i++){
 			int x = randoms[i];
 			moveX = 11;
 			moveY = 13;
-			if (i == 10)
-			{
+			if (i == 10){
 				ballX2= 170;
 				ballY2 = 590;
 			}
-			if(binary_search(v.begin(),v.end(),x))
-			{
-				if (randoms[i] < 10)
-				{
+
+			if(binary_search(v.begin(),v.end(),x)){
+				if (randoms[i] < 10){
 					moveX = 16;
 				}
 				if(((index < randoms.size() && (index-1) == i) || i == 19) && ballY == 638 ){
 				Mix_PlayChannel(-1, gWin, 0);
 				}
-
 				gButtons[randoms[i]/10][(randoms[i]%10)-1].setColor(0,255,0,0);
 				balls[i].ballRender(gRenderer, ballX2, ballY2, &ballsClips[col]);
 				stringstream ss;
@@ -1413,10 +1478,8 @@ void ballsOrder(vector<int> &randoms,int col,vector<int> &v)
 				ss.clear();
 				ballX2 += 55;
 			}
-			else
-			{
-				if (randoms[i] < 10)
-				{
+			else{
+				if (randoms[i] < 10){
 					moveX = 16;
 				}
 				balls[i].ballRender(gRenderer, ballX2, ballY2, &ballsClips[0]);
@@ -1434,6 +1497,7 @@ void ballsOrder(vector<int> &randoms,int col,vector<int> &v)
 void close()
 {
 	//Free loaded image
+	bonusRoundTexture.free();
 	gLightsSheetTexture.free();
 	infoButton.free();
 	infoButton2.free();
@@ -1444,8 +1508,8 @@ void close()
 	clearInactive.free();
 	quickPickInactive.free();
 	gText.free();
-	for (int i = 0; i < 20; i++)
-	{
+
+	for (int i = 0; i < 20; i++){
 		balls[i].free();
 	}
 	gRadarSheetTexture.free();
@@ -1473,6 +1537,8 @@ void close()
 	gClear = NULL;
 	Mix_FreeChunk(gWin);
 	gWin = NULL;
+	Mix_FreeChunk(gBonusMelody);
+	gBonusMelody = NULL;
 
 	//Quit SDL subsystems
 	Mix_Quit();
@@ -1495,7 +1561,6 @@ void alienAnimation()
 	if (alienCount == 20) {
 		alienCount = 0;
 	}
-
 }
 
 void ballAnimationColor(int &counter,int &color)
@@ -1516,6 +1581,7 @@ void ballAnimationColor(int &counter,int &color)
 		counter = 0;
 	}
 }
+
 void calculationAndSaveData(int &balanceCount, vector<int> &userSelects,vector<int> &randoms, Balance &credits, Statistics &stats, FrequencyNumber &freq, Recovery &recover, fstream &Logs, fstream &fileRecovery)
 {
 	credits.calculateWin(userSelects.size(), hits, coefficient);
@@ -1532,8 +1598,26 @@ void calculationAndSaveData(int &balanceCount, vector<int> &userSelects,vector<i
 	}
 	freq.setMap(randoms);
 	saveDataInFile(Logs, stats);
-	if(credits.getCredit() < credits.getBet())
-	{
+	if(credits.getCredit() < credits.getBet()){
 		credits.setBet(credits.getCredit());
+	}
+}
+
+void bonusRound(int &bonus)
+{
+	int chance = 1 + rand() % 100;
+	int range = 1 + rand() % 100;
+
+	if (chance >= 9 && chance <= 19){
+
+		if(range > 1 &&  range <= 50){
+			bonus = 1;
+		}
+		if(range > 50 && range <=80){
+			bonus = 3;
+		}
+		if(range > 80){
+			bonus = 5;
+		}
 	}
 }

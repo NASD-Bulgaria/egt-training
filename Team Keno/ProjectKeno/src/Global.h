@@ -58,4 +58,11 @@ int radioFrame = 0;
 int radarFrame = 0;
 int logoFrame = 0;
 
+bool bonusColors = true;
+int roundCounter = 0;
+unsigned int index = 0;
+int playRound = 0;
+int bonus = 0;
+int sleepCount =0;
+
 #endif

@@ -9,7 +9,6 @@ Button::Button(int number, int x, int y) {
 	outline.w = WIDTH;
 	outline.h = HEIGHT;
 	Clicked = false;
-
 }
 
 void Button::draw(SDL_Renderer* gRenderer)
